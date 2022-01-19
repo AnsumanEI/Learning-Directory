@@ -21,20 +21,20 @@ class datafunctions
   { public:
     void dataenter()
     {   int emp;
-        cout<<"No Of data inputs of employee "<<endl;
+        cout<<"\n\n\t\t No Of data inputs of employee "<<endl;
         cin>>emp;
         for(int i=employeequantity;i<employeequantity+emp;i++)
         {
-           cout<<"Enter the data of the Employee "<<i+1<<endl;
-           cout<<"Employee name :: ";
+           cout<<"\t\t Enter the data of the Employee "<<i+1<<endl;
+           cout<<"\t\t Employee name :: ";
            cin>>e[i].name;
-           cout<<"Employee ID :: ";
+           cout<<"\t\t Employee ID :: ";
            cin>>e[i].id;
-           cout<<"Employee Address :: ";
+           cout<<"\t\t Employee Address :: ";
            cin>>e[i].address;
-           cout<<"Employee Contact :: ";
+           cout<<"\t\t Employee Contact :: ";
            cin>>e[i].contact;
-           cout<<"Employee Salary :: ";
+           cout<<"\t\t Employee Salary :: ";
            cin>>e[i].salary;
         }
         employeequantity+=emp;
@@ -44,19 +44,19 @@ class datafunctions
        if(employeequantity!=0)
        {
            char user;
-           cout<<"Full Record Deletion [1]"<<endl;
-           cout<<"Particular Record Deletion [2]"<<endl;
+           cout<<"\n\t\t Full Record Deletion [1]"<<endl;
+           cout<<"\t\t Particular Record Deletion [2]"<<endl;
            user=getch();
            if(user=='1')
            {
                employeequantity=0;
-               cout<<"All Record Have Been Cleared"<<endl;
+               cout<<"\t\t All Record Have Been Cleared"<<endl;
 
            }
            else if(user=='2')
            {
             string id;
-            cout<<"Enter the Employees ID to be deleted :: ";
+            cout<<"\n\t\t Enter the Employees ID to be deleted :: ";
             cin>>id; 
 
             for(int i=0;i<employeequantity;i++)
@@ -74,19 +74,19 @@ class datafunctions
                     }
                     if(i==employeequantity-1)
                     {
-                        cout<<"No such Record found"<<endl;
+                        cout<<"\n\t\t No such Record found"<<endl;
                     }
                   employeequantity--;
                   break;
                 }
             }
-            cout<<"Employees Data Has been Erased "<<endl;
+            cout<<"\n\t\t Employees Data Has been Erased "<<endl;
 
            }
        }
        else
        {
-           cout<<"Employee Record is empty"<<endl;
+           cout<<"\n\t\t Employee Record is empty"<<endl;
        }
     };
     void dataupdate()
@@ -94,35 +94,35 @@ class datafunctions
        if(employeequantity!=0)
        {
             string id;
-            cout<<"Enter the Employees ID :: ";
+            cout<<"\n\t\t Enter the Employees ID :: ";
             cin>>id;
             for(int i=0;i<employeequantity;i++)
             {
                 if(id==e[i].id)
                 {
-                   cout<<"Current Data of the Employee"<<endl;
-                   cout<<"The Data Of Employee "<<i+1<<endl;
-                   cout<<"Employee name "<<e[i].name<<endl;
-                   cout<<"Employee ID "<<e[i].id<<endl;
-                   cout<<"Employee Address "<<e[i].address<<endl;
-                   cout<<"Employee Contact "<<e[i].contact<<endl;
-                   cout<<"Employee Salary "<<e[i].salary<<endl; 
-                   cout<<"\n\nEnter new Details of the Employee"<<endl;
+                   cout<<"\n\t\t Current Data of the Employee"<<endl;
+                   cout<<"\t\t The Data Of Employee "<<i+1<<endl;
+                   cout<<"\t\t Employee name "<<e[i].name<<endl;
+                   cout<<"\t\t Employee ID "<<e[i].id<<endl;
+                   cout<<"\t\t Employee Address "<<e[i].address<<endl;
+                   cout<<"\t\t Employee Contact "<<e[i].contact<<endl;
+                   cout<<"\t\t Employee Salary "<<e[i].salary<<endl; 
+                   cout<<"\n\n\t\t Enter new Details of the Employee"<<endl;
 
                    cout<<"\n"<<endl;
 
-                   cout<<"Employee name :: ";
+                   cout<<"\t\t Employee name :: ";
                    cin>>e[i].name;
-                   cout<<"Employee ID :: ";
+                   cout<<"\t\t Employee ID :: ";
                    cin>>e[i].id;
-                   cout<<"Employee Address :: ";
+                   cout<<"\t\t Employee Address :: ";
                    cin>>e[i].address;
-                   cout<<"Employee Contact :: ";
+                   cout<<"\t\t Employee Contact :: ";
                    cin>>e[i].contact;
-                   cout<<"Employee Salary :: ";
+                   cout<<"\t\t Employee Salary :: ";
                    cin>>e[i].salary;
 
-                   cout<<"The Data Has Been Updated"<<endl;
+                   cout<<"\n\t\t The Data Has Been Updated"<<endl;
                    Sleep(400);                                                
 
 
@@ -130,14 +130,14 @@ class datafunctions
                 }
                 else
                 {
-                    cout<<"No such Record Found"<<endl;
+                    cout<<"\n\t\t No such Record Found"<<endl;
                 }
 
             }
        }
        else
        {
-           cout<<"Employee Record is Empty"<<endl;
+           cout<<"\n\t\t Employee Record is Empty"<<endl;
        }
     };
     void datasearch()
@@ -145,23 +145,23 @@ class datafunctions
         if(employeequantity!=0)
         {
             string id;
-            cout<<"Enter the Employees ID :: ";
+            cout<<"\n\t\t Enter the Employees ID :: ";
             cin>>id;
             for(int i=0;i<employeequantity;i++)
             {
                 if(id==e[i].id)
                 {
-                   cout<<"The Data Of Employee "<<i+1<<endl;
-                   cout<<"Employee name "<<e[i].name<<endl;
-                   cout<<"Employee ID "<<e[i].id<<endl;
-                   cout<<"Employee Address "<<e[i].address<<endl;
-                   cout<<"Employee Contact "<<e[i].contact<<endl;
-                   cout<<"Employee Salary "<<e[i].salary<<endl; 
+                   cout<<"\n\t\t The Data Of Employee "<<i+1<<endl;
+                   cout<<"\t\t Employee name "<<e[i].name<<endl;
+                   cout<<"\t\t Employee ID "<<e[i].id<<endl;
+                   cout<<"\t\t Employee Address "<<e[i].address<<endl;
+                   cout<<"\t\t Employee Contact "<<e[i].contact<<endl;
+                   cout<<"\t\t Employee Salary "<<e[i].salary<<endl; 
                   break;
                 }
                 else
                 {
-                    cout<<"No such Record Found"<<endl;
+                    cout<<"\n\t\t No such Record Found"<<endl;
                 }
 
             }
@@ -177,13 +177,13 @@ class datafunctions
        {
           for(int i=0;i<employeequantity;i++)
           {
-              cout<<"The Data Of Employee "<<i+1<<endl;
-              cout<<"Employee name "<<e[i].name<<endl;
-              cout<<"Employee ID "<<e[i].id<<endl;
-              cout<<"Employee Address "<<e[i].address<<endl;
-              cout<<"Employee Contact "<<e[i].contact<<endl;
-              cout<<"Employee Salary "<<e[i].salary<<endl;
-              cout<<"press any button for menu "<<endl;
+              cout<<"\n\t\t The Data Of Employee "<<i+1<<endl;
+              cout<<"\t\t Employee name "<<e[i].name<<endl;
+              cout<<"\t\t Employee ID "<<e[i].id<<endl;
+              cout<<"\t\t Employee Address "<<e[i].address<<endl;
+              cout<<"\t\t Employee Contact "<<e[i].contact<<endl;
+              cout<<"\t\t Employee Salary "<<e[i].salary<<endl;
+              cout<<"\t\t press any button for menu "<<endl;
               char a;
               cin>>a;
               break;
@@ -192,7 +192,7 @@ class datafunctions
        }
        else
        {
-           cout<<"Employee Record Is Empty"<<endl;
+           cout<<"\n\t\t Employee Record Is Empty"<<endl;
            
        }
     };
@@ -217,16 +217,16 @@ int main()
 
 /****************************PAGE 1***************************/
 
-
+start:
 system("CLS");
 string username,password;//string declare
 cout<<"\n\n\t\t Employee Management System"<<endl;
 cout<<"\n\n\t\t Please SignUp"<<endl;
 cout<<"\t\n"<<endl;
 cout<<"\t\t Enter Your Username -> ";
-getline(cin,username);
+cin>>username;
 cout<<"\t\t Enter Your Password -> ";
-getline(cin,password);
+cin>>password;
 cout<<"\n\n";
 cout<<"\n\t Please Wait While Your Account is Being Created";
 functions load;//object declare
@@ -235,23 +235,20 @@ cout<<endl;
 cout<<"\n\t Your Id Has Been Created Successfully ! "<<endl;
 Sleep(2500);
 
-start1:
 
-system("CLS");//create a new page and move to it
 
 /****************************PAGE 2****************************/
-
-
-system("CLS");
+page1:
+system("CLS");//create a new page and move to it
 string usernamel,passwordl;
 cout<<"\n\n\t\t Employee Management System"<<endl;
 cout<<"\n\n\t\t Login "<<endl;
 
 cout<<"\n\n\t\t Username:: ";
-getline(cin,usernamel);
+cin>>usernamel;
 cout<<"\n\n\t\t Password:: ";
-getline(cin,passwordl);
-page2:
+cin>>passwordl;
+
 if(username==usernamel&&password==passwordl)
 {
   system("CLS");
@@ -262,14 +259,14 @@ if(username==usernamel&&password==passwordl)
   {   
       
       char user;
-      cout<<"\n\nPress 1 to enter data "<<endl;
-      cout<<"Press 2 to show data "<<endl;
-      cout<<"Press 3 to search data "<<endl;
-      cout<<"Press 4 to update data "<<endl;
-      cout<<"Press 5 to delete data "<<endl;
-      cout<<"Press 6 to logout"<<endl;
-      cout<<"Press 7 to exit"<<endl;
-      cout<<""<<endl;
+      cout<<"\n\n\t\tPress 1 to enter data "<<endl;
+      cout<<"\t\t Press 2 to show data "<<endl;
+      cout<<"\t\t Press 3 to search data "<<endl;
+      cout<<"\t\t Press 4 to update data "<<endl;
+      cout<<"\t\t Press 5 to delete data "<<endl;
+      cout<<"\t\t Press 6 to logout"<<endl;
+      cout<<"\t\t Press 7 to exit"<<endl;
+      cout<<"\t\t "<<endl;
       datafunctions o;
       user=getch();
       switch(user)
@@ -300,12 +297,12 @@ if(username==usernamel&&password==passwordl)
 
 else
 {
-    cout<<"The Username or Password is Incorrect"<<endl;
+    cout<<"\n\n\t\t The Username or Password is Incorrect"<<endl;
     Sleep(1500);
-    cout<<"To Login again press->[1]"<<endl;
-    cout<<"To SignUp again press->[2]"<<endl;    
-    cout<<"To close Press Any Button"<<endl;
-    cout<<"::> ";
+    cout<<"\t\t To Login again press->[1]"<<endl;
+    cout<<"\t\t To SignUp again press->[2]"<<endl;    
+    cout<<"\t\t To close Press Any Button"<<endl;
+    cout<<"\t\t ::> ";
     int input;
     cin>>input;
     if(input==1)
@@ -323,37 +320,6 @@ else
         return 0;
     }
 }
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-start:
-system("CLS");
 
-cout<<"\n\n\t\t Employee Management System"<<endl;
-cout<<"\n\n\t\t Please SignUp"<<endl;
-cout<<"\t\n"<<endl;
-cout<<"\t\t Enter Your Username -> ";
-cin>>username;
-cout<<"\t\t Enter Your Password -> ";
-cin>>password;
-cout<<"\n\n";
-cout<<"\n\t Please Wait While Your Account is Being Created";
-
-load.loading();//function call
-cout<<endl;
-cout<<"\n\t Your Id Has Been Created Successfully ! "<<endl;
-Sleep(2500);
-goto start1;
-
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-page1:
-system("CLS");
-
-cout<<"\n\n\t\t Employee Management System"<<endl;
-cout<<"\n\n\t\t Login "<<endl;
-
-cout<<"\n\n\t\t Username:: ";
-getline(cin,usernamel);
-cout<<"\n\n\t\t Password:: ";
-getline(cin,passwordl);
-goto page2;
 return 0;
 }
