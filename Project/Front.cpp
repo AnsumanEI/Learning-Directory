@@ -225,6 +225,7 @@ cout<<"\n\n\t\t Please SignUp"<<endl;
 cout<<"\t\n"<<endl;
 cout<<"\t\t Enter Your Username -> ";
 cin>>username;
+cout<<endl;
 cout<<"\t\t Enter Your Password -> ";
 cin>>password;
 cout<<"\n\n";
@@ -259,7 +260,7 @@ if(username==usernamel&&password==passwordl)
   {   
       
       char user;
-      cout<<"\n\n\t\tPress 1 to enter data "<<endl;
+      cout<<"\n\n\t\t Press 1 to enter data "<<endl;
       cout<<"\t\t Press 2 to show data "<<endl;
       cout<<"\t\t Press 3 to search data "<<endl;
       cout<<"\t\t Press 4 to update data "<<endl;
@@ -286,7 +287,7 @@ if(username==usernamel&&password==passwordl)
           goto page1;
           break;
           case '7':
-          break;
+          return 0;
           default :
           cout<<"\a Invalid input"<<endl;
           break;
