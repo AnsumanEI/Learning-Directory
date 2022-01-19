@@ -1,0 +1,752 @@
+      
+	  
+                                CHAPTER 1	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  VARIABLES
+	  
+1. first charcacter should be an alphabet or under score
+2. no space allowed
+3. no commas allowed
+4. variable are case sensitive(CAPS LOCK)
+    
+	  CONSTANTS
+1. normal maths constant , cannit be changed
+type 
+a.integer  -1,2,3 ....
+b.real 2,2.2, 4.3 ....
+c.charcacter  'a' , '@' .....
+ 
+      KEYWORDS
+1.predefined words
+2.keyword are not made variables
+3.total 32 keywords are there
+
+MY FIRST C PROGRAM
+
+#include<stdio.h>
+int main (){
+printf("hello please enter keywords here");
+return 0;
+}
+
+then tyoe gcc filename.c
+a.exe which has been compiled will be formed 
+.\a.exe
+to run the programme
+
+BASIC STRUCTRE OF A C PROGRAMME
+1.the information starts from int main () {
+here the syntax is written} 		
+2.comments are ignored by the compiler // here is a comment
+or multi line comment  between /* dsvdsvsvds this is a comment   */
+3.printf ("this to be print");	
+4.semicolon is used as an instruction terminator 
+5. gcc first.c -o first.exe will spit out any function given to it
+6.compiler converts syntax given to an application or any format of machine language
+
+         LIBRARY FUCNTION
+
+1.%d for integers %f for real values %c for characters
+2.for real values we use float 
+
+3. PROGRAM
+
+ # include<stdio.h>
+ int main (){
+    int a = 5;
+    int b = 6;
+    float c = 4.6;
+    char d = 'l';
+    printf("value of 5 multiplied by 1 is %d " "value of 3-2 is %c",a,d);
+    return 0;
+}		 
+
+4. for new line \n
+
+# include<stdio.h>
+ int main (){
+    int a = 5;
+    int b = 6;
+    float c = 4.6;
+    char d = 'l';
+    printf("value of 5 multiplied by 1 is %d \n " "value of 3-2 is %c \n ",a,d);
+    return 0;
+}		 
+5.for calculations we can use this also instead of a,d if we right a+d then it will add it the programm is given below
+
+# include<stdio.h>
+int main(){
+    int a = 5;
+    int b = 6; //we can also write int b = 6 + 8
+    float c = 4.6;
+    char d = 'l';
+    printf("value of 5 multiplied by 1 is %d \n " "value of 3-2 is %c \n ",a,d);
+    printf("the value of sum of a and b is %d\n" , a+b);
+    printf("the value of multiplication of a and b is %d\n", a*b );
+    //only same entities can be added as only one % is used 
+    printf("the value of division of a and b %f \n", a/b);//cannot do doubt
+
+
+    return 0;
+}
+
+6.if u have not alligned the syntaxes then right click an format document.
+-----------------------------------------------------------
+QUESTION 1 --> 1.create a programm to add to no.  in c .   |
+                                                           |					
+# include <stdio.h>
+int main()
+{
+    int a = 67;
+    int b = 45;
+
+    printf("the value of a+b will be %d ", a + b);
+    return 0;
+}                                                           
+
+-----------------------------------------------------------
+                 INPUT
+				 
+1.scanf function ("%d", &a) & means the adrdess
+2. 
+  # include <stdio.h>
+int main(){
+    int a;
+    int b; //or this can be written as  int a,b ;
+    printf("enter the value of a\n");
+    scanf("%d",  &a);
+
+    printf("enter the value of b\n");
+    scanf("%d" , &b);
+
+    printf("the sum of a and b is %d \n",a+b);
+
+    return 0;
+
+}
+3. for real values we use float instead of int
+
+
+
+
+                       CHAPTER 2 (INSTRUCTION AND STRUCTURE)					   
+					  
+
+					   
+					   
+					   
+1.making snippets for easy use of #include<stdio.h> using boiler plate codes		
+2.type the shortcut word in the prefix and the part u want to priint in the body $1 is  used to put the cursor there after the command
+3. 
+      3 types of instruction declaration	   
+      type declaration
+      arithmetic instruction
+      control instrucion
+4.order is necessary for compiler 
+5.
+
+#include<stdio.h  > 
+ 
+int main() { 
+int a = 4; //type declartion function
+int b = 12;
+
+printf("the value of a + b %d " , a + b) ; // arithmetic declartion function
+printf("the value of a - b %d " , a - b) ;//operands means the no. used by operators
+printf("the value of a * b %d " , a * b) ;
+printf("the value of a / b %d " , a / b) ;
+
+z = a + b; //legal
+// a + b = z; //illegal
+
+return 0;
+}
+
+6. modular declaration indicator --> it gives the remainder
+
+5%2 remainder is 1
+printf("the remainder when a is divide b %d \n   " , a%b );
+
+the sign of the numerator is acquired by the sign of the remainder 
+5%2 = 1 
+-5%2 = -1
+5%-2 = 1
+
+7. to inlcude exponenetial function we have to include a new library called #include<math.h>
+   and the suntaxa for power operator is pow(4,5) it denotes 4^5. which is a bitwise xor function
+   and %f is written instead of %d 
+8. 
+
+INTEGER + INTEGER = INTEGER
+INTEGER + FLOAT = FLOAT 
+FLOAT + FLOAT = FLOAT 
+
+9.         OPERATOR PRECDENCE
+
+in mathematics bodmas is th priority level of the operators 
+but in the language the priority are 1st * / %
+                                     2nd + - 
+                                     3rd =
+									 
+10. operator example is given in the following programme
+
+#include <stdio.h  >
+
+int main()
+{
+
+    int x = 4;
+
+    int y = 3;
+
+    int z = 2;
+    printf("the value of 3x-8y is %d \n " , 3*x - 8*y);
+
+    //operator priority 
+    //  1st * / %
+    //  2nd + - 
+    //  3rd =
+    // the answer here comes -12
+
+    //if 
+     printf("the value of  8x/3y is %d \n " , 8*x/3*y) ; // answer is coming 30 
+     //so associativity  of the operators is used
+     //if the priority of the opertaors is same the the compilation follows left to right order
+     //the answer of the above is 30 as 
+    //  8*4=32
+    //  32/3 is 10
+    //  10*3 is 30 
+    // so brackets are used 
+    // x*y/z = (x*Y)/z 
+    // x/y*z = (x/y)*z
+
+
+
+    return 0;
+}
+
+11. Control instruction 
+    seqence
+	decision 
+	loop
+	case
+	
+	
+
+
+                               CHAPTER 3  (DECISION MAKING AND IF 	ELSE CONDITION)
+							   
+1.3 statement if else switch (codnitional )
+2. if operator and else operators are ussed as following .
+3. the programme is as follows 
+ 
+#include <stdio.h  >
+
+int main()
+{
+    int a;
+    printf("enter a number \n ");
+    scanf("%d ", &a);
+
+    if (a % 2 == 0)
+    {
+        printf("%d is even  \n ", a);
+    }
+    else
+    {
+        printf("%d is odd \n", a);
+    }
+
+    return 0;
+}
+
+4.relational operator
+
+==( equallity check)  , >=  <= ,  <  , >
+!= if true then if statemnt will be executed otherwise else statement is  there  which will be executed
+
+5. if ke baaad statements ke lie else if use s used
+
+6.= is assignment fucnction not equality in c language any no instead of zero gives true value 
+
+7.logical operators 
+
+8.for and functon  && is used it only works when both the conditions are  true 
+ one true and one false doesnt produce any result
+
+9.&& and
+  || or 
+  ! not 
+logical operator
+
+the programme is given below
+10. else if clause 
+
+for using multiple condition
+
+ #include<stdio.h >
+ #include<conio.h>
+ 
+int main() { 
+int age;
+int vipPass ;
+vipPass = 1;
+
+printf("enter your age ? \n");
+scanf("0.3%d " , &age );
+
+if ((age>18 && age<70) ||vipPass==0) //enable it to give vip acess to drive so tha every age group can drive
+
+{
+    printf("you are capable of driving now \n");
+    
+
+}
+else if( age== 007){
+    printf("this no is a code no. so u can drive");
+}
+else if(age==966){
+    printf("this is a lucky no. u get cash reward and u can drive");
+}
+
+else{
+    
+    printf("you cannot  drive \n ");
+}
+return 0;
+}   
+
+prority order of the operators
+!
+* / %
+= - 
+< >
+==, =
+&&
+||
+=
+
+11.conditional operators
+
+syntax - condition? expression-if-true ; expression if false
+
+programme
+
+#include <stdio.h  >
+
+int main()
+{
+    int a;
+    printf("enter the value of a \n");
+    scanf("%d", &a);
+    //one liner
+    (a < 5) ? printf("A is less than 5") : printf("A is greater than 5");
+    
+    return 0;
+}
+12.switch case control instruction
+
+these are the instruction given to rate a thing 
+the syntax for switch case is 
+switch(){
+case 1:
+printf();
+break;
+//infinte no. of cases can be added
+default:
+printf("");
+break;
+
+}
+the programme is given below 
+
+#include <stdio.h  >
+
+int main()
+{
+    int rating;
+    printf("enter your rating (1-5) \n");
+    scanf("%d", &rating);
+    switch (rating)
+    {
+    case 1:
+        printf("your rating has been registerd (1) \n");
+        break;
+    case 2:
+        printf("your rating has been registerd (2) \n");
+        break;
+    case 3:
+        printf("your rating has been registerd (3) \n");
+        break;
+    case 4:
+        printf("your rating has been registerd (4) \n");
+        break;
+    case 5:
+        printf("your rating has been registerd (5) \n");
+        break;
+    default:
+        printf("please enter a valid rating");
+
+        break;
+    }
+    return 0;
+}
+13. the question given is solved by
+
+ and the programme is given below 
+ 
+ #include <stdio.h>
+#include <math.h>
+
+int main()
+{
+    int  maths, english, physics , a;
+    float percentage, b, c;
+    printf("enter your mark in maths  (out of 70) \n ");
+    scanf("%d", &maths);
+    printf("enter your mark in english (out of 70) \n ");
+    scanf("%d", &english);
+    printf("enter your mark in physics (out of 70) \n ");
+    scanf("%d", &physics);
+
+    b = maths + english + physics;
+    c = 0.476190476;
+
+    percentage = b * c;
+
+    if (maths < 71 && english < 71 && physics < 71)
+    {
+        if ( maths > 33 && english > 33 && physics > 33 && percentage > 40)
+        {
+
+            printf("congratulation you have passed your total percentage is %f  \n", percentage);
+        }
+        else if (maths < 33 && physics < 33 && english < 33)
+        {
+            printf(" you have failed in all subjects \n");
+        }
+        else if (physics < 33)
+        {
+            printf("you have failed in physics \n");
+        }
+        else if (english < 33)
+        {
+            printf("you have failed in english \n");
+        }
+        else if (maths < 33)
+        {
+            printf(" you have failed in  maths \n");
+        }
+        else
+        {
+            printf("please contact your teacher for more enquiry \n");
+        }
+    }
+    else
+    {
+        printf("please enter valid marks to get your resullt \n ");
+    }
+    printf("press 1 to exit \n");
+    scanf("%d", &a);
+    if (a == 1)
+    {
+        printf("thank you");
+    }
+    else
+    {
+        printf("not thank you");
+    }
+
+    return 0;
+}
+
+
+14. a password protected system  can be  maintained by this the programme is given below
+
+#include <stdio.h>
+int main() {
+        int ID = 500;
+        int password = 000;
+        printf("Plese Enter Your ID:\n ");
+        scanf("%d", & ID);
+        switch (ID) {
+            case 500:
+                printf("Enter your password:\n ");
+                scanf("%d", & password);
+                switch (password) {
+                    case 000:
+                        printf("Welcome Dear Programmer\n");
+                        break;
+                    default:
+                        printf("incorrect password");
+                        break;
+                }
+                break;
+            default:
+                printf("incorrect ID");
+                break;
+        }
+}
+
+15. the operator += is used in place of for example 
+ tax = tax + 1
+ 
+ we can also writ it as tax += 1
+ 
+ 16. the programme made to calculate the tax is 
+ give below
+ 
+ #include <stdio.h  >
+
+int main()
+{
+    float income, tax = 0;
+    int exit;
+
+    printf("enter the yearly income ");
+    scanf("%f", &income);
+
+    if (income >= 250000 && income < 500000)
+    {
+        tax += 0.05 * (income - 250000);
+        printf("the tax u have to pay on your income is %f \n", tax);
+    }
+
+    else if (income >= 500000 && income <= 1000000)
+    {
+        tax += 0.2 * (income - 500000);
+        printf("the tax u have to pay on your income is %f \n", tax);
+    }
+
+    else if (income > 1000000)
+    {
+        tax += 0.3 * (income - 1000000);
+        printf("the tax u have to pay on your income is %f \n", tax);
+    }
+
+    else if (income < 250000)
+    {
+        tax += 0 * (income);
+
+        printf("the tax you have to pay is %f \n ", tax);
+    }
+
+    else {
+        printf("please enter a valid income to calculate your tax \n");
+    }
+
+    printf("thank you please press one to exit \n");
+    scanf("%d", exit);
+
+    if (exit == 1)
+    {
+        printf("thank you \n");
+    }
+    else
+    {
+
+        printf("if you could press one it would have been great \n");
+    }
+
+    return 0;
+}
+
+17.
+
+the programme used to calculate that weather the year is a leap year
+
+#include <stdio.h  >
+
+int main()
+{
+    int year;
+    int even;
+    
+
+    printf("enter the year you want to check \n");
+    scanf("%d", &year);
+    
+
+    if (((year % 4 == 0) && (year % 100!= 0)) || (year%400 == 0))
+    {
+        printf("the year you entered is a leap year \n ");
+    }
+    else
+    {
+        printf("the year you entered is not a leap year\n ");
+    }
+
+    int exit;
+    printf(" \n ");
+    printf(" \n ");
+    printf(" \n ");
+
+    printf(" thank you please press 1 to exit\n");
+    scanf("%d", exit);
+    // dont forget to use double commas after printf
+    if (exit == 1)
+    {
+        printf("thank you \n");
+    }
+    else
+    {
+        printf("not thank you \n");
+    }
+
+    return 0;
+}
+
+18.
+  programme to  check wether the year is  leap year or not is given below
+  
+  
+   #include<stdio.h  > 
+ 
+int main() { 
+char ch;
+printf("enter your character here %c \n " );
+scanf("%c"  , &ch );
+
+if(ch<=122 && ch>=97){
+    printf("the letter is lowercase ");
+}
+else {
+    printf("the letter is uppercase");
+
+}
+return 0;
+}
+
+
+                        CHAPTER 4 - LOOP CONTROL AND INSTRUCTION 
+						
+1.  #include<stdio.h  > 
+ 
+int main() { 
+printf(" hello world \n")
+int a = 1; //loop is used to repeat a code over and  over again
+//while loop
+//do while loop 
+//for loop
+                                               
+return 0;
+}
+
+a. while loop 
+syntax --- while (condition is true ){
+
+//code 
+//code
+
+the block keeps executing while the condition is true
+
+ }						
+	  
+2. i++ pehle print then increment 
+   ++i means first incremet then print 
+   if u write printf("the value is %d " , i++)
+   let i is 2 then it will print 2 
+   but if u write ++i then it will print 3
+   
+3.syntax for do while loop 
+   do{}
+   while();
+   
+4.while loop -- first checks the condition then executes 
+  do while loop: first it executes then checks the condition
+
+5. for loop
+
+for(intialise ; test ; increment);
+{printf("enter the key words to print here ");}
+
+for example 
+
+for(int a=0 ; a<50 && a>10 ; a++);
+{printf("the numbers are ::> ")}
+
+6.for a decrementing for loop it is executed until the value becomes zero
+
+7. break statement = used to exit the loop  irrespective of the true or  false
+   
+   the syntax used is break;
+ 
+ it can be used in any loop 
+ 8. continue loop is used to skip the line below it
+ 
+ 9. to genrate a random number 
+ 
+ #include<stdlib.h>
+ 
+    rand() is used 
+	number = rand();
+	printf("the no. is %d " , number);
+	
+	to initialise this we have to write srand(time(0));
+	and #inlcude<time.h>
+	
+	
+	
+	------------------------------------------CHAPTER 5-------------------------------------------------
+	
+	1.functions and precursion 
+	2.used to make compacact size programmes
+	3.long programmes are breaked into several parts 
+	4.functions can be reused by programmer many time 
+	
+	
+5. the syntax and the working of function is 
+
+ #include<stdio.h  > 
+void display(); //funtion prototype (funtion is intialised) $1
+
+int main() { // sleeps after $1 
+            //wakes up at $4
+int a;
+display();  //function call (here the fucntion is to display) EXECUTE
+            //the body is printed after function call $2
+//$5 the code below the function call are executed 
+
+return 0; //$6
+}
+
+void display() {  //body of the function it shows what will be displayed
+                  //function definition  $3
+printf("hello im ansuman \n ");
+
+}
+
+//$1,2,3.... indicates the order of execution  of commands
+
+
+
+to understand the working of the function --
+
+#include<stdio.h  > 
+ void display (); //function prototype 
+
+int main() { 
+    printf("initialising display function\n ");
+    display();
+    printf("\n");
+printf("the functuion finshed its working \n");
+return 0;
+}
+void display(){
+
+printf("this is the step after the intialisation of the function call");
+}
+
+6. important points
+-main starts the execution 
+-can have more than one function
+-calls by main can be direct or indirect
+-3 types of function 
+library function 
+user defined function
+
