@@ -21,7 +21,10 @@ int employeequantity=0;
 class datafunctions
   { public:
     void dataenter()
-    {   int emp;
+    {   
+        dataEnter:
+        system("CLS");
+        int emp;
         cout<<"\n\n\t\t No Of data inputs of employee "<<endl;
         cin>>emp;
         for(int i=employeequantity;i<employeequantity+emp;i++)
@@ -233,7 +236,10 @@ int main()
 start:
 system("CLS");
 string username,password;//string declare
-cout<<"\n\n\t\t Employee Management System"<<endl;
+cout<<"\n"<<setw(54)<<right<<"----------------------------";
+cout<<"\n"<<setw(53)<<right<<" EMPLOYEE MANAGEMENT SYSTEM ";
+cout<<"\n"<<setw(54)<<right<<"----------------------------";
+cout<<"\n\n\n \t\t Employee Management System"<<endl;
 cout<<"\n\n\t\t Please SignUp"<<endl;
 cout<<"\t\n"<<endl;
 cout<<"\t\t Enter Your Username -> ";
@@ -242,21 +248,35 @@ cout<<endl;
 cout<<"\t\t Enter Your Password -> ";
 cin>>password;
 
+if(1){
+        string::iterator it;
+    for(it=username.begin();it!=username.end();it++)
+    {
+        if (*it>0&&*it<48||*it>122&&*it<127||(*it>57&&*it<65)||(*it>90&&*it<97))
+		{
+			cout<<"\n\n"<<right<<setw(25)<<" ";
+			cout<<setw(30)<<left<<"Name cannot contain SPECIAL CHARACTERS...";
+			goto start;
+		}
+        }
+    }
 
-if(username.length() < 4)
+else if(username.length() < 4)
 	{
-		cout<<"\n"<<setw(65)<<right<< " Username length must be atleast 4 characters long";
+		cout<<"\n"<<setw(70)<<right<< " Username length must be atleast 4 characters long";
         Sleep(1500);
 		cin.get();
 		goto start;
 	}
+    
+   
 	else  
 	{
 		
 		
 		if(password.length() < 6)
 		{
-			cout<<"\n"<<setw(65)<<right<< " Password length must be atleast 6 characters long";
+			cout<<"\n"<<setw(70)<<right<< " Password length must be atleast 6 characters long";
             Sleep(1500);
             goto start;
             
@@ -264,11 +284,11 @@ if(username.length() < 4)
 		else 
 		{
             cout<<"\n\n";
-cout<<"\n\t Please Wait While Your Account is Being Created";
+cout<<setw(70)<<"\n\t Please Wait While Your Account is Being Created";
 functions load;//object declare
 load.loading();//function call
 cout<<endl;
-cout<<"\n\t Your Id Has Been Created Successfully ! "<<endl;
+cout<<setw(70)<<"\n\t Your Id Has Been Created Successfully ! "<<endl;
 Sleep(2500);
 
 
@@ -300,13 +320,13 @@ if(username==usernamel&&password==passwordl)
       cout<<"\n"<<setw(51)<<right<<"-----------------------";
 	  cout<<"\n"<<setw(48)<<right<<"  EMPLOYEE MENU  ";
 	  cout<<"\n"<<setw(51)<<right<<"-----------------------";
-      cout<<"\n\n\t\t Press 1 to enter data "<<endl;
-      cout<<"\t\t Press 2 to show data "<<endl;
-      cout<<"\t\t Press 3 to search data "<<endl;
-      cout<<"\t\t Press 4 to update data "<<endl;
-      cout<<"\t\t Press 5 to delete data "<<endl;
-      cout<<"\t\t Press 6 to logout"<<endl;
-      cout<<"\t\t Press 7 to exit"<<endl;
+      cout<<setw(52)<<"|\n\n\t\t ENTER DATA-->[1]        |"<<endl;
+      cout<<setw(52)<<"|\t\t SHOW DATA-->[2]         |"<<endl;
+      cout<<setw(52)<<"|\t\t SEARCH DATA-->[3]       |"<<endl;
+      cout<<setw(52)<<"|\t\t UPDATE DATA-->[4]       |"<<endl;
+      cout<<setw(52)<<"|\t\t DELETE DATA-->[5]       |"<<endl;
+      cout<<setw(52)<<"|\t\t LOGOUT USER-->[6]       |"<<endl;
+      cout<<setw(52)<<"|\t\t CLOSE PROGRAMME-->[7]   |"<<endl;
       cout<<"\t\t "<<endl;
       datafunctions o;
       user=getch();
