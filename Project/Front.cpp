@@ -17,15 +17,92 @@ struct data
 data e[50];
 int employeequantity=0;
 
+class functions
+{
+    public:
+    void loading();
+    void revoke();
+      
+};
+void functions::loading()
+{
+    for(int i=0;i<5;i++)
+        {
+          cout<<".";
+          Sleep(700);//700 as time is in miliseconds for this function
+        }
+}
+void functions::revoke()
+{
+    for(int i=0;i<250;i++)
+        {
+          cout<<"*!*";
+          Sleep(200);//200 as time is in miliseconds for this function
+          
+        }
+}
 
+int adminAccess()
+{
+    
+    functions l1;
+    string key;
+    string Adminkey="211110";
+    int revokecount=0;
+    system("CLS");
+    cout<<"\n"<<setw(54)<<right<<"----------------------------";
+    cout<<"\n"<<setw(50)<<right<<" ADMIN ACCESS INTIALISING";
+    l1.loading();
+    cout<<"\n"<<setw(54)<<right<<"----------------------------";
+    Sleep(300);
+    admin:
+    cout<<"\n\n\t\t Enter the ADMIN KEY :: ";
+    cin>>key;
+    if(key==Adminkey)
+    {
+        system("CLS");
+        cout<<"\n"<<setw(54)<<right<<"----------------------------";
+        cout<<"\n"<<setw(53)<<right<<" ADMIN ACCESS GRANTED ";
+        l1.loading();
+        cout<<"\n"<<setw(54)<<right<<"----------------------------";
+        Sleep(700);
+        return 101;
+    }
+    else if(revokecount>=2)
+    {
+        cout<<"\n"<<setw(54)<<right<<"------------------------------";
+        cout<<"\n"<<setw(53)<<right<<"   AUTHORISATION REVOKE!!!    ";
+        cout<<"\n"<<setw(53)<<right<<"EMERGENCY SHUTDOWN INITIATING ";
+        l1.loading();
+        cout<<"\n"<<setw(54)<<right<<"------------------------------";
+        l1.revoke();
+        return 0;
+        
+        
+    }
+    else
+    {
+        revokecount++;
+        goto admin;
+    }
+    
+    
+}
+int close()
+{
+    return 0;
+}
 class datafunctions
   { public:
     void dataenter()
     {   
+        
+        if(adminAccess()==101)
+        {
         dataEnter:
-        system("CLS");
+        
         int emp;
-        cout<<"\n\n\t\t No Of data inputs of employee "<<endl;
+        cout<<"\n\n\t\t No Of data inputs of employee ";
         cin>>emp;
         for(int i=employeequantity;i<employeequantity+emp;i++)
         {
@@ -42,9 +119,17 @@ class datafunctions
            cin>>e[i].salary;
         }
         employeequantity+=emp;
+        }
+        else if(adminAccess==0)
+        {
+            close();
+        }
     };
     void datadelete()
     {
+
+       if(adminAccess()==101)
+       { 
        if(employeequantity!=0)
        {
            char user;
@@ -92,9 +177,17 @@ class datafunctions
        {
            cout<<"\n\t\t Employee Record is empty"<<endl;
        }
+       }
+       else if(adminAccess==0)
+        {
+            close();
+        }
+
     };
     void dataupdate()
     {
+     if(adminAccess()==101)
+     {  
        if(employeequantity!=0)
        {
             string id;
@@ -149,6 +242,11 @@ class datafunctions
        {
            cout<<"\n\t\t Employee Record is Empty"<<endl;
        }
+      }
+      else if(adminAccess==0)
+        {
+            close();
+        }
     };
     void datasearch()
     {
@@ -176,6 +274,7 @@ class datafunctions
                 else
                 {
                     cout<<"\n\t\t No such Record Found"<<endl;
+                    Sleep(500);
                 }
 
             }
@@ -183,6 +282,7 @@ class datafunctions
         else
         {
             cout<<"Employee Record is empty"<<endl;
+            Sleep(500);
         }
     };
     void datashow()
@@ -209,25 +309,12 @@ class datafunctions
        else
        {
            cout<<"\n\t\t Employee Record Is Empty"<<endl;
-           
+           Sleep(500);
        }
     };
   };
 
-class functions
-{
-    public:
-    void loading();
-      
-};
-void functions::loading()
-{
-    for(int i=0;i<5;i++)
-        {
-          cout<<".";
-          Sleep(700);//700 as time is in miliseconds for this function
-        }
-}
+
 int main()
 {
 
@@ -248,7 +335,7 @@ cout<<endl;
 cout<<"\t\t Enter Your Password -> ";
 cin>>password;
 
-if(1){
+
         string::iterator it;
     for(it=username.begin();it!=username.end();it++)
     {
@@ -256,12 +343,13 @@ if(1){
 		{
 			cout<<"\n\n"<<right<<setw(25)<<" ";
 			cout<<setw(30)<<left<<"Name cannot contain SPECIAL CHARACTERS...";
+            Sleep(1300);
 			goto start;
 		}
         }
-    }
+    
 
-else if(username.length() < 4)
+if(username.length() < 4)
 	{
 		cout<<"\n"<<setw(70)<<right<< " Username length must be atleast 4 characters long";
         Sleep(1500);
@@ -320,15 +408,17 @@ if(username==usernamel&&password==passwordl)
       cout<<"\n"<<setw(51)<<right<<"-----------------------";
 	  cout<<"\n"<<setw(48)<<right<<"  EMPLOYEE MENU  ";
 	  cout<<"\n"<<setw(51)<<right<<"-----------------------";
-      cout<<setw(52)<<"|\n\n\t\t ENTER DATA-->[1]        |"<<endl;
-      cout<<setw(52)<<"|\t\t SHOW DATA-->[2]         |"<<endl;
-      cout<<setw(52)<<"|\t\t SEARCH DATA-->[3]       |"<<endl;
-      cout<<setw(52)<<"|\t\t UPDATE DATA-->[4]       |"<<endl;
-      cout<<setw(52)<<"|\t\t DELETE DATA-->[5]       |"<<endl;
-      cout<<setw(52)<<"|\t\t LOGOUT USER-->[6]       |"<<endl;
-      cout<<setw(52)<<"|\t\t CLOSE PROGRAMME-->[7]   |"<<endl;
-      cout<<"\t\t "<<endl;
+	  cout<<"\n\n\t\t          ___________________________ "<<endl;
+      cout<<"\t\t         | ENTER DATA(admin) -->[1]  |"<<endl;
+      cout<<"\t\t         | SHOW DATA         -->[2]  |"<<endl;
+      cout<<"\t\t         | SEARCH DATA       -->[3]  |"<<endl;
+      cout<<"\t\t         | UPDATE DATA(admin)-->[4]  |"<<endl;
+      cout<<"\t\t         | DELETE DATA(admin)-->[5]  |"<<endl;
+      cout<<"\t\t         | LOGOUT USER       -->[6]  |"<<endl;
+      cout<<"\t\t         | CLOSE PROGRAMME   -->[7]  |"<<endl;
+      cout<<"\t\t          ___________________________ "<<endl;
       datafunctions o;
+      functions l;
       user=getch();
       switch(user)
       {
@@ -343,13 +433,15 @@ if(username==usernamel&&password==passwordl)
           break;
           case '5': o.datadelete();
           break;
-          case '6':
+          case '6': cout<<"\n\n\t\t LOGGING YOU OUT";
+                   l.loading();
           goto page1;
           break;
           case '7':
           return 0;
           default :
           cout<<"\a Invalid input"<<endl;
+          Sleep(300);
           break;
       }
   }
@@ -360,9 +452,11 @@ else
 {
     cout<<"\n\n\t\t The Username or Password is Incorrect"<<endl;
     Sleep(1500);
-    cout<<"\t\t To Login again press->[1]"<<endl;
-    cout<<"\t\t To SignUp again press->[2]"<<endl;    
-    cout<<"\t\t To close Press Any Button"<<endl;
+    cout<<"\t\t ______________________________"<<endl;
+    cout<<"\t\t| To Login again press ->[1]   |"<<endl;
+    cout<<"\t\t| To SignUp again press->[2]   |"<<endl;    
+    cout<<"\t\t| To close Press Any Button    |"<<endl;
+    cout<<"\t\t ______________________________"<<endl;
     cout<<"\t\t ::> ";
     int input;
     cin>>input;
