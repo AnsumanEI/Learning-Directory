@@ -47,7 +47,7 @@ int adminAccess()
     
     functions l1;
     string key;
-    string Adminkey="211110";
+    string Adminkey="21111";
     int revokecount=0;
     system("CLS");
     cout<<"\n"<<setw(54)<<right<<"  ----------------------------";
@@ -108,7 +108,7 @@ class datafunctions
         cin>>emp;
         for(int i=employeequantity;i<employeequantity+emp;i++)
         {
-           cout<<"\t\t Enter the data of the Employee "<<i+1<<endl;
+           cout<<"\n\t\t Enter the data of the Employee "<<i+1<<endl;
            cout<<"\t\t Employee name :: ";
            cin>>e[i].name;
            cout<<"\t\t Employee ID :: ";
@@ -267,7 +267,8 @@ class datafunctions
             {
                 if(id==e[i].id)
                 {
-
+                   system("CLS");
+                   Sleep(600);
                    cout<<"\n"<<setw(54)<<right<<"---------------------------";
 		           cout<<"\n"<<setw(53)<<right<<"   VIEW EMPLOYEE PROFILE   ";
 			       cout<<"\n"<<setw(54)<<right<<"---------------------------";
@@ -305,7 +306,7 @@ class datafunctions
               cout<<"\n"<<setw(54)<<right<<"---------------------------";
 		      cout<<"\n"<<setw(53)<<right<<"  EMPLOYEE DATA ID :: "<<i+1;
 			  cout<<"\n"<<setw(54)<<right<<"---------------------------";
-              cout<<"\t\t Employee name "<<e[i].name<<endl;
+              cout<<"\n\t\t Employee name "<<e[i].name<<endl;
               cout<<"\t\t Employee ID "<<e[i].id<<endl;
               cout<<"\t\t Employee Address "<<e[i].address<<endl;
               cout<<"\t\t Employee Contact "<<e[i].contact<<endl;
