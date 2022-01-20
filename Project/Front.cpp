@@ -34,10 +34,10 @@ void functions::loading()
 }
 void functions::revoke()
 {
-    for(int i=0;i<250;i++)
+    for(int i=0;i<500;i++)
         {
-          cout<<"*!*";
-          Sleep(200);//200 as time is in miliseconds for this function
+          cout<<"(*-*)";
+          Sleep(8);//8 as time is in miliseconds for this function
           
         }
 }
@@ -50,41 +50,43 @@ int adminAccess()
     string Adminkey="211110";
     int revokecount=0;
     system("CLS");
-    cout<<"\n"<<setw(54)<<right<<"----------------------------";
+    cout<<"\n"<<setw(54)<<right<<"  ----------------------------";
     cout<<"\n"<<setw(50)<<right<<" ADMIN ACCESS INTIALISING";
     l1.loading();
-    cout<<"\n"<<setw(54)<<right<<"----------------------------";
+    cout<<"\n"<<setw(54)<<right<<"  ----------------------------";
     Sleep(300);
     admin:
     cout<<"\n\n\t\t Enter the ADMIN KEY :: ";
     cin>>key;
-    if(key==Adminkey)
+    if(revokecount>=2)
     {
-        system("CLS");
-        cout<<"\n"<<setw(54)<<right<<"----------------------------";
-        cout<<"\n"<<setw(53)<<right<<" ADMIN ACCESS GRANTED ";
-        l1.loading();
-        cout<<"\n"<<setw(54)<<right<<"----------------------------";
-        Sleep(700);
-        return 101;
-    }
-    else if(revokecount>=2)
-    {
-        cout<<"\n"<<setw(54)<<right<<"------------------------------";
+        cout<<"\n"<<setw(54)<<right<<"  ------------------------------";
         cout<<"\n"<<setw(53)<<right<<"   AUTHORISATION REVOKE!!!    ";
         cout<<"\n"<<setw(53)<<right<<"EMERGENCY SHUTDOWN INITIATING ";
         l1.loading();
-        cout<<"\n"<<setw(54)<<right<<"------------------------------";
+        cout<<"\n"<<setw(54)<<right<<"  ------------------------------";
         l1.revoke();
         return 0;
         
         
+    }
+    
+    if(key==Adminkey&&revokecount<2)
+    {
+        system("CLS");
+        cout<<"\n"<<setw(54)<<right<<"  ----------------------------";
+        cout<<"\n"<<setw(53)<<right<<" ADMIN ACCESS GRANTED ";
+        l1.loading();
+        cout<<"\n"<<setw(54)<<right<<"  ----------------------------";
+        Sleep(700);
+        return 101;
     }
     else
     {
         revokecount++;
         goto admin;
     }
+    
     
     
 }
@@ -96,7 +98,7 @@ class datafunctions
   { public:
     void dataenter()
     {   
-        
+        system("CLS");
         if(adminAccess()==101)
         {
         dataEnter:
@@ -120,14 +122,14 @@ class datafunctions
         }
         employeequantity+=emp;
         }
-        else if(adminAccess==0)
+        else if(adminAccess()==0)
         {
             close();
         }
     };
     void datadelete()
     {
-
+        system("CLS");
        if(adminAccess()==101)
        { 
        if(employeequantity!=0)
@@ -178,7 +180,7 @@ class datafunctions
            cout<<"\n\t\t Employee Record is empty"<<endl;
        }
        }
-       else if(adminAccess==0)
+       else if(adminAccess()==0)
         {
             close();
         }
@@ -186,10 +188,12 @@ class datafunctions
     };
     void dataupdate()
     {
+        system("CLS");
      if(adminAccess()==101)
      {  
        if(employeequantity!=0)
        {
+           system("CLS");
             string id;
             cout<<"\n\t\t Enter the Employees ID :: ";
             cin>>id;
@@ -226,7 +230,8 @@ class datafunctions
                    cin>>e[i].salary;
 
                    cout<<"\n\t\t The Data Has Been Updated"<<endl;
-                   Sleep(400);                                                
+                   Sleep(400);
+                   system("CLS");                                                
 
 
                   break;
@@ -234,6 +239,7 @@ class datafunctions
                 else
                 {
                     cout<<"\n\t\t No such Record Found"<<endl;
+                    system("CLS");
                 }
 
             }
@@ -243,15 +249,17 @@ class datafunctions
            cout<<"\n\t\t Employee Record is Empty"<<endl;
        }
       }
-      else if(adminAccess==0)
+      else if(adminAccess()==0)
         {
             close();
         }
     };
     void datasearch()
     {
+        system("CLS");
         if(employeequantity!=0)
         {
+            
             string id;
             cout<<"\n\t\t Enter the Employees ID :: ";
             cin>>id;
@@ -275,6 +283,7 @@ class datafunctions
                 {
                     cout<<"\n\t\t No such Record Found"<<endl;
                     Sleep(500);
+                    system("CLS");
                 }
 
             }
@@ -283,10 +292,12 @@ class datafunctions
         {
             cout<<"Employee Record is empty"<<endl;
             Sleep(500);
+            system("CLS");
         }
     };
     void datashow()
     {
+        system("CLS");
        if(employeequantity!=0)
        {
           for(int i=0;i<employeequantity;i++)
@@ -310,6 +321,7 @@ class datafunctions
        {
            cout<<"\n\t\t Employee Record Is Empty"<<endl;
            Sleep(500);
+           system("CLS");
        }
     };
   };
@@ -385,7 +397,7 @@ Sleep(2500);
 page1:
 system("CLS");//create a new page and move to it
 string usernamel,passwordl;
-cout<<"\n\n\t\t Employee Management System"<<endl;
+cout<<"\n\n"<<endl;
 cout<<"\n"<<setw(49)<<right<<"--------------------";
 cout<<"\n"<<setw(48)<<right<<"  EMPLOYEE LOGIN  ";
 cout<<"\n"<<setw(49)<<right<<"--------------------";
@@ -409,16 +421,17 @@ if(username==usernamel&&password==passwordl)
 	  cout<<"\n"<<setw(48)<<right<<"  EMPLOYEE MENU  ";
 	  cout<<"\n"<<setw(51)<<right<<"-----------------------";
 	  cout<<"\n\n\t\t          ___________________________ "<<endl;
-      cout<<"\t\t         | ENTER DATA(admin) -->[1]  |"<<endl;
-      cout<<"\t\t         | SHOW DATA         -->[2]  |"<<endl;
-      cout<<"\t\t         | SEARCH DATA       -->[3]  |"<<endl;
-      cout<<"\t\t         | UPDATE DATA(admin)-->[4]  |"<<endl;
-      cout<<"\t\t         | DELETE DATA(admin)-->[5]  |"<<endl;
-      cout<<"\t\t         | LOGOUT USER       -->[6]  |"<<endl;
-      cout<<"\t\t         | CLOSE PROGRAMME   -->[7]  |"<<endl;
-      cout<<"\t\t          ___________________________ "<<endl;
+      cout<<"\t\t         |> ENTER DATA(admin) -->[1]  |"<<endl;
+      cout<<"\t\t         |> SHOW DATA         -->[2]  |"<<endl;
+      cout<<"\t\t         |> SEARCH DATA       -->[3]  |"<<endl;
+      cout<<"\t\t         |> UPDATE DATA(admin)-->[4]  |"<<endl;
+      cout<<"\t\t         |> DELETE DATA(admin)-->[5]  |"<<endl;
+      cout<<"\t\t         |> LOGOUT USER       -->[6]  |"<<endl;
+      cout<<"\t\t         |> CLOSE PROGRAMME   -->[7]  |"<<endl;
+      cout<<"\t\t          ---------------------------- "<<endl;
       datafunctions o;
       functions l;
+      cout<<"\n\t\t::";
       user=getch();
       switch(user)
       {
@@ -438,10 +451,12 @@ if(username==usernamel&&password==passwordl)
           goto page1;
           break;
           case '7':
+          cout<<"\n\n\t\t VISIT AGAIN!!";
+                   l.loading();
           return 0;
           default :
           cout<<"\a Invalid input"<<endl;
-          Sleep(300);
+          Sleep(500);
           break;
       }
   }
@@ -453,11 +468,11 @@ else
     cout<<"\n\n\t\t The Username or Password is Incorrect"<<endl;
     Sleep(1500);
     cout<<"\t\t ______________________________"<<endl;
-    cout<<"\t\t| To Login again press ->[1]   |"<<endl;
-    cout<<"\t\t| To SignUp again press->[2]   |"<<endl;    
-    cout<<"\t\t| To close Press Any Button    |"<<endl;
-    cout<<"\t\t ______________________________"<<endl;
-    cout<<"\t\t ::> ";
+    cout<<"\t\t|> To Login again press ->[1]   |"<<endl;
+    cout<<"\t\t|> To SignUp again press->[2]   |"<<endl;    
+    cout<<"\t\t|> To close Press Any Button    |"<<endl;
+    cout<<"\t\t ------------------------------"<<endl;
+    cout<<"\t\t::> ";
     int input;
     cin>>input;
     if(input==1)
