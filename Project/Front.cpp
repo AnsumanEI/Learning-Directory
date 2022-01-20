@@ -4,6 +4,7 @@
 #include<math.h>
 #include<windows.h>
 #include<conio.h>
+#include<iomanip>
 using namespace std;
 struct data
 {
@@ -100,8 +101,10 @@ class datafunctions
             {
                 if(id==e[i].id)
                 {
-                   cout<<"\n\t\t Current Data of the Employee"<<endl;
-                   cout<<"\t\t The Data Of Employee "<<i+1<<endl;
+                   cout<<"\n"<<setw(54)<<right<<"---------------------------";
+		           cout<<"\n"<<setw(53)<<right<<" CURRENT EMPLOYEE PROFILE  ";
+			       cout<<"\n"<<setw(54)<<right<<"---------------------------";
+                   
                    cout<<"\t\t Employee name "<<e[i].name<<endl;
                    cout<<"\t\t Employee ID "<<e[i].id<<endl;
                    cout<<"\t\t Employee Address "<<e[i].address<<endl;
@@ -110,6 +113,10 @@ class datafunctions
                    cout<<"\n\n\t\t Enter new Details of the Employee"<<endl;
 
                    cout<<"\n"<<endl;
+
+                   cout<<"\n"<<setw(54)<<right<<"---------------------------";
+		           cout<<"\n"<<setw(53)<<right<<"  UPDATE EMPLOYEE PROFILE  ";
+			       cout<<"\n"<<setw(54)<<right<<"---------------------------";
 
                    cout<<"\t\t Employee name :: ";
                    cin>>e[i].name;
@@ -151,6 +158,10 @@ class datafunctions
             {
                 if(id==e[i].id)
                 {
+
+                   cout<<"\n"<<setw(54)<<right<<"---------------------------";
+		           cout<<"\n"<<setw(53)<<right<<"   VIEW EMPLOYEE PROFILE   ";
+			       cout<<"\n"<<setw(54)<<right<<"---------------------------";
                    cout<<"\n\t\t The Data Of Employee "<<i+1<<endl;
                    cout<<"\t\t Employee name "<<e[i].name<<endl;
                    cout<<"\t\t Employee ID "<<e[i].id<<endl;
@@ -177,7 +188,9 @@ class datafunctions
        {
           for(int i=0;i<employeequantity;i++)
           {
-              cout<<"\n\t\t The Data Of Employee "<<i+1<<endl;
+              cout<<"\n"<<setw(54)<<right<<"---------------------------";
+		      cout<<"\n"<<setw(53)<<right<<"  EMPLOYEE DATA ID :: "<<i+1;
+			  cout<<"\n"<<setw(54)<<right<<"---------------------------";
               cout<<"\t\t Employee name "<<e[i].name<<endl;
               cout<<"\t\t Employee ID "<<e[i].id<<endl;
               cout<<"\t\t Employee Address "<<e[i].address<<endl;
@@ -209,7 +222,7 @@ void functions::loading()
     for(int i=0;i<5;i++)
         {
           cout<<".";
-          Sleep(800);//1000 as time is in miliseconds for this function
+          Sleep(700);//700 as time is in miliseconds for this function
         }
 }
 int main()
@@ -228,7 +241,29 @@ cin>>username;
 cout<<endl;
 cout<<"\t\t Enter Your Password -> ";
 cin>>password;
-cout<<"\n\n";
+
+
+if(username.length() < 4)
+	{
+		cout<<"\n"<<setw(65)<<right<< " Username length must be atleast 4 characters long";
+        Sleep(1500);
+		cin.get();
+		goto start;
+	}
+	else  
+	{
+		
+		
+		if(password.length() < 6)
+		{
+			cout<<"\n"<<setw(65)<<right<< " Password length must be atleast 6 characters long";
+            Sleep(1500);
+            goto start;
+            
+		}
+		else 
+		{
+            cout<<"\n\n";
 cout<<"\n\t Please Wait While Your Account is Being Created";
 functions load;//object declare
 load.loading();//function call
@@ -243,7 +278,9 @@ page1:
 system("CLS");//create a new page and move to it
 string usernamel,passwordl;
 cout<<"\n\n\t\t Employee Management System"<<endl;
-cout<<"\n\n\t\t Login "<<endl;
+cout<<"\n"<<setw(49)<<right<<"--------------------";
+cout<<"\n"<<setw(48)<<right<<"  EMPLOYEE LOGIN  ";
+cout<<"\n"<<setw(49)<<right<<"--------------------";
 
 cout<<"\n\n\t\t Username:: ";
 cin>>usernamel;
@@ -260,6 +297,9 @@ if(username==usernamel&&password==passwordl)
   {   
       
       char user;
+      cout<<"\n"<<setw(51)<<right<<"-----------------------";
+	  cout<<"\n"<<setw(48)<<right<<"  EMPLOYEE MENU  ";
+	  cout<<"\n"<<setw(51)<<right<<"-----------------------";
       cout<<"\n\n\t\t Press 1 to enter data "<<endl;
       cout<<"\t\t Press 2 to show data "<<endl;
       cout<<"\t\t Press 3 to search data "<<endl;
@@ -321,6 +361,9 @@ else
         return 0;
     }
 }
+
+        }
+    }	
 
 return 0;
 }
