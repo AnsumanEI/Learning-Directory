@@ -6,5 +6,10 @@
     },
     "cSpell.words": [
         "passwordl"
+    ],
+    "cSpell.ignoreWords": [
+        "bmarks",
+        "cmarks",
+        "pmarks"
     ]
 }

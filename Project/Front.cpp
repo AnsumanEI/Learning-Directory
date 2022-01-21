@@ -14,7 +14,7 @@ struct data
     int contact;
     int salary;
 };
-data e[50];
+data e[500];//500 structures can be called
 int employeequantity=0;
 static int keymain;
 static int globalrevoke=0;

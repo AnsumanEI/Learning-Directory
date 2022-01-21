@@ -86,7 +86,7 @@ cout<<obj.area()<<endl;
 cout<<obj.perimeter()<<endl;
 if(obj.isSquare())
 {
-    cout<<"it is a square"
+    cout<<"it is a square";
 }
 
 return 0;
