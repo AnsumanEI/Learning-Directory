@@ -16,6 +16,8 @@ struct data
 };
 data e[50];
 int employeequantity=0;
+static int keymain;
+static int globalrevoke=0;
 
 class functions
 {
@@ -36,10 +38,13 @@ void functions::revoke()
 {
     for(int i=0;i<500;i++)
         {
+            cout<<"\t\t ADMIN ACCESS CLOSED FOR THIS SESSION";
           cout<<"(*-*)";
+          
           Sleep(8);//8 as time is in miliseconds for this function
           
         }
+        globalrevoke++;
 }
 
 int adminAccess()
@@ -66,7 +71,7 @@ int adminAccess()
         l1.loading();
         cout<<"\n"<<setw(54)<<right<<"  ------------------------------";
         l1.revoke();
-        return 0;
+        return 1;
         
         
     }
@@ -92,6 +97,10 @@ int adminAccess()
 }
 int close()
 {
+
+    cout<<"\n\t\t ADMIN MODE ADMIN MODE IS REVOKED IN THIS SESSION PLEASE TRY AGAIN IN NEXT SESSION";
+    Sleep(1500);
+    
     return 0;
 }
 class datafunctions
@@ -99,7 +108,8 @@ class datafunctions
     void dataenter()
     {   
         system("CLS");
-        if(adminAccess()==101)
+        
+        if(keymain%101==0&&keymain!=0)
         {
         dataEnter:
         
@@ -125,15 +135,23 @@ class datafunctions
         }
         employeequantity+=emp;
         }
-        else if(adminAccess()==0)
+        else if(globalrevoke>0)
         {
             close();
+        }
+        else if(keymain==0)
+        {
+            system("CLS");
+            keymain=adminAccess();
+            dataenter();
+
         }
     };
     void datadelete()
     {
         system("CLS");
-       if(adminAccess()==101)
+        
+       if(keymain%101==0&&keymain!=0)
        { 
        if(employeequantity!=0)
        {
@@ -189,16 +207,23 @@ class datafunctions
            cout<<"\n\t\t Employee Record is empty"<<endl;
        }
        }
-       else if(adminAccess()==0)
+       else if(globalrevoke>0)
         {
             close();
         }
+       else if(keymain==0)
+       {
+           system("CLS");
+           keymain=adminAccess();
+           datadelete();
 
+       }
     };
     void dataupdate()
     {
         system("CLS");
-     if(adminAccess()==101)
+        
+     if(keymain%101==0&&keymain!=0)
      {  
        if(employeequantity!=0)
        {
@@ -260,9 +285,16 @@ class datafunctions
            system("CLS");
        }
       }
-      else if(adminAccess()==0)
+     else if(globalrevoke>0)
         {
             close();
+        }
+     else if(keymain==0)
+        {
+            system("CLS");
+            keymain=adminAccess();
+            dataupdate();
+
         }
     };
     void datasearch()
@@ -284,12 +316,12 @@ class datafunctions
 		           cout<<"\n"<<setw(53)<<right<<"   VIEW EMPLOYEE PROFILE   ";
 			       cout<<"\n"<<setw(54)<<right<<"---------------------------";
                    cout<<"\n\t\t The Data Of Employee "<<i+1<<endl;
-                   cout<<"\t\t Employee name "<<e[i].name<<endl;
-                   cout<<"\t\t Employee ID "<<e[i].id<<endl;
-                   cout<<"\t\t Employee Address "<<e[i].address<<endl;
-                   cout<<"\t\t Employee Contact "<<e[i].contact<<endl;
-                   cout<<"\t\t Employee Salary "<<e[i].salary<<endl;
-                   cout<<"\t\t Enter any key to return to menu : ";
+                   cout<<"\t\t NAME> "<<e[i].name<<endl;
+                   cout<<"\t\t ID> "<<e[i].id<<endl;
+                   cout<<"\t\t ADDRESS> "<<e[i].address<<endl;
+                   cout<<"\t\t CONTACT> "<<e[i].contact<<endl;
+                   cout<<"\t\t SALARY> "<<e[i].salary<<endl;
+                   cout<<"\n\t\t Enter any key to return to menu : ";
                    cin>>pass;
                    system("CLS"); 
                   break;
@@ -332,6 +364,7 @@ class datafunctions
 
            if(1)
            {
+              cout<<"\n\t";
               cout<<"\t\t press any button for menu "<<endl;
               cout<<"\t\t::";
               char a;
@@ -432,13 +465,16 @@ cin>>passwordl;
 
 if(username==usernamel&&password==passwordl)
 {
-  system("CLS");
+    cout<<"\n"<<setw(49)<<right<<"LOGGING YOU IN";
+    functions l2;
+    l2.loading();
+    system("CLS");
   
   
   /****************************PAGE 3****************************/
   while(true)
   {   
-      
+      menu:
       char user;
       cout<<"\n"<<setw(51)<<right<<"-----------------------";
 	  cout<<"\n"<<setw(48)<<right<<"  EMPLOYEE MENU  ";
@@ -449,10 +485,13 @@ if(username==usernamel&&password==passwordl)
       cout<<"\t\t         |> SEARCH DATA       -->[3]  |"<<endl;
       cout<<"\t\t         |> UPDATE DATA(admin)-->[4]  |"<<endl;
       cout<<"\t\t         |> DELETE DATA(admin)-->[5]  |"<<endl;
-      cout<<"\t\t         |> LOGOUT USER       -->[6]  |"<<endl;
-      cout<<"\t\t         |> CLOSE PROGRAMME   -->[7]  |"<<endl;
+      cout<<"\t\t         |> LOGIN AS ADMIN    -->[6]  |"<<endl;
+      cout<<"\t\t         |> LOGOUT USER       -->[7]  |"<<endl;
+      cout<<"\t\t         |> CLOSE PROGRAMME   -->[8]  |"<<endl;
       cout<<"\t\t          ---------------------------- "<<endl;
-      cout<<"\t\t"<<employeequantity<<endl;
+    //   cout<<"\t\t"<<employeequantity<<endl;
+    cout<<"\t\t"<<keymain<<endl;
+
       datafunctions o;
       functions l;
       cout<<"\n\t\t::";
@@ -470,11 +509,35 @@ if(username==usernamel&&password==passwordl)
           break;
           case '5': o.datadelete();
           break;
-          case '6': cout<<"\n\n\t\t LOGGING YOU OUT";
+          case '6': 
+          if(keymain%101==0)
+          {
+              cout<<"\n\t\tAdmin mode is currently enabled";
+              Sleep(500);
+              goto menu;
+          }
+          
+         else if(keymain%101==0||keymain==0)
+          {
+          keymain=adminAccess();
+          Sleep(300);
+          cout<<"\n\t\t ADMIN MODE ENABLED";
+          }
+          else
+          {
+              system("CLS");
+              
+              cout<<"\n\t\t ADMIN MODE ADMIN MODE IS REVOKED IN THIS SESSION PLEASE TRY AGAIN IN NEXT SESSION";
+              Sleep(1500);
+              goto menu;
+          }
+          break;
+          case '7': cout<<"\n\n\t\t LOGGING YOU OUT";
                    l.loading();
+                   keymain=0;
           goto page1;
           break;
-          case '7':
+          case '8':
           cout<<"\n\n\t\t VISIT AGAIN!!";
                    l.loading();
           return 0;
