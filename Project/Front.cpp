@@ -221,12 +221,12 @@ class datafunctions
                    cout<<"\t\t Employee Salary "<<e[i].salary<<endl; 
                    cout<<"\n\n\t\t Enter new Details of the Employee"<<endl;
 
-                   cout<<"\n"<<endl;
+                   
 
                    cout<<"\n"<<setw(54)<<right<<"---------------------------";
 		           cout<<"\n"<<setw(53)<<right<<"  UPDATE EMPLOYEE PROFILE  ";
 			       cout<<"\n"<<setw(54)<<right<<"---------------------------";
-
+                   cout<<"\t\t Enter new Details of the Employee"<<endl; 
                    cout<<"\n\n\t\t Employee name :: ";
                    cin>>e[i].name;
                    cout<<"\t\t Employee ID :: ";
@@ -279,7 +279,7 @@ class datafunctions
                 if(id==e[i].id)
                 {
                    system("CLS");
-                   Sleep(600);
+                   int pass;
                    cout<<"\n"<<setw(54)<<right<<"---------------------------";
 		           cout<<"\n"<<setw(53)<<right<<"   VIEW EMPLOYEE PROFILE   ";
 			       cout<<"\n"<<setw(54)<<right<<"---------------------------";
@@ -289,6 +289,8 @@ class datafunctions
                    cout<<"\t\t Employee Address "<<e[i].address<<endl;
                    cout<<"\t\t Employee Contact "<<e[i].contact<<endl;
                    cout<<"\t\t Employee Salary "<<e[i].salary<<endl;
+                   cout<<"\t\t Enter any key to return to menu : ";
+                   cin>>pass;
                    system("CLS"); 
                   break;
                 }
@@ -328,7 +330,7 @@ class datafunctions
                           
           }
 
-           if(i==employeequantity-1)
+           if(1)
            {
               cout<<"\t\t press any button for menu "<<endl;
               cout<<"\t\t::";
