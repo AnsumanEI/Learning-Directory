@@ -47,7 +47,7 @@ int adminAccess()
     
     functions l1;
     string key;
-    string Adminkey="21111";
+    string Adminkey="211117";
     int revokecount=0;
     system("CLS");
     cout<<"\n"<<setw(54)<<right<<"  ----------------------------";
@@ -104,11 +104,13 @@ class datafunctions
         dataEnter:
         
         int emp;
-        cout<<"\n\n\t\t No Of data inputs of employee ";
+        cout<<"\n\n\t\t No Of data inputs of employee ::";
         cin>>emp;
         for(int i=employeequantity;i<employeequantity+emp;i++)
         {
-           cout<<"\n\t\t Enter the data of the Employee "<<i+1<<endl;
+           cout<<"\n\t\t --------------------------------- "<<endl;
+           cout<<"\n\t\t Enter the data of the Employee ["<<i+1<<"]"<<endl;
+           cout<<"\n\t\t --------------------------------- "<<endl;
            cout<<"\t\t Employee name :: ";
            cin>>e[i].name;
            cout<<"\t\t Employee ID :: ";
@@ -119,6 +121,7 @@ class datafunctions
            cin>>e[i].contact;
            cout<<"\t\t Employee Salary :: ";
            cin>>e[i].salary;
+           
         }
         employeequantity+=emp;
         }
@@ -142,6 +145,8 @@ class datafunctions
            {
                employeequantity=0;
                cout<<"\t\t All Record Have Been Cleared"<<endl;
+               Sleep(500);
+               system("CLS");
 
            }
            else if(user=='2')
@@ -166,12 +171,16 @@ class datafunctions
                     if(i==employeequantity-1)
                     {
                         cout<<"\n\t\t No such Record found"<<endl;
+                        Sleep(500);
+                        system("CLS");
                     }
                   employeequantity--;
                   break;
                 }
             }
             cout<<"\n\t\t Employees Data Has been Erased "<<endl;
+            Sleep(500);
+            system("CLS");
 
            }
        }
@@ -205,7 +214,7 @@ class datafunctions
 		           cout<<"\n"<<setw(53)<<right<<" CURRENT EMPLOYEE PROFILE  ";
 			       cout<<"\n"<<setw(54)<<right<<"---------------------------";
                    
-                   cout<<"\t\t Employee name "<<e[i].name<<endl;
+                   cout<<"\n\n\t\t Employee name "<<e[i].name<<endl;
                    cout<<"\t\t Employee ID "<<e[i].id<<endl;
                    cout<<"\t\t Employee Address "<<e[i].address<<endl;
                    cout<<"\t\t Employee Contact "<<e[i].contact<<endl;
@@ -218,7 +227,7 @@ class datafunctions
 		           cout<<"\n"<<setw(53)<<right<<"  UPDATE EMPLOYEE PROFILE  ";
 			       cout<<"\n"<<setw(54)<<right<<"---------------------------";
 
-                   cout<<"\t\t Employee name :: ";
+                   cout<<"\n\n\t\t Employee name :: ";
                    cin>>e[i].name;
                    cout<<"\t\t Employee ID :: ";
                    cin>>e[i].id;
@@ -247,6 +256,8 @@ class datafunctions
        else
        {
            cout<<"\n\t\t Employee Record is Empty"<<endl;
+           Sleep(700);
+           system("CLS");
        }
       }
       else if(adminAccess()==0)
@@ -277,7 +288,8 @@ class datafunctions
                    cout<<"\t\t Employee ID "<<e[i].id<<endl;
                    cout<<"\t\t Employee Address "<<e[i].address<<endl;
                    cout<<"\t\t Employee Contact "<<e[i].contact<<endl;
-                   cout<<"\t\t Employee Salary "<<e[i].salary<<endl; 
+                   cout<<"\t\t Employee Salary "<<e[i].salary<<endl;
+                   system("CLS"); 
                   break;
                 }
                 else
@@ -301,7 +313,8 @@ class datafunctions
         system("CLS");
        if(employeequantity!=0)
        {
-          for(int i=0;i<employeequantity;i++)
+           int i;
+          for(i=0;i<employeequantity;i++)
           {
               cout<<"\n"<<setw(54)<<right<<"---------------------------";
 		      cout<<"\n"<<setw(53)<<right<<"  EMPLOYEE DATA ID :: "<<i+1;
@@ -311,12 +324,19 @@ class datafunctions
               cout<<"\t\t Employee Address "<<e[i].address<<endl;
               cout<<"\t\t Employee Contact "<<e[i].contact<<endl;
               cout<<"\t\t Employee Salary "<<e[i].salary<<endl;
-              cout<<"\t\t press any button for menu "<<endl;
-              char a;
-              cin>>a;
-              break;
+                          
                           
           }
+
+           if(i==employeequantity-1)
+           {
+              cout<<"\t\t press any button for menu "<<endl;
+              cout<<"\t\t::";
+              char a;
+              cin>>a;
+              system("CLS");
+           }
+          
        }
        else
        {
@@ -430,6 +450,7 @@ if(username==usernamel&&password==passwordl)
       cout<<"\t\t         |> LOGOUT USER       -->[6]  |"<<endl;
       cout<<"\t\t         |> CLOSE PROGRAMME   -->[7]  |"<<endl;
       cout<<"\t\t          ---------------------------- "<<endl;
+      cout<<"\t\t"<<employeequantity<<endl;
       datafunctions o;
       functions l;
       cout<<"\n\t\t::";
