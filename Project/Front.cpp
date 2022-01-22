@@ -475,6 +475,7 @@ if(username==usernamel&&password==passwordl)
   while(true)
   {   
       menu:
+      system("CLS");
       char user;
       cout<<"\n"<<setw(51)<<right<<"-----------------------";
 	  cout<<"\n"<<setw(48)<<right<<"  EMPLOYEE MENU  ";
