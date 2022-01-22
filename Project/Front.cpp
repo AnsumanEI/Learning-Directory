@@ -38,6 +38,7 @@ void functions::revoke()
 {
     for(int i=0;i<500;i++)
         {
+            
             cout<<"\t\t ADMIN ACCESS CLOSED FOR THIS SESSION";
           cout<<"(*-*)";
           
@@ -111,11 +112,12 @@ class datafunctions
         
         if(keymain%101==0&&keymain!=0)
         {
-        dataEnter:
+        
         
         int emp;
         cout<<"\n\n\t\t No Of data inputs of employee ::";
         cin>>emp;
+        
         for(int i=employeequantity;i<employeequantity+emp;i++)
         {
            cout<<"\n\t\t --------------------------------- "<<endl;
@@ -134,6 +136,7 @@ class datafunctions
            
         }
         employeequantity+=emp;
+        system("CLS");
         }
         else if(globalrevoke>0)
         {
@@ -205,6 +208,8 @@ class datafunctions
        else
        {
            cout<<"\n\t\t Employee Record is empty"<<endl;
+           Sleep(700);
+           system("CLS");
        }
        }
        else if(globalrevoke>0)
@@ -222,6 +227,7 @@ class datafunctions
     void dataupdate()
     {
         system("CLS");
+        int count1;
         
      if(keymain%101==0&&keymain!=0)
      {  
@@ -231,7 +237,7 @@ class datafunctions
             string id;
             cout<<"\n\t\t Enter the Employees ID :: ";
             cin>>id;
-            for(int i=0;i<employeequantity;i++)
+            for(int i=0;i<=employeequantity;i++)
             {
                 if(id==e[i].id)
                 {
@@ -244,14 +250,14 @@ class datafunctions
                    cout<<"\t\t Employee Address "<<e[i].address<<endl;
                    cout<<"\t\t Employee Contact "<<e[i].contact<<endl;
                    cout<<"\t\t Employee Salary "<<e[i].salary<<endl; 
-                   cout<<"\n\n\t\t Enter new Details of the Employee"<<endl;
+                  
 
                    
 
                    cout<<"\n"<<setw(54)<<right<<"---------------------------";
 		           cout<<"\n"<<setw(53)<<right<<"  UPDATE EMPLOYEE PROFILE  ";
 			       cout<<"\n"<<setw(54)<<right<<"---------------------------";
-                   cout<<"\t\t Enter new Details of the Employee"<<endl; 
+                   cout<<"\n\n\t\t Enter new Details of the Employee"<<endl; 
                    cout<<"\n\n\t\t Employee name :: ";
                    cin>>e[i].name;
                    cout<<"\t\t Employee ID :: ";
@@ -264,19 +270,21 @@ class datafunctions
                    cin>>e[i].salary;
 
                    cout<<"\n\t\t The Data Has Been Updated"<<endl;
-                   Sleep(400);
+                   Sleep(700);
                    system("CLS");                                                
 
-
-                  break;
+                  count1=101;
+                  
                 }
-                else
-                {
-                    cout<<"\n\t\t No such Record Found"<<endl;
-                    system("CLS");
-                }
-
+                
             }
+            if(count1<101)
+            {
+                 cout<<"\n\t\t No such Record Found"<<endl;
+                 Sleep(700);
+                 system("CLS");
+            }
+            
        }
        else
        {
@@ -301,11 +309,13 @@ class datafunctions
     {
         system("CLS");
         if(employeequantity!=0)
-        {
-            
+        {            
             string id;
             cout<<"\n\t\t Enter the Employees ID :: ";
             cin>>id;
+            int count;
+                       
+
             for(int i=0;i<employeequantity;i++)
             {
                 if(id==e[i].id)
@@ -323,17 +333,20 @@ class datafunctions
                    cout<<"\t\t SALARY> "<<e[i].salary<<endl;
                    cout<<"\n\t\t Enter any key to return to menu : ";
                    cin>>pass;
-                   system("CLS"); 
-                  break;
-                }
-                else
-                {
-                    cout<<"\n\t\t No such Record Found"<<endl;
-                    Sleep(500);
-                    system("CLS");
+                   count=101;
+                    
+                  
                 }
 
+                if(count<101)
+            {
+                cout<<"\n\t\t No such Record Found"<<endl;
+                    Sleep(500);
+                    system("CLS");
             }
+                
+            }
+            
         }
         else
         {
@@ -347,8 +360,8 @@ class datafunctions
         system("CLS");
        if(employeequantity!=0)
        {
-           int i;
-          for(i=0;i<employeequantity;i++)
+           
+          for(int i=0;i<employeequantity;i++)
           {
               cout<<"\n"<<setw(54)<<right<<"---------------------------";
 		      cout<<"\n"<<setw(53)<<right<<"  EMPLOYEE DATA ID :: "<<i+1;
@@ -358,19 +371,15 @@ class datafunctions
               cout<<"\t\t Employee Address "<<e[i].address<<endl;
               cout<<"\t\t Employee Contact "<<e[i].contact<<endl;
               cout<<"\t\t Employee Salary "<<e[i].salary<<endl;
-                          
-                          
+                         
           }
-
-           if(1)
-           {
-              cout<<"\n\t";
-              cout<<"\t\t press any button for menu "<<endl;
-              cout<<"\t\t::";
-              char a;
-              cin>>a;
-              system("CLS");
-           }
+            cout<<"\n\t";
+            cout<<"\t\t press any button for menu "<<endl;
+            cout<<"\t\t::";
+            char a;
+            cin>>a;
+            system("CLS");
+           
           
        }
        else
@@ -492,6 +501,7 @@ if(username==usernamel&&password==passwordl)
       cout<<"\t\t          ---------------------------- "<<endl;
     //   cout<<"\t\t"<<employeequantity<<endl;
     //cout<<"\t\t"<<keymain<<endl;
+    cout<<employeequantity<<endl;
 
       datafunctions o;
       functions l;
@@ -511,7 +521,7 @@ if(username==usernamel&&password==passwordl)
           case '5': o.datadelete();
           break;
           case '6': 
-          if(keymain%101==0)
+          if(keymain%101==0&&keymain!=0)
           {
               cout<<"\n\t\tAdmin mode is currently enabled";
               Sleep(500);
