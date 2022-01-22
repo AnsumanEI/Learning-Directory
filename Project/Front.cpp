@@ -490,7 +490,7 @@ if(username==usernamel&&password==passwordl)
       cout<<"\t\t         |> CLOSE PROGRAMME   -->[8]  |"<<endl;
       cout<<"\t\t          ---------------------------- "<<endl;
     //   cout<<"\t\t"<<employeequantity<<endl;
-    cout<<"\t\t"<<keymain<<endl;
+    //cout<<"\t\t"<<keymain<<endl;
 
       datafunctions o;
       functions l;
