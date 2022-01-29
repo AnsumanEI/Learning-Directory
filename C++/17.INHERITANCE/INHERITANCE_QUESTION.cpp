@@ -105,5 +105,6 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     displayft(1234, "ansuman", 100000);
+    displaypt(8898, "prateek", 500000);
     return 0;
 }
