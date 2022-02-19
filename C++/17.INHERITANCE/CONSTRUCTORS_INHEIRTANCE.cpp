@@ -28,7 +28,7 @@ public:
     }
     inherit(int x, int a) : base(x)
     {
-        cout << "inherit double parametre" << x << " " << a << endl;
+        cout << "inherit double parametre " << x << " " << a << endl;
     }
 };
 int main()

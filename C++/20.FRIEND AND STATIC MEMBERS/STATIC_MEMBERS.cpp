@@ -7,13 +7,14 @@ class base
 {
 public:
     static int count; // static variable is allocated only once
-    static int fun()
+    int fun()
     {
 
         count++;
     }
     static int getcount()
     {
+
         return count; // static functions can only access static variables
     }
 };
@@ -26,6 +27,6 @@ int main()
     base b;
     b.fun();
     // or we can call it by scope resoluton operator if the function is static
-    base::fun();
+    base::getcount();
     return 0;
 }
