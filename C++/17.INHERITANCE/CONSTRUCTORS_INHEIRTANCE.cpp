@@ -26,7 +26,7 @@ public:
     {
         cout << "inherit parametre" << x << endl;
     }
-    inherit(int x, int a) : base(x)
+    inherit(int x, int a)
     {
         cout << "inherit double parametre " << x << " " << a << endl;
     }

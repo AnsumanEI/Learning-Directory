@@ -4,9 +4,9 @@
 #include <math.h>
 using namespace std;
 
-class functions
+struct functions
 {
-public:
+
   string name;
   int roll;
   int pmarks;

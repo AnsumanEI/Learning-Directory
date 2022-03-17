@@ -43,5 +43,6 @@ int main()
     p->setLength(10);
     cout << p->area() << endl;
     cout << p->perimeter() << endl;
+    //cout<<square::perimeter()<<endl;
     return 0;
 }

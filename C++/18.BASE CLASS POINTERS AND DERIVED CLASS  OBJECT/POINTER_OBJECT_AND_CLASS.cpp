@@ -44,7 +44,7 @@ int main()
     cuboid obj;
     rectangle *ptr;
     ptr = &obj;
-    // or
+
     rectangle *ptr1;
     ptr1 = new cuboid();
     // so this means that the parent class can access the the objects through pointer but the vice a versa is not true
