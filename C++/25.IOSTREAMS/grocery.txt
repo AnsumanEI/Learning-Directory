@@ -1,0 +1,15 @@
+carrot
+100
+2
+tomato
+150
+20
+brinjal
+140
+7
+potato
+60
+50
+beans
+60
+30

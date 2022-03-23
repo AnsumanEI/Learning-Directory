@@ -14,7 +14,7 @@ public:
 };
 int check(int f, int g)
 {
-    if (g = 0)
+    if (g == 0)
     {
         throw 1;
     }
@@ -27,8 +27,9 @@ int main()
     cin >> num1 >> num2;
     try
     {
-        
+
         int divide;
+        check(num1, num2);
         divide = num1 / num2;
         cout << divide << endl;
     }
