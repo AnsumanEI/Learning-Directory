@@ -64,7 +64,7 @@ int main()
     // intialising vector with elements and particular size
     vector<int>
         b(5, 10); // it means capacity is 5 and is filled with number 10
-    for (int i : b)
+    for (auto i : b)
     {
         cout << i << " ";
     }
