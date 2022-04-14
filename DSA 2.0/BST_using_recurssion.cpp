@@ -51,7 +51,7 @@ int main()
 
         cin >> arr[i];
     }
-    sort(arr[0], arr[0] + size);
+    sort(arr, arr + size);
     cout << "Enter a value to be search \n";
     cin >> key;
 

@@ -1,0 +1,1 @@
+sort(&arr[0], &arr[size]);
