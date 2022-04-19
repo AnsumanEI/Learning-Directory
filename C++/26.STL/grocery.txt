@@ -1,25 +1,10 @@
 item number - 1
-name::tomato
-price::50
-quantity::30
+name::ansuman
+price::2000
+quantity::3
 
 item number - 1
-name::potato
-price::20
-quantity::10
-
-item number - 1
-name::brinjal
-price::40
-quantity::20
-
-item number - 1
-name::carrot
-price::60
-quantity::30
-
-item number - 1
-name::onion
-price::120
-quantity::10
+name::baba
+price::34
+quantity::3
 

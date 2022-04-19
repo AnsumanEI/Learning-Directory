@@ -18,10 +18,9 @@ int main()
     try
     {
 
-        throw parent();
-
-        int a;
+                int a;
         a = 10;
+        throw a;
         cout << a << endl;
     }
     catch (parent e)

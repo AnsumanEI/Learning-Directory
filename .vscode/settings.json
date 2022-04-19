@@ -44,8 +44,17 @@
     "sstream": "cpp",
     "stdexcept": "cpp",
     "streambuf": "cpp",
-    "typeinfo": "cpp"
+    "typeinfo": "cpp",
+    "chrono": "cpp",
+    "valarray": "cpp",
+    "forward_list": "cpp",
+    "list": "cpp",
+    "unordered_set": "cpp",
+    "regex": "cpp"
   },
-  "cSpell.words": ["passwordl"],
+  "cSpell.words": [
+    "pallindrome",
+    "passwordl"
+  ],
   "cSpell.ignoreWords": ["bmarks", "cmarks", "pmarks"]
 }
