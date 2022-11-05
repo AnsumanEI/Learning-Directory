@@ -1,29 +1,33 @@
-#include<iostream>
-#include<string>
-#include<cstring>
-#include<math.h>
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <math.h>
 using namespace std;
 class square
 {
-    public:
+public:
     int side;
     int area()
     {
-        return side*side;
+        return side * side;
     }
-    
+
     int peri()
     {
-        return 4*side;
+        return 4 * side;
     }
 };
 int main()
 {
-ios_base::sync_with_stdio(false);
-cin.tie(NULL);
-square *p=new square;
-p->side=10;
-cout<<p->area()<<endl;
-cout<<p->peri()<<endl;
-return 0;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    square *p = new square;
+    p->side = 10;
+    cout << p->area() << endl;
+    cout << p->peri() << endl;
+    square ans;
+    ans.side = 10;
+    cout << ans.area() << endl;
+
+    return 0;
 }

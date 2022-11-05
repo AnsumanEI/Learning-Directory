@@ -17,7 +17,7 @@ int main()
     cout << arr.front() << " front " << endl;
     cout << arr.back() << " back " << endl;
     cout << arr.empty() << " empty or not " << endl;
-    arr.fill(1); // fills 10 at every postion in the array
+    arr.fill(1); // fills 1 at every postion in the array
     arr2.fill(2);
     cout << *arr.data() << " returns the pointer to the 1st element " << endl;
     arr.swap(arr2); // swaps array 1 with array 2 should of same size

@@ -1,22 +1,21 @@
-#include<iostream>
-#include<string>
-#include<cstring>
-#include<math.h>
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <math.h>
 using namespace std;
 int main()
 {
-ios_base::sync_with_stdio(false);
-cin.tie(NULL);
-string str="holiday";
-cout<<str.at(4)<<endl;
-str[4]='m';
-cout<<str<<endl;
-string::iterator bt;
-for(bt=str.begin();bt!=str.end();bt++){
-    cout<<*bt<<endl;
-    *bt=*bt-32;
-
-}
-cout<<str<<endl;
-return 0;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    string str = "holiday";
+    cout << str.at(4) << endl;
+    str[4] = 'm';
+    cout << str << endl;
+    string::iterator bt;
+    for (bt = str.begin(); bt != str.end(); bt++)
+    {
+        cout << *bt << endl;
+    }
+    cout << str << endl;
+    return 0;
 }
