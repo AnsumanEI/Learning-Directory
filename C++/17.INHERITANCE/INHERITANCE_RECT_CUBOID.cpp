@@ -83,9 +83,10 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
+    rectangle r1;
     cuboid c1;
-    c1.setLength(20);
-    c1.setBreadth(20);
+    r1.setBreadth(10);
+    r1.setLength(10);
     c1.setHeight(10);
     cout << c1.volume() << endl;
 

@@ -12,6 +12,7 @@ public:
         cout << "fun 1 of base " << endl;
     }
     virtual int fun2() = 0; // as the fun2 is overriden in the derived class so fun 2 is made purely virtual and the class is now an abstract class
+    // func2 cant be accessed from base class pointer and derived class object so  virtual function is made
 };
 class derived : public base
 {

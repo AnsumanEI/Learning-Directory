@@ -25,7 +25,10 @@ int main()
     cout << "check wether hello is present in the set or not - > " << s.count("hello") << endl; // returns one so it is present
     // find returns the iterator if the value is present
     set<string>::iterator itr = s.find("hello");
+    // can only be traverse by iterators an random access is not allowed
+    s.lower_bound("hello"); // returns element to the frst element greater than or equalto the input
     // to verify we print the value at that address
+    // s.erase(it); // erases the element in which the iterator is present
     cout << "value at iterator returned by find - > " << *itr << endl;
 
     return 0;

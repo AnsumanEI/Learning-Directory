@@ -20,7 +20,7 @@ public:
     string getEmployeename();
     string setEmployeename(string employeename);
 };
-class fulltime : protected employeedata
+class fulltime : public employeedata
 {
 protected:
     int salary;
@@ -34,13 +34,13 @@ public:
     int getSalary();
     int setSalary(int salary);
 };
-class parttime : protected employeedata
+class parttime : public employeedata
 {
 protected:
     int wage;
 
 public:
-    parttime(int eid = 1111, string employname = "null", int wage = 2000)
+    parttime(int eid = 1111, string employname = "null", int wage = 2000) : employeedata(eid, employname)
     {
         this->wage = wage;
     }
@@ -104,7 +104,11 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    displayft(1234, "ansuman", 100000);
-    displaypt(8898, "prateek", 500000);
+    parttime worker(999, "rudrax", 200);
+    fulltime worker1(12, "ansuman", 100000);
+    cout << worker.getEid() << endl;
+    cout << worker.getEmployeename() << endl;
+    cout << worker.getWage() << endl;
+
     return 0;
 }
