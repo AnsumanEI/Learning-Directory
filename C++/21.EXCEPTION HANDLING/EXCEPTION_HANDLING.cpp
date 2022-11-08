@@ -15,11 +15,11 @@ int main()
     {
         if (b == 0)
         {
-            throw 1;
+            throw "gandi mara";
         }
         cout << a / b << endl;
     }
-    catch (int z)
+    catch (const char z)
     {
         cout << "please enter a valid no. instead of zero " << z << endl;
     }

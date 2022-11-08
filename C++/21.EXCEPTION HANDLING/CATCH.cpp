@@ -18,8 +18,10 @@ int main()
     try
     {
 
-                int a;
+        int a;
         a = 10;
+        parent obj;
+        throw obj;
         throw a;
         cout << a << endl;
     }

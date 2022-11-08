@@ -28,7 +28,7 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    admission a1, a2, a3;
+    admission a1, a2;
     cout << a1.getRoll() << endl;
     cout << a2.getRoll() << endl;
     cout << admission::getadm() << endl; // can be used with scope resolution as it is a static function

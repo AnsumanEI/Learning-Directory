@@ -6,7 +6,7 @@ using namespace std;
 class base
 {
 public:
-    virtual int display()
+    int display()
     {
         cout << "base class display" << endl;
     }
