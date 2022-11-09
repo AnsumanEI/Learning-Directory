@@ -43,6 +43,8 @@ public:
     void arrdelete();
     void arrrestore();
     void arrsearch();
+    int arrassortedinsert(int x);
+    void arrarraymerge(array1 &arr);
 };
 void array1::arrinput()
 {
@@ -59,6 +61,7 @@ void array1::arrinput()
         {
             a[i] = 0;
         }
+        sort(&a[0], &a[length]);
     }
     else
     {
@@ -140,6 +143,27 @@ void array1::arrrestore()
     cout << "the deleted element is ::";
     cout << restore->at(0);
 }
+int array1::arrassortedinsert(int x)
+{
+    int j = 0;
+    while (x > a[j])
+    {
+        j++;
+    }
+
+    length++;
+    size++;
+    for (int i = length; i > j; i--)
+    {
+        a[i] = a[i - 1];
+        a[i - 1] = 0;
+    }
+    a[j] = x;
+}
+void array1::arrarraymerge(array1 &arr){
+    // first call arr2 object the inside it call arr1 object again by repeating this same function
+    // then store the elements in algorithm for merging
+};
 
 int main()
 {
@@ -150,12 +174,11 @@ int main()
     array1 arr(size, length);
     arr.arrinput();
     cout << endl;
-    // arr.arradd(arr);
-    // cout << endl;
-    // arr.arrinsert();
-    arr.arrdelete();
+    array1 arr2(10, 5);
+    arr.arrinput();
+    cout << endl;
     arr.arrdisplay();
-    arr.arrrestore();
+    arr2.arrdisplay();
 
     return 0;
 }
