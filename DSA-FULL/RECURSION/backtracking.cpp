@@ -11,8 +11,9 @@ void fun1(int n)
     {
         return;
     }
-    cout << n << " ";
+
     fun1(n - 1);
+    cout << n << " ";
 }
 int main()
 {

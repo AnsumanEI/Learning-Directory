@@ -15,13 +15,14 @@ int main()
     {
         if (!prime[i])
             continue;
-        for (int j = 2 * i; j <= n; j += i) // for more fast we can also use i*i but as i cant think on that level so we will use 2*i
+        for (int j = i * i; j <= n; j += i) // for more fast we can also use i*i but as i cant think on that level so we will use 2*i
         {
             prime[j] = 0;
         }
     }
     for (int i = 0; i <= n; i++)
     {
+        cout << i << " ";
         if (prime[i])
             cout << "prime" << endl;
         else

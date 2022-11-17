@@ -4,18 +4,27 @@
 #include <strings.h>
 #include <string>
 #include <cstring>
+
 using namespace std;
-void fun1(int n)
+void reverse(int i, int arr[], int n)
 {
-    if (n == 0)
+    if (i >= n / 2)
     {
         return;
     }
-    cout << n << " ";
-    fun1(n - 1);
+    else
+    {
+        swap(arr[i], arr[n - i - 1]);
+        reverse(i + 1, arr, n);
+    }
 }
+
 int main()
 {
-    fun1(10);
-    return 0;
+    int arr[5] = {1, 2, 3, 4, 5};
+    reverse(0, arr, 5);
+    for (int i = 0; i < 5; i++)
+    {
+        cout << arr[i] << " ";
+    }
 }
