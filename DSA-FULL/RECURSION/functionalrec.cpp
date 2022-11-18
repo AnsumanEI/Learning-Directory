@@ -15,6 +15,6 @@ int func(int n)
 }
 int main()
 {
-    cout << func(10) << endl;
+    cout << func(5) << endl;
     return 0;
 }

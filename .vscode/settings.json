@@ -89,5 +89,23 @@
     "**/.*/**",
     "**/.vscode",
     "**/.vscode/**"
-  ]
+  ],
+  "blockman.n33A02B1FromFocusToOutwardForAllBorders": "!20,0,0,0; red > green > blue",
+  "blockman.n33A04B2FromFocusToOutwardForFocusTreeBackgrounds": "!40,0,0,0; basic",
+  "blockman.n33A04B1FromFocusToOutwardForFocusTreeBorders": "!40,0,0,0; basic",
+  "blockman.n31RenderIncrementBeforeAndAfterVisibleRange": 20,
+  "blockman.n33A03B2FromDepth0ToInwardForFocusTreeBackgrounds": "!30,0,0,0; red > green > blue",
+  "blockman.n33A01B2FromDepth0ToInwardForAllBackgrounds": "!10,1,0,3; hsl(235, 30%, 7%) > hsl(0, 0%, 7.1%) > hsl(0, 0%, 9.5%) > hsl(0, 0%, 11.15%) > hsl(0, 0%, 12.8%)",
+  "blockman.n28TimeToWaitBeforeRerenderAfterLastChangeEvent": 0.5,
+  "blockman.n27AlsoRenderBlocksInsideSingleLineAreas": false,
+  "blockman.n25AnalyzeTags": true,
+  "blockman.n24AnalyzeRoundBrackets": false,
+  "blockman.n23AnalyzeSquareBrackets": true,
+  "blockman.n21BorderRadius": 12,
+  "blockman.n04Sub04RightSideBaseOfBlocks": "Rightmost Edge Of Inner Content",
+  "blockman.n04Sub02ColorComboPresetForLightTheme": "none",
+  "blockman.n04Sub03ColorComboPresetForHighContrastTheme": "none",
+  "blockman.n04Sub01ColorComboPresetForDarkTheme": "none",
+  "blockman.n04ColorComboPreset": "Oxygen Dark (Gradients)",
+  "blockman.n03MaxDepth": 11
 }
