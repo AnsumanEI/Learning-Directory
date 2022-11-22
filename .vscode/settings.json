@@ -107,5 +107,8 @@
   "blockman.n04Sub03ColorComboPresetForHighContrastTheme": "none",
   "blockman.n04Sub01ColorComboPresetForDarkTheme": "none",
   "blockman.n04ColorComboPreset": "Oxygen Dark (Gradients)",
-  "blockman.n03MaxDepth": 11
+  "blockman.n03MaxDepth": 11,
+  "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
+    "clang-diagnostic-error"
+  ]
 }

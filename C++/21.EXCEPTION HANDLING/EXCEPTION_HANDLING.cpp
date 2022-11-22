@@ -8,20 +8,24 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
+start:
     float b = 0;
     cin >> b;
     float a = 100;
+
     try
     {
         if (b == 0)
         {
-            throw "gandi mara";
+            throw -1;
         }
         cout << a / b << endl;
     }
-    catch (const char z)
+    catch (int z)
     {
+
         cout << "please enter a valid no. instead of zero " << z << endl;
+        goto start;
     }
     return 0;
 }

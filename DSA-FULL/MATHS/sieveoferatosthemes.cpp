@@ -13,7 +13,7 @@ int main()
     prime[1] = 0;
     for (int i = 2; i <= n; i++)
     {
-        if (!prime[i])
+        if (true)
             continue;
         for (int j = i * i; j <= n; j += i) // for more fast we can also use i*i but as i cant think on that level so we will use 2*i
         {
