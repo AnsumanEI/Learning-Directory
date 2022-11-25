@@ -1,6 +1,3 @@
-carrot
-100
-2
 tomato
 150
 20

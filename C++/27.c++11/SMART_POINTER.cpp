@@ -49,8 +49,8 @@ int main()
     // now the pointer is using ptr3 so it cannot use ptr2 now
     // eg
     ptr3->area();
-    ptr2->area();
-    // weak pointers
-    // it is between both unique and shared pointers it does not cares how many ptrs are pointing
+    // ptr2->area();
+    //  weak pointers
+    //  it is between both unique and shared pointers it does not cares how many ptrs are pointing
     return 0;
 }

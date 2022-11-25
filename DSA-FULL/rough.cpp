@@ -17,45 +17,44 @@ void printpermutation(vector<vector<int>> &ans)
         cout << "]" << endl;
     }
 }
-class solution
+class Solution
 {
-private:
-    void findpermutation(vector<vector<int>> &ans, vector<int> &ds, int freq[], vector<int> &num)
+public:
+    void help(vector<int> &nums, int target, vector<int> &ds, int freq[], vector<vector<int>> &ans)
     {
-        if (ds.size() == num.size())
+        if (target == 0)
         {
             ans.push_back(ds);
             return;
         }
-        for (int i = 0; i < num.size(); i++)
+        for (int i = 0; i < nums.size(); i++)
         {
-            if (!freq[i])
+            if (target >= nums[i] && !freq[i])
             {
-                ds.push_back(num[i]);
+                ds.push_back(i);
                 freq[i] = 1;
-                findpermutation(ans, ds, freq, num);
-                freq[i] = 0;
-                ds.pop_back();
+                help(nums, target - nums[i], ds, freq, ans);
+                continue;
             }
         }
     }
 
-public:
-    vector<vector<int>> perm(vector<int> &num)
+    vector<vector<int>> twoSum(vector<int> &nums, int target)
     {
-        vector<vector<int>> ans;
         vector<int> ds;
-        int freq[num.size()] = {0};
-        findpermutation(ans, ds, freq, num);
-        cout << ans.size();
+        vector<vector<int>> ans;
+        int freq[nums.size()] = {0};
+        help(nums, target, ds, freq, ans);
         return ans;
     }
 };
 int main()
 {
-    vector<int> num = {1, 2, 3};
-    solution obj;
-    vector<vector<int>> ans = obj.perm(num);
+    Solution obj;
+    vector<int> nums = {2, 7, 11, 15};
+    int target = 9;
+
+    vector<vector<int>> ans = obj.twoSum(nums, target);
     printpermutation(ans);
 
     return 0;

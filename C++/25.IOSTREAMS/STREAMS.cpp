@@ -6,7 +6,7 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    ofstream df("demo.txt");
+    ofstream df("demo.txt", ios::trunc);
     // if u have some data in the file from before then we can use
     // ofstream outfile("demo.txt", ios::app);
     // ios :: app means here to append

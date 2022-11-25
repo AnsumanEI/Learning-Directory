@@ -50,11 +50,11 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     ofstream ofs("grocery.txt", ios::trunc);
-    ifstream ifs("grocery.txt");
+    ifstream ifs("grocery.txt", ios::app);
     item i1;
     i1.setName("carrot");
     i1.setPrice(100);
-    i1.setQuantity(2);
+    i1.setQuantity(200);
     item i2;
     i2.setName("tomato");
     i2.setPrice(150);
@@ -71,7 +71,7 @@ int main()
     i5.setName("beans");
     i5.setPrice(60);
     i5.setQuantity(30);
-    ofs << i1;
+    // ofs << i1;
     ifs >> i1;
 
     ofs << i2;
