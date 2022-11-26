@@ -5,34 +5,56 @@
 #include <string>
 #include <cstring>
 using namespace std;
-void subsum(int index, vector<int> &ds, int arr[], int n, int target)
+void printAns(vector<vector<int>> &ans)
 {
-    if (index == n)
+    cout << "subsets are " << endl;
+    for (int i = 0; i < ans.size(); i++)
     {
-        if (target == 0)
+        cout << "[";
+        for (int j = 0; j < ans[i].size(); j++)
+            cout << ans[i][j] << " ";
+        cout << "]";
+        cout << endl;
+    }
+}
+class solution
+{
+public:
+    void combfinder(vector<vector<int>> &ans, vector<int> &ds, int target, vector<int> &nums, int index)
+    {
+        if (index == nums.size() || target == 0)
         {
-            for (auto it : ds)
+            if (target == 0)
             {
-                cout << it << " ";
+                ans.push_back(ds);
+                return;
             }
-            cout << endl;
             return;
         }
-        return;
+        for (int i = index; i < nums.size(); i++)
+        {
+            if (nums[i] <= target)
+            {
+                ds.push_back(nums[i]);
+                combfinder(ans, ds, target - nums[i], nums, i + 1);
+                ds.pop_back();
+            }
+        }
     }
-    if (arr[index] <= target)
+    vector<vector<int>> helper(vector<int> &nums, int target)
     {
-        ds.push_back(arr[index]);
-        subsum(index, ds, arr, n, target - arr[index]);
-        ds.pop_back();
+        vector<vector<int>> ans;
+        vector<int> ds;
+        combfinder(ans, ds, target, nums, 0);
+        return ans;
     }
-    subsum(index + 1, ds, arr, n, target);
-}
+};
+
 int main()
 {
-    int arr[] = {1, 2, 3, 4, 5};
-    vector<int> ds;
-    subsum(0, ds, arr, 5, 7);
-
+    solution obj;
+    vector<int> nums = {1, 2, 3, 4};
+    vector<vector<int>> ans = obj.helper(nums, 6);
+    printAns(ans);
     return 0;
 }
