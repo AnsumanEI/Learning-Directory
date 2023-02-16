@@ -38,7 +38,7 @@ public:
                 lowdia[row + col] = 1;
                 updia[n - 1 + col - row] = 1;
                 solve(ans, board, col + 1, lowdia, updia, leftrow, n);
-                board[row][col] = '.';
+                board[row][col] = '_';
                 leftrow[row] = 0;
                 lowdia[row + col] = 0;
                 updia[n - 1 + col - row] = 0;
@@ -50,7 +50,7 @@ public:
     {
         vector<vector<string>> ans;
         vector<string> board(n);
-        string s(n, '.');
+        string s(n, '_');
         vector<int> lowdia(2 * n - 1, 0);
         vector<int> updia(2 * n - 1, 0);
         vector<int> leftrow(n, 0);
@@ -66,7 +66,7 @@ int main()
 {
     solution obj1;
     int n;
-    n = 100;
+    n = 8;
     vector<vector<string>> ans = obj1.helper(n);
     print(ans);
 
