@@ -110,5 +110,6 @@
   "blockman.n03MaxDepth": 11,
   "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
     "clang-diagnostic-error"
-  ]
+  ],
+  "C_Cpp.errorSquiggles": "enabled"
 }

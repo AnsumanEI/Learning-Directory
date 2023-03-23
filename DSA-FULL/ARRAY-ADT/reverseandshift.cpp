@@ -11,7 +11,7 @@ private:
 public:
     array1(int size = 10, int length = 0)
     {
-        this->size = size;
+        this->size = size
         this->length = length;
         a = new int[size];
     }
