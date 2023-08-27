@@ -8,6 +8,7 @@ int &call(int &x)
     int a;
     a = 10;
     x = a;
+    return x;
 }
 int main()
 {
@@ -16,7 +17,6 @@ int main()
 
     int b = 100;
     cout << call(b) << "\n";
-    cout << b;
     // value of call is now equal to b and can be edited as we can see that the 100 is changed ot 10 by the return of the reference
 
     return 0;
