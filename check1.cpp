@@ -7,6 +7,8 @@
 using namespace std;
 class Solution
 {
+    // first and last index
+
 private:
     int find_low(vector<int> &nums, int target, int left, int right)
     {

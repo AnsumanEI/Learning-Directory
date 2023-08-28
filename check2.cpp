@@ -7,6 +7,7 @@
 using namespace std;
 class Solution
 {
+    // first and last index
 private:
     int lower_bound(vector<int> &nums, int low, int high, int target)
     {
