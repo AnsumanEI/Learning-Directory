@@ -7,32 +7,29 @@
 using namespace std;
 class Solution
 {
-private:
-    int binarysearch(vector<int> &missing, int kth)
-    {
-    }
-
 public:
-    int findKthPositive(vector<int> &arr, int k)
+    long long mySqrt(int x)
     {
-        vector<int> missing;
-        for (int i = 1; i <= arr.size(); i++)
+        long long l = 1;
+        long long r = x;
+        long long mid = l + (r - l) / 2;
+        if (x <= 1)
+            return x;
+        while (l <= r)
         {
-            for (int j = 1; j < arr.size(); j++)
-            {
-                
-                if (arr[i - 1] != j)
-                {
-                   
-                }
-            }
+            mid = l + (r - l) / 2;
+            if (mid * mid == x)
+                return mid;
+            else if (mid * mid > x)
+                r = mid - 1;
+            else
+                l = mid + 1;
         }
+        return l - 1;
     }
 };
 int main()
 {
     Solution a;
-    vector<int> arr = {1, 3, 4, 5, 9, 11};
-    a.findKthPositive(arr, 6);
-    return 0;
+    cout << a.mySqrt(8);
 }
