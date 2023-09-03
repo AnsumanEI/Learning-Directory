@@ -11,7 +11,7 @@ int main()
     int n = 5;
     value = (int *)malloc(sizeof(int) * n);
     // or
-    int *value1 = new int[10]; // same as malloc
+    int *value1 = new int[8]; // same as malloc
     // realloc
     n = 10;
     value = (int *)realloc(value, sizeof(int) * n);

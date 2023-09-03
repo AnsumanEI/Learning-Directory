@@ -13,7 +13,7 @@
 #include <iomanip>
 
 using namespace std;
-struct data
+struct data1
 {
     string name;
     string id;
@@ -21,7 +21,8 @@ struct data
     int contact;
     int salary;
 };
-data e[500]; // 500 structures can be called
+
+data1 e[500]; // 500 structures can be called
 int employeequantity = 0;
 static int keymain;
 static int globalrevoke = 0;
