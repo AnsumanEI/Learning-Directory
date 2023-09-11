@@ -6,6 +6,7 @@
 #include <cstring>
 #define SIZE 10
 using namespace std;
+static int top;
 typedef struct main_stack
 {
     int arr_max[SIZE];
@@ -20,18 +21,17 @@ void push(struct main_stack *node, int num)
         cout << "OVERFLOW" << endl;
         node->top = -1;
     }
-    node->arr_max[node->top];
+    node->arr_max[node->top] = num;
     node->top += 1;
 }
-int pop(struct main_stack *node)
+void pop(struct main_stack *node)
 {
     if (node->top == -1)
     {
         cout << "UNDERFLOW" << endl;
     }
-    int temp = node->arr_max[node->top];
-    node->top += 1;
-    return temp;
+    ::top = node->arr_max[node->top - 1];
+    node->top -= 1;
 }
 void display(struct main_stack *node)
 {
@@ -44,14 +44,12 @@ void display(struct main_stack *node)
 int main()
 {
     struct main_stack one;
-
-    int close = 1;
 main:
+    system("cls");
     cout << " FOR PUSH PRESS 1 \n FOR POP PRESS 2 \n FOR DISPLAY PRESS 3 \n TO CLOSE PRESS 4 " << endl;
-
     int ch;
     cin >> ch;
-    while (close == 1)
+    while (1)
     {
         switch (ch)
         {
@@ -63,15 +61,18 @@ main:
             goto main;
             break;
         case 2:
-            cout << "popped number -> " << pop(&one);
+            pop(&one);
+            cout << "popped number -> " << ::top;
             goto main;
             break;
         case 3:
             display(&one);
+            char c;
+            cin >> c;
             goto main;
             break;
         case 4:
-            close = 0;
+            exit(0);
         default:
             break;
         }
