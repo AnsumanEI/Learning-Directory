@@ -16,9 +16,21 @@ public:
         this->data = data;
         this->nextlink = NULL;
     }
+    // destructor
+    ~node()
+    {
+        int value = this->data;
+        if (this->nextlink != NULL)
+        {
+            delete nextlink;
+            this->nextlink = NULL;
+            cout << "\n\t\tMemory is freed for this data -->" << value;
+        }
+    }
 };
 node *head;
 node *tail;
+// insertion and traversing
 ostream &operator<<(ostream &o, node &one)
 {
     o << "Data =" << one.data << endl;
@@ -75,6 +87,35 @@ void newatpos(int pos, int data)
     toinsert->nextlink = temp->nextlink;
     temp->nextlink = toinsert;
 }
+// deletion
+void deletepos(node *&head, int pos)
+{
+    if (pos == 1)
+    {
+        node *temp = head;
+        head = head->nextlink;
+        // memory free
+        temp->nextlink = NULL;
+        delete temp;
+    }
+    else
+    {
+        node *current = head;
+        node *prev = NULL;
+        int headpos = 1;
+        while (headpos < pos)
+        {
+            prev = current;
+            current = current->nextlink;
+            headpos++;
+        }
+        // to delete
+        prev->nextlink = current->nextlink;
+        current->nextlink = NULL;
+        delete current; // memory free
+    }
+}
+
 int main()
 {
     node *one = new node(10);
@@ -90,6 +131,10 @@ int main()
     newatpos(8, 40); // testing tail
     cout << *head;   // testign head after inserting from head
     cout << *tail;   // testing tail postn after insertion in tail
+    printll(head);
+    deletepos(head, 8);
+    cout << endl;
+    cout << *head;
     printll(head);
     return 0;
 }
