@@ -28,6 +28,7 @@ rational operator+(rational a, rational b)
 ostream &operator<<(ostream &o, rational &c)
 {
     o << c.num << "/" << c.den;
+    return o;
 }
 int main()
 {
@@ -35,8 +36,10 @@ int main()
     cin.tie(NULL);
     int x, y;
     int x1, y1;
-    cin >> x >> y;
-    cin >> x1 >> y1;
+    x = 1;
+    y = 2;
+    x1 = 1;
+    y1 = 2;
     rational c1(x, y);
     rational c2(x1, y1);
     rational c3;

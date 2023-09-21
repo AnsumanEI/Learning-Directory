@@ -6,7 +6,7 @@ using namespace std;
 class base
 {
 public:
-    int display()
+    virtual void display()
     {
         cout << "base class display" << endl;
     }
@@ -14,7 +14,7 @@ public:
 class derived : public base
 {
 public:
-    int display()
+    void display()
     {
         cout << "derived class display" << endl;
     }
