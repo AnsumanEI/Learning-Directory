@@ -18,6 +18,16 @@ public:
         this->prev = NULL;
         this->next = NULL;
     }
+    // destructor
+    ~node()
+    {
+        int value = this->data;
+
+        delete next;
+        next = NULL;
+
+        cout << " \n memory free for " << value << endl;
+    }
 };
 node *head;
 node *tail;
@@ -98,6 +108,37 @@ void newatpos(int pos, int data)
     temp->next = toinsert;
     toinsert->prev = temp;
 }
+void deleteatpos(node *&head, int pos)
+{
+    node *temp = head;
+    if (pos == 1)
+    {
+        head = head->next;
+        head->prev = NULL;
+        temp->next = NULL;
+        delete temp;
+    }
+    else
+    {
+        int count = 1;
+        node *current = head;
+        node *prev = NULL;
+        while (count < pos)
+        {
+            prev = current;
+            current = current->next;
+            count++;
+        }
+        if (current->next == NULL)
+        {
+            tail = prev;
+        }
+        prev->next = current->next;
+        current->prev = NULL;
+        current->next = NULL;
+        delete current;
+    }
+}
 int main()
 {
     node *one = new node(10);
@@ -109,14 +150,16 @@ int main()
 
     newattail(tail, 20);
     newattail(tail, 30);
-    newattail(tail, 40);
-
-    printf(head);
+    newattail(tail, 41);
 
     newatpos(1, 999);
     newatpos(3, 999);
     newatpos(10, 999);
+    deleteatpos(head, 1);
+    deleteatpos(head, 9);
+    deleteatpos(head, 2);
     printf(head);
+    cout << "\n Head ::" << head->data << " Tail ::" << tail->data << "\n";
     cout << " \n length ::" << getlength(head);
     return 0;
 }
