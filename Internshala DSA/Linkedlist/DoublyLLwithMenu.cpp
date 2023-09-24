@@ -5,6 +5,7 @@
 #include <string>
 #include <cstring>
 using namespace std;
+static bool create = false;
 class node
 {
 public:
@@ -30,22 +31,44 @@ public:
         cout << "\t\t\n Memory Freed for Value ::\n " << value;
     }
 };
+
 node *head;
 node *tail;
 
-void insertathead(int data)
+void createnode(int data)
+{
+    node *one = new node(data);
+    head = one;
+    create = false;
+}
+void insertathead(node *&head, int data)
 {
     node *temp = new node(data);
-};
-void insertattail(int data){};
-void insert(int data){};
-void shownode(){};
-void deletenode(int pos){};
-void printll(){};
-void lengthofll(){};
+    temp->prev = NULL;
+    head->prev = temp;
+    temp->next = head;
+    head = temp;
+}
+void insertattail(int data) {}
+void insert(int data) {}
+void shownode() {}
+void deletenode(int pos) {}
+void printll(node *&head)
+{
+    node *temp = head;
+    while (temp != NULL)
+    {
+        cout << "<---[" << temp->data << "]"
+             << "--->";
+        temp = temp->next;
+    }
+}
+void lengthofll() {}
 
-void insert int main()
+int main()
 {
 
+    insertathead(head, 1);
+    printll(head);
     return 0;
 }
