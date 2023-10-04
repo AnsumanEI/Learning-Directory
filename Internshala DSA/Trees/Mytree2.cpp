@@ -8,11 +8,11 @@ using namespace std;
 class node
 {
 public:
-    int data;
     node *left;
     node *right;
+    int data;
 
-    node(int data)
+    node(int data = 0)
     {
         this->data = data;
         left = NULL;
@@ -22,53 +22,21 @@ public:
 node *buildtree(node *&root)
 {
     int data;
-    cout << "enter data :" << endl;
+    cout << "Enter the data :";
     cin >> data;
-
+    cout << endl;
     root = new node(data);
     if (data == -1)
     {
         return NULL;
     }
-    cout << "enter the value for left of " << data << ":\n";
+    cout << "enter the data for left of " << root->left << endl;
     root->left = buildtree(root->left);
-
-    cout << "enter the value for right of " << data << ":\n";
+    cout << "enter the data for right of " << root->right << endl;
     root->right = buildtree(root->right);
     return root;
 }
-void buildfromlevelorder(node *&root)
-{
-    queue<node *> q;
-    cout << "\n enter the data :";
-    int data;
-    cin >> data;
-    root = new node(data);
-    q.push(root);
 
-    while (!q.empty())
-    {
-        node *temp = q.front();
-        q.pop();
-        cout << "enter left node for: " << temp->left << endl;
-        int leftdata;
-        cin >> leftdata;
-        if (leftdata != -1)
-        {
-            temp->left = new node(leftdata);
-            q.push(temp->left);
-        }
-
-        cout << "enter right node for: " << temp->right << endl;
-        int rightdata;
-        cin >> rightdata;
-        if (rightdata != -1)
-        {
-            temp->right = new node(rightdata);
-            q.push(temp->right);
-        }
-    }
-}
 void levelordertrav(node *root)
 {
     queue<node *> q;
@@ -78,7 +46,6 @@ void levelordertrav(node *root)
     {
         node *temp = q.front();
         q.pop();
-
         if (temp == NULL)
         {
             cout << endl;
@@ -100,12 +67,45 @@ void levelordertrav(node *root)
             }
         }
     }
-} // 1 2 3 -1 -1 4 -1 -1 5 6 -1 8 -1 -1 7 9 -1 -1 -1
+}
+
+void lvlordtravbuild(node *&root)
+{
+    queue<node *> q;
+    int data;
+    cout << "enter the data : ";
+    cin >> data;
+    root = new node(data);
+    q.push(root);
+
+    while (!q.empty())
+    {
+        node *temp = q.front();
+        q.pop();
+
+        cout << "enter left node for: " << temp->left << endl;
+        int leftdata;
+        cin >> leftdata;
+        if (leftdata != -1)
+        {
+            temp->left = new node(leftdata);
+            q.push(temp->left);
+        }
+
+        cout << "enter right node for: " << temp->right << endl;
+        int rightdata;
+        cin >> rightdata;
+        if (rightdata != -1)
+        {
+            temp->right = new node(rightdata);
+            q.push(temp->right);
+        }
+    }
+}
 int main()
 {
-    node *root;
-    buildtree(root);
-    cout << "print \n";
+    node *root = NULL;
+    root = buildtree(root);
     levelordertrav(root);
     return 0;
 }
