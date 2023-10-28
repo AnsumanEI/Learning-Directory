@@ -143,7 +143,6 @@ void travleaf(node *leaf, vector<int> &ans)
         travleaf(leaf->right, ans);
     }
 }
-
 void travright(node *right, vector<int> &ans)
 {
     if ((right == NULL) || (right->left == NULL && right->right == NULL))
@@ -215,6 +214,66 @@ vector<int> verticalorder(node *root)
             }
         }
     }
+    return ans;
+}
+vector<int> topview(node *root)
+{
+    vector<int> ans;
+    if (root == NULL)
+    {
+        return ans;
+    }
+    map<int, int> topnode;
+    queue<pair<node *, int>> q;
+    q.push(make_pair(root, 0));
+
+    while (!q.empty())
+    {
+        pair<node *, int> temp = q.front();
+        q.pop();
+        node *frontnode = temp.first;
+        int hd = temp.second;
+
+        if (topnode.find(hd) == topnode.end()) // if not found returns iterator to the last , if found returns to begining
+        {
+            topnode[hd] = frontnode->data;
+        }
+        if (frontnode->left)
+        {
+            q.push(make_pair(frontnode->left, hd - 1));
+        }
+        if (frontnode->right)
+        {
+            q.push(make_pair(frontnode->right, hd + 1));
+        }
+    }
+    for (auto i : topnode)
+    {
+        ans.push_back(i.second);
+    }
+    return ans;
+}
+vector<int> bottomview(node *root)
+{
+}
+void solve(node *root, vector<int> ans, int level)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    if (level == ans.size())
+    {
+        ans.push_back(root->data);
+    }
+    solve(root->left, ans, level + 1);
+    solve(root->right, ans, level + 1);
+}
+vector<int> leftview(node *root)
+{
+    vector<int> ans;
+    // can use level order traversal but using recursive way
+    solve(root, ans, 0);
     return ans;
 }
 
