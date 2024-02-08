@@ -22,7 +22,8 @@ vector<int> bubblesort(vector<int> &arr)
             }
         }
         if (count == 1) // so that if already sorted then no passes are used
-            return arr;
+            count--;
+        return arr;
     }
     return arr;
 }

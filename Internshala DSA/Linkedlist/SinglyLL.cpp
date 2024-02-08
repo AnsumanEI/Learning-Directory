@@ -36,7 +36,7 @@ ostream &operator<<(ostream &o, node &one)
     o << "Data =" << one.data << endl;
     return o;
 }
-void printll(node *&head)
+void printll(node *head)
 {
     node *temp = head;
     while (temp != NULL)

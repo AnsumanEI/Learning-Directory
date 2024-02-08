@@ -13,7 +13,6 @@ struct store
     int rear = -1;
     int arr[size];
 };
-store qu[10];
 void enqueue(struct store *one, int item)
 {
     if (one->front == 0 && one->rear == size - 1 || one->front == one->rear + 1)

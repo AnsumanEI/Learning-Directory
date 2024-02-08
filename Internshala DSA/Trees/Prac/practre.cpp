@@ -116,6 +116,7 @@ void displaylot(node *root)
             }
         }
     }
+    cout << endl;
 }
 int getheight(node *root)
 {
@@ -130,11 +131,47 @@ int getheight(node *root)
     int ans = max(left, right) + 1;
     return ans;
 }
+
+int diameternormal(node *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    int left = diameternormal(root->left);
+    int right = diameternormal(root->right);
+    int max1 = getheight(root->left) + getheight(root->right) + 1;
+    int ans = max(left, (right, max1));
+    return ans;
+}
+
+pair<int, int> diameterfast(node *root)
+{
+    if (root == NULL)
+    {
+        return make_pair(0, 0);
+    }
+    pair<int, int> left = diameterfast(root->left);
+    pair<int, int> right = diameterfast(root->right);
+
+    int op1 = left.first;
+    int op2 = right.first;
+    int max1 = left.second + right.second + 1;
+    pair<int, int> ans;
+    ans.first = max(op1, max(op2, max1));
+    ans.second = max(left.second, right.second) + 1;
+    return ans;
+}
+
 int main()
 {
     node *root = NULL;
-    // 1 2 4 -1 -1 -1 3 5 -1 -1 6 7 -1 -1 -1
-
+    // 1 2 3 -1 -1 4 5 -1 -1 -1 6 7 -1 -1 -1
+    buildtree(root);
+    system("CLS");
     displaylot(root);
+
+    cout << diameterfast(root).first;
+
     return 0;
 }
