@@ -8,5 +8,14 @@ public class stack {
         st.push(111);
         st.push(1111);
         st.push(11111);
+        System.out.println(st);
+
+        int val = st.get(3);
+        System.out.println(val);
+
+        System.out.println(st.peek());// displays the top element in the stack
+
+        System.out.println(st.pop());// pp removes the top value in the stack
+        System.out.println(st);
     }
 }
