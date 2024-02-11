@@ -1,0 +1,75 @@
+
+/* Add animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Apply animation to header and footer */
+header, footer {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Rest of your existing CSS */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-image: url('https://media.istockphoto.com/id/1322277517/photo/wild-grass-in-the-mountains-at-sunset.jpg?s=2048x2048&w=is&k=20&c=eBcsIJmWFYds4lRtGcQi8rRsXsdzBgacGRL4iUoFGgQ='); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+  background-size: cover;
+  background-position: center;
+  color: white; /* Set text color to white */
+}
+
+header {
+  background-color: rgba(0, 0, 0, 0.5); /* Use rgba for transparency */
+  color: white;
+  padding: 1rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+footer {
+  background-color: rgba(0, 0, 0, 0.5); /* Use rgba for transparency */
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 1rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+main {
+  padding: 2rem;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
