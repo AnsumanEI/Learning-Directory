@@ -34,6 +34,6 @@ int main()
     auto itr3 = m.find(4);
     auto pair2 = itr3;
     cout << pair2->first << " " << pair2->second;
-
+    map<pair<int, int>, pair<int, int>> m;
     return 0;
 }

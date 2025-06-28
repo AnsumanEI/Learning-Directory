@@ -21,7 +21,6 @@ int main()
         cout << *it << " ";
     }
     // it only returns one value hello as it is repeated many times
-
     cout << "check wether hello is present in the set or not - > " << s.count("hello") << endl; // returns one so it is present
     // find returns the iterator if the value is present
     set<string>::iterator itr = s.find("hello");
