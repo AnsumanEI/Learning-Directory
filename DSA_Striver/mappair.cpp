@@ -9,5 +9,6 @@ int main()
 {
     map<pair<int, int>, pair<int, int>> m;
     m.insert(pair<int, int>(1, 1), pair<int, int>(1, 1));
+    cout << "hello";
     return 0;
 }
