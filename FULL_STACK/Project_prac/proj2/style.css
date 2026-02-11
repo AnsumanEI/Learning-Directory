@@ -1,0 +1,81 @@
+/* *{univeral selector} 
+*/
+body{
+    background-color: antiquewhite;
+    color: black;
+    font-family: "poppins" , Times , serif;
+}
+.hero{
+    padding: 100px;
+}
+.hero-title{
+    color: black;
+
+}
+.hero-description
+{
+    color: #81da76;
+}
+.hero-highlight
+{
+    color: antiquewhite;
+}
+.feature
+{
+ padding: 100px;
+}
+.feature-item{
+    padding: 30px 0;
+}
+.feature-title
+{
+    font-size: 2.2rem;
+    font-weight: 450 ;
+    text-transform: uppercase;
+    color: rgb(87, 231, 51);
+    margin-bottom: 5px;
+    
+}
+.feature-title-selected
+{
+text-decoration: underline;
+}
+.feature-description
+{
+    text-align: right;
+    letter-spacing: 0.1rem;
+    line-height: 1.2rem;
+    /*white-space: nowrap; , pre-wrap */
+
+}
+.cta
+{
+    padding: 100px;
+   background-color: rgba(87, 231, 51, 0.856);
+    color: whitesmoke;
+    text-align: center;
+    border-radius: 400px 50px 400px 50px;
+    box-shadow: 5px 5px 10px black;
+
+}
+.cta-description
+{
+    padding: 10px;
+    text-shadow: 5px 5px 4px black ;
+
+}
+.cta-title
+{
+    text-shadow: 5px 5px 10px black ;
+}
+button
+{
+    color: none;
+    border: none;
+}
+.cta-button
+{
+    padding: 10px;
+    border-radius: 40px 10px 40px 10px;
+    box-shadow: 5px 5px 15px black ;
+}
