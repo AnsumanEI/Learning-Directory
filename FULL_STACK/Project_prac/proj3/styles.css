@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body{
-    background-color: blanchedalmond;
+    background-color: rgb(224, 166, 78);
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -12,7 +12,27 @@ body{
 }
 .box-model
 {
-    margin: 100px;
-    background-color: black;
     
+    background-color: rgb(27, 85, 247);
+    padding: 40px;
+    
+ 
+
+}
+.padding
+{
+    background-color: aqua;
+    padding: 40px;
+    
+}
+.border
+{
+    background-color: blueviolet;
+   padding: 40px;
+}
+.margin
+{
+    background-color: greenyellow;
+    padding: 20px;
+    padding-left: 300px;
 }
