@@ -1,0 +1,9 @@
+*.exe
+*.out
+*.o
+*.class
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+node_modules/
