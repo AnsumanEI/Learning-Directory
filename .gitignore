@@ -1,9 +1,37 @@
+# Compiled binaries
 *.exe
 *.out
 *.o
 *.class
+
+# IDE and editor files
 .vscode/
+.vs/
 .idea/
+*.suo
+*.user
+CppProperties.json
+*.vsidx
+*.ipch
+*.wsuo
+*.db
+*.sqlite
+read.lock
+*.lock
+
+# OS files
 .DS_Store
 Thumbs.db
+
+# Temp files
 tempCodeRunnerFile*
+
+# Media files (only code in this repo)
+*.mp3
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.asp
+*.php
