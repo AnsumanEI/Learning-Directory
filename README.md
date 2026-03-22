@@ -109,38 +109,33 @@
 │   ├── find-max-of-three-numbers.cpp   Max of three using ternary
 │   └── pre-increment-demo.cpp          Pre-increment and print
 │
-├── 07_projects/                        Showpiece projects
-│   ├── employee-management-system-final.cpp    Full EMS with structs and class methods
-│   ├── sorting-visualizer-sfml.cpp             SFML insertion sort visualizer
-│   └── tetris-game.cpp                         Tetris game in C++
-│
-└── NIT-RKL-Internship/                 NIT Rourkela Internship 2024
-    ├── Smart-Traffic-System/           ESP32 dynamic traffic light controller
-    │   ├── firmware/                   Arduino sketches (v1.1 → v1.5 → Blynk)
-    │   └── docs/                       Internship report, college report, abstract
-    ├── IoT-Lab-Experiments/            Sensor & communication experiments
-    │   ├── FSO-Data-Transmission/      Free Space Optics with laser + LDR
-    │   ├── SD-Card-Write/              SPI data logging to SD card
-    │   ├── SD-Card-Read-HexToOLED/     I2C OLED display with SD card read
-    │   ├── DHT11-SD-Card/              Temperature/humidity logging
-    │   └── IMU-Sensor-Monitoring/      MPU9250 + Node.js + ThingSpeak
-    ├── IMU-NodeJS-Server/              Node.js + WebSocket live sensor server
-    └── docs/                           Letter of Recommendation, IoT Lab Manual
+└── 07_projects/                        Showpiece projects
+    ├── employee-management-system-final.cpp    Full EMS with structs and class methods
+    ├── sorting-visualizer-sfml.cpp             SFML insertion sort visualizer
+    ├── tetris-game.cpp                         Tetris game in C++
+    │
+    └── NIT-RKL-Internship/             NIT Rourkela Internship 2024
+        ├── 01_EWARN-IoT-Development-Kit/       33 experiments on the EWARN IoT board
+        │   ├── experiments/                    01-ESP32-Setup → 33-ThingSpeak-RelayToggle
+        │   ├── IMU-NodeJS-Server/              Node.js + WebSocket live sensor dashboard
+        │   └── docs/                           EWARN board manual, IoT lab manual
+        ├── 02_Smart-Traffic-System/            ESP32 dynamic traffic light controller
+        │   ├── firmware/                       Arduino sketches (v1.1 → v1.5 → Blynk)
+        │   ├── web-interface/                  Standalone Traffic.html dashboard
+        │   └── docs/                           Internship report, college report, abstract
+        └── docs/                               Letter of Recommendation
 ```
 
 ---
 
 ## Highlighted Projects
 
-### ESP32 Smart Traffic Light System (`NIT-RKL-Internship/Smart-Traffic-System/`)
-A 4-intersection dynamic traffic light controller built on the ESP32 during a research internship
-at NIT Rourkela (May–July 2024) under Dr. Santos Kumar Das, Dept. of ECE.
+### 🔬 NIT Rourkela Internship 2024 (`07_projects/NIT-RKL-Internship/`)
+A full research internship at NIT Rourkela under Dr. Santos Kumar Das, Dept. of ECE (May–July 2024), consisting of two projects:
 
-The ESP32 hosts a real-time web dashboard over WiFi with two operating modes — time-based cycling
-and vehicle-density-based priority signalling. The Blynk version adds IR sensor input, emergency
-vehicle priority, and peak-hour profiles. Firmware went through 4 iterations (v1.1 → v1.5 → Blynk).
+**EWARN IoT Development Kit** — 33 hands-on experiments covering every sensor and communication module on the custom EWARN ESP32 board: DHT11, BMP180, MPU9250 IMU, SSD1306 OLED, SD Card, Relay, LM386 Speaker, Bluetooth, GSM A7672S, LoRa (868 MHz), and FSO (Free Space Optics). Experiments range from basic GPIO to sending SMS accident alerts and transmitting data over laser beams.
 
-Demonstrates: ESP32, WiFi, HTTP, AsyncWebServer, ArduinoJson, Blynk IoT, IR sensors, real-time web UI.
+**ESP32 Smart Traffic Light System** — A 4-intersection dynamic traffic light controller. The ESP32 hosts a real-time web dashboard over WiFi with time-based and vehicle-density-based signal modes. The Blynk version adds IR sensor input, emergency vehicle priority, and peak-hour profiles. Firmware evolved through 5 iterations (v1.1 → v1.5 → Blynk).
 
 ### Employee Management System (`07_projects/employee-management-system-final.cpp`)
 A terminal-based C++ application that manages employee records using structs and classes.
@@ -177,7 +172,7 @@ pieces. Demonstrates: game logic structure, wide character rendering, piece rota
 
 - **Languages:** C, C++, HTML, CSS, JavaScript, Arduino (C++)
 - **Libraries:** STL, SFML, ESPAsyncWebServer, ArduinoJson, Blynk, `<bits/stdc++.h>`
-- **Concepts:** OOP, Recursion, Backtracking, Binary Search, Trees, Linked Lists, STL containers, File I/O, Templates, Operator Overloading, Smart Pointers, Lambda Expressions, IoT, WiFi Protocols, WebSockets
+- **Concepts:** OOP, Recursion, Backtracking, Binary Search, Trees, Linked Lists, STL containers, File I/O, Templates, Operator Overloading, Smart Pointers, Lambda Expressions, IoT, WiFi Protocols, WebSockets, GSM, LoRa, FSO
 - **Tools:** GCC, Git, VS Code, Arduino IDE, Node.js
 
 ---
@@ -195,5 +190,5 @@ g++ 01_languages/cpp/26-stl/stl-vector.cpp -o stl-vector
 g++ 07_projects/sorting-visualizer-sfml.cpp -lsfml-graphics -lsfml-window -lsfml-system -o sorting-visualizer
 
 # Run the IMU Node.js server
-cd NIT-RKL-Internship/IMU-NodeJS-Server && npm install && node server.js
+cd 07_projects/NIT-RKL-Internship/01_EWARN-IoT-Development-Kit/IMU-NodeJS-Server && npm install && node server.js
 ```
