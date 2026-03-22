@@ -1,7 +1,7 @@
 # Programming & DSA Learning Repository
 
 > A structured collection of programs covering C, C++, Data Structures & Algorithms,
-> Web Development, and personal projects — built during active learning and
+> Web Development, IoT & Embedded Systems, and personal projects — built during active learning and
 > organized for easy reference and recruiter review.
 
 ---
@@ -109,15 +109,38 @@
 │   ├── find-max-of-three-numbers.cpp   Max of three using ternary
 │   └── pre-increment-demo.cpp          Pre-increment and print
 │
-└── 07_projects/                        Showpiece projects
-    ├── employee-management-system-final.cpp    Full EMS with structs and class methods
-    ├── sorting-visualizer-sfml.cpp             SFML insertion sort visualizer
-    └── tetris-game.cpp                         Tetris game in C++
+├── 07_projects/                        Showpiece projects
+│   ├── employee-management-system-final.cpp    Full EMS with structs and class methods
+│   ├── sorting-visualizer-sfml.cpp             SFML insertion sort visualizer
+│   └── tetris-game.cpp                         Tetris game in C++
+│
+└── NIT-RKL-Internship/                 NIT Rourkela Internship 2024
+    ├── Smart-Traffic-System/           ESP32 dynamic traffic light controller
+    │   ├── firmware/                   Arduino sketches (v1.1 → v1.5 → Blynk)
+    │   └── docs/                       Internship report, college report, abstract
+    ├── IoT-Lab-Experiments/            Sensor & communication experiments
+    │   ├── FSO-Data-Transmission/      Free Space Optics with laser + LDR
+    │   ├── SD-Card-Write/              SPI data logging to SD card
+    │   ├── SD-Card-Read-HexToOLED/     I2C OLED display with SD card read
+    │   ├── DHT11-SD-Card/              Temperature/humidity logging
+    │   └── IMU-Sensor-Monitoring/      MPU9250 + Node.js + ThingSpeak
+    ├── IMU-NodeJS-Server/              Node.js + WebSocket live sensor server
+    └── docs/                           Letter of Recommendation, IoT Lab Manual
 ```
 
 ---
 
 ## Highlighted Projects
+
+### ESP32 Smart Traffic Light System (`NIT-RKL-Internship/Smart-Traffic-System/`)
+A 4-intersection dynamic traffic light controller built on the ESP32 during a research internship
+at NIT Rourkela (May–July 2024) under Dr. Santos Kumar Das, Dept. of ECE.
+
+The ESP32 hosts a real-time web dashboard over WiFi with two operating modes — time-based cycling
+and vehicle-density-based priority signalling. The Blynk version adds IR sensor input, emergency
+vehicle priority, and peak-hour profiles. Firmware went through 4 iterations (v1.1 → v1.5 → Blynk).
+
+Demonstrates: ESP32, WiFi, HTTP, AsyncWebServer, ArduinoJson, Blynk IoT, IR sensors, real-time web UI.
 
 ### Employee Management System (`07_projects/employee-management-system-final.cpp`)
 A terminal-based C++ application that manages employee records using structs and classes.
@@ -152,10 +175,10 @@ pieces. Demonstrates: game logic structure, wide character rendering, piece rota
 
 ## Languages & Tools
 
-- **Languages:** C, C++, HTML, CSS, JavaScript
-- **Libraries:** STL, SFML (graphics), `<bits/stdc++.h>`
-- **Concepts:** OOP, Recursion, Backtracking, Binary Search, Trees, Linked Lists, STL containers, File I/O, Templates, Operator Overloading, Smart Pointers, Lambda Expressions
-- **Tools:** GCC, Git, VS Code
+- **Languages:** C, C++, HTML, CSS, JavaScript, Arduino (C++)
+- **Libraries:** STL, SFML, ESPAsyncWebServer, ArduinoJson, Blynk, `<bits/stdc++.h>`
+- **Concepts:** OOP, Recursion, Backtracking, Binary Search, Trees, Linked Lists, STL containers, File I/O, Templates, Operator Overloading, Smart Pointers, Lambda Expressions, IoT, WiFi Protocols, WebSockets
+- **Tools:** GCC, Git, VS Code, Arduino IDE, Node.js
 
 ---
 
@@ -170,4 +193,7 @@ g++ 01_languages/cpp/26-stl/stl-vector.cpp -o stl-vector
 
 # Compile SFML project (requires SFML installed)
 g++ 07_projects/sorting-visualizer-sfml.cpp -lsfml-graphics -lsfml-window -lsfml-system -o sorting-visualizer
+
+# Run the IMU Node.js server
+cd NIT-RKL-Internship/IMU-NodeJS-Server && npm install && node server.js
 ```
