@@ -1,1 +1,0 @@
-cout<<admission::getadm()<<endl;
