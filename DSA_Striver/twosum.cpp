@@ -15,7 +15,7 @@ public:
         for (int i = 0; i < n; i++)
         {
             int more = target - nums[i];
-            cout << "more " << more;
+            cout << more << " more " << endl;
             if (m.find(more) != m.end())
             {
                 return {m[more], i};
