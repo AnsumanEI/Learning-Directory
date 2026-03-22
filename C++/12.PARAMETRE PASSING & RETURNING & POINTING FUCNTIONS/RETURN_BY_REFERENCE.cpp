@@ -8,6 +8,7 @@ int &call(int &x)
     int a;
     a = 10;
     x = a;
+    x = 1000;
     return x;
 }
 int main()

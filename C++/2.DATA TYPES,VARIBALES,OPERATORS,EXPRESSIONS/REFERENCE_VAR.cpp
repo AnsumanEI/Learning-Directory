@@ -10,5 +10,6 @@ int main()
     cout << y << endl;
     cout << &x << " " << &y << endl;
     cout << y++ << " " << x << endl;
+    cout << y;
     return 0;
 }

@@ -49,10 +49,12 @@ public:
 int rectangle::setLength(int length)
 {
     this->length = length;
+    return 0;
 }
 int rectangle::setBreadth(int breadth)
 {
     this->breadth = breadth;
+    return 0;
 }
 int rectangle::area()
 {
@@ -74,6 +76,7 @@ bool rectangle::isSquare()
 int cuboid::setHeight(int height)
 {
     this->height = height;
+    return 0;
 }
 int cuboid::volume()
 {
@@ -87,8 +90,11 @@ int main()
     cuboid c1;
     r1.setBreadth(10);
     r1.setLength(10);
+    c1.setLength(10);
+    c1.setBreadth(10);
     c1.setHeight(10);
     cout << c1.volume() << endl;
+    cout << c1.area();
 
     return 0;
 }

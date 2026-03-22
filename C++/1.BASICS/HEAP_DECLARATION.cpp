@@ -10,7 +10,7 @@ int main()
          << "p ->" << &*p << "\n" // address of the heap
          << "&* ->" << &*(p + 1) << "\n"
          << "&p[] ->" << &p[1] << endl; // 2nd and third are the same way of diffrent things
-
+    *(p + 1) = 100;
     for (int i = 0; i < 5; i++)
     {
         cout << *(p + i) << endl;
