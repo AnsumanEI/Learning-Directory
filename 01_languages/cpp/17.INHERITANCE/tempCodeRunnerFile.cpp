@@ -1,1 +1,0 @@
-: employeedata(eid1, employeename)
