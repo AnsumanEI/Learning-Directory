@@ -1,8 +1,8 @@
 # Programming & DSA Learning Repository
 
-> A comprehensive, well-organized collection of programs covering C, C++, Java,
-> Data Structures & Algorithms, Web Development, and personal projects.
-> Built during active learning — structured for easy reference and recruiter review.
+> A structured collection of programs covering C, C++, Data Structures & Algorithms,
+> Web Development, and personal projects — built during active learning and
+> organized for easy reference and recruiter review.
 
 ---
 
@@ -11,278 +11,163 @@
 ```
 .
 ├── 01_languages/
-│   ├── c/                          C language fundamentals
-│   │   ├── 01-hello-world.c        ...through...
-│   │   ├── 19-uppercase-...c       19 progressively numbered basics files
-│   │   ├── chapter 4/              Loops — for, while, break, continue
-│   │   ├── chapter 5/              Functions — prototypes, recursion, return
-│   │   ├── chapter 6/              Pointers — basics, call by ref, practice
-│   │   ├── chapter 7/              Arrays — input, traversal, pointer arithmetic
-│   │   ├── chapter-4-loops/        Loop exercises (alternate set)
-│   │   ├── misc-practice/          Miscellaneous practice problems
-│   │   └── projects of c programme/ Mini C projects
+│   ├── c/                              C language fundamentals
+│   │   ├── 01-hello-world.c
+│   │   ├── 02-variables-and-datatypes.c
+│   │   ├── 03-addition-of-two-numbers.c
+│   │   ├── 04-user-input-and-sum.c
+│   │   ├── 05-arithmetic-operators-practice.c
+│   │   ├── 06-arithmetic-operators.c
+│   │   ├── 07-operator-precedence.c
+│   │   ├── 08-even-odd-check.c
+│   │   ├── 09-logical-operators.c
+│   │   ├── 10-ternary-operator.c
+│   │   ├── 11-switch-case.c
+│   │   ├── 12-while-loop.c
+│   │   ├── 13-area-of-rectangle.c
+│   │   ├── 14-area-of-circle.c
+│   │   ├── 15-celsius-to-fahrenheit.c
+│   │   ├── 16-bitwise-and-divisibility.c
+│   │   ├── 17-basic-calculator.c
+│   │   ├── 18-grade-calculator.c
+│   │   ├── 19-age-check-if-else.c
+│   │   ├── 20-marks-percentage.c
+│   │   ├── 21-income-tax-calculator.c
+│   │   ├── 22-leap-year-check.c
+│   │   ├── 23-find-greatest-of-four.c
+│   │   ├── 24-uppercase-lowercase-check.c
+│   │   ├── ch04-loops/                 for, while, do-while, break, table printing
+│   │   ├── ch05-functions/             prototypes, call-by-value, recursion, return values
+│   │   ├── ch06-pointers/              pointer basics, call by reference
+│   │   ├── ch07-arrays/                array input, traversal, pointer arithmetic
+│   │   ├── misc-practice/              additional exercises
+│   │   └── c-projects/                 mini C projects
 │   │
-│   ├── cpp/                        C++ — full course (27 chapters)
-│   │   ├── 1.BASICS/               Hello World, I/O, declarations
-│   │   ├── 2.DATA TYPES,.../       Variables, operators, scope resolution
-│   │   ├── 3.ENUM,TYPEDEF/         Enums and typedefs
-│   │   ├── 4.CONDITIONAL STATEMENTS/ If-else, switch
-│   │   ├── 5.SHORT CIRCUIT,SWITCH/ Short circuit evaluation
-│   │   ├── 7.ARRAYS/               1D, 2D arrays, matrix operations
-│   │   ├── 8.POINTERS BASIC ONLY/  Pointer basics and arithmetic
-│   │   ├── 9.STRINGS/              C-style string functions
-│   │   ├── 10.CLASS STRINGS.../    String class, iterators
-│   │   ├── 11.FUNCTION/            Functions — overloading, templates, linear search
-│   │   ├── 12.PARAMETRE PASSING/   Call by address, return by reference
-│   │   ├── 13.RECURSIONS/          Recursive functions, sorting, min ways
-│   │   ├── 14.OOPS/                Classes, constructors, deep copy, this pointer
-│   │   ├── 15.DATA HANDLING/       Data handling, structure vs class
-│   │   ├── 16.OVERLOADING/         Operator overloading, friend functions
-│   │   ├── 17.INHERITANCE/         Access specifiers, constructors, rectangle-cuboid
-│   │   ├── 18.BASE CLASS.../       Base class pointers, derived class objects
-│   │   ├── 19.POLYMORPHISM/        Virtual functions, abstract class, overriding
-│   │   ├── 20.FRIEND AND STATIC/   Friend functions, static members
-│   │   ├── 21.EXCEPTION HANDLING/  Try-catch, throw, stack overflow/underflow
-│   │   ├── 22.TEMPLATE CLASS/      Generic stack using templates
-│   │   ├── 23.CONSTANTS.../        const, preprocessors, namespaces
-│   │   ├── 24.DESTRUCTOR.../       Destructors, virtual destructors
-│   │   ├── 25.IOSTREAMS/           File I/O, streams, serialisation
-│   │   ├── 26.STL/                 Vector, Map, Set, Queue, Stack, Deque, Priority Queue
-│   │   ├── 27.c++11/               Auto, lambda, smart pointers, final keyword
-│   │   └── QUESTIONS/              50+ practice problems (palindrome, factorial, etc.)
-│   │
-│   └── java/                       Java fundamentals
-│       ├── BasicInputOutput.java   Scanner, input/output
-│       ├── StringBasics.java       String methods, charAt, length
-│       ├── StringMethods.java      toUpperCase, contains, charAt
-│       ├── StringBuilderDemo.java  StringBuilder vs String performance
-│       ├── StringVsStringBuilderPerf.java  Benchmark comparison
-│       ├── SubstringAndSplitDemo.java      substring, split
-│       ├── StringMemoryConceptDemo.java    String interning, hashCode
-│       ├── ArraysDemo.java         Arrays.sort, Arrays.fill
-│       ├── ArrayListDemo.java      ArrayList operations
-│       ├── TwoDArraysDemo.java     2D arrays, jagged arrays
-│       ├── HashMapDemo.java        HashMap operations, keySet
-│       ├── StackDemo.java          Stack push/pop/peek
-│       ├── QueueDemo.java          ArrayDeque as Queue
-│       ├── PriorityQueueDemo.java  Min/Max heap
-│       ├── ScannerInputDemo.java   Scanner with next/nextInt/nextDouble
-│       ├── StaticMethodsAndSwap.java  Static methods, swap
-│       ├── DefaultValuesDemo.java  Default values of Java types
-│       ├── Car.java                OOP — Car class with constructor
-│       ├── CircleClass.java        OOP — Circle with area/perimeter
-│       ├── PointClass.java         OOP — Point class
-│       ├── ObjectInitialisationDemo.java  Object creation, method calls
-│       └── javatcs/                Java OOP practice package (Car + Main)
+│   └── cpp/                            C++ — complete course (27 chapters)
+│       ├── 01-basics/                  Hello World, I/O, heap/stack declaration
+│       ├── 02-data-types-variables/    Variables, operators, scope resolution
+│       ├── 03-enum-typedef/            Enums and typedefs
+│       ├── 04-conditional-statements/  If-else, switch, income tax example
+│       ├── 05-short-circuit-switch/    Short circuit evaluation, switch calculator
+│       ├── 07-arrays/                  1D & 2D arrays, matrix, range-based for
+│       ├── 08-pointers/                Pointer basics and arithmetic
+│       ├── 09-strings-cstyle/          C-style string functions
+│       ├── 10-strings-class/           String class, iterators, append/replace
+│       ├── 11-functions/               Functions, overloading, templates, linear search
+│       ├── 12-parameter-passing/       Call by address, return by address/reference
+│       ├── 13-recursion/               Recursive functions, Fibonacci, N-Queens approach
+│       ├── 14-oops/                    Classes, constructors, destructors, this pointer
+│       ├── 15-data-handling/           Data handling, struct vs class
+│       ├── 16-operator-overloading/    Operator overloading, friend functions
+│       ├── 17-inheritance/             Single, multiple, multilevel inheritance
+│       ├── 18-virtual-functions/       Virtual functions, polymorphism
+│       ├── 19-exception-handling/      Try-catch, custom exceptions
+│       ├── 20-file-handling/           File I/O, fstream
+│       ├── 21-templates/               Function and class templates
+│       ├── 22-std/                     Standard library utilities
+│       ├── 23-iterators/               Iterator types and usage
+│       ├── 24-sorting/                 Sorting algorithms
+│       ├── 25-searching/               Searching algorithms
+│       ├── 26-stl/                     Vector, Stack, Queue, Set, Map, Priority Queue
+│       └── 27-cpp11-modern/            auto, lambda, smart pointers, final keyword
 │
 ├── 02_dsa/
-│   ├── binary-search/              11 LeetCode Binary Search problems
-│   │   ├── lc33-...cpp             Search in Rotated Sorted Array
-│   │   ├── lc34-...cpp (x2)        First and Last Position (2 approaches)
-│   │   ├── lc69-...cpp             Sqrt(x)
-│   │   ├── lc275-...cpp            H-Index II
-│   │   ├── lc278-...cpp            First Bad Version
-│   │   ├── lc374-...cpp            Guess Number Higher or Lower
-│   │   ├── lc436-...cpp            Find Right Interval
-│   │   ├── lc441-...cpp            Arranging Coins
-│   │   ├── lc540-...cpp            Single Element in Sorted Array
-│   │   └── lc1337-...cpp           K Weakest Rows in Matrix
-│   │
-│   ├── core/                       DSA fundamentals
-│   │   ├── array-insert-element.cpp        Insert element at position
-│   │   ├── array-insert-at-index.cpp       Insert at specific index
-│   │   ├── linked-list-implementation.cpp  Singly LL with malloc
-│   │   ├── linked-list-node-struct.cpp     LL node struct
-│   │   ├── pointer-to-1d-array.cpp         Pointer-array relationship
-│   │   ├── pointer-to-2d-array.cpp         2D array with pointer
-│   │   └── DSA 2.0/                        DSA 2.0 course files
-│   │       ├── binary-search-basics.cpp
-│   │       ├── binary-search-exercise.cpp
-│   │       ├── bst-using-recursion.cpp
-│   │       ├── 2D ARRAY/
-│   │       └── RECURSION/                  Full recursion series
-│   │           ├── head/tail/tree/...
-│   │           └── questions/              Recursion problem set
-│   │
-│   ├── complete-course/            Complete DSA course
-│   │   ├── ARRAY-ADT/              Abstract data type, binary/linear search
-│   │   ├── MATHS/                  GCD, primality, sieve, modular arithmetic
-│   │   ├── RECURSION/              N-Queens, subsets, permutations, backtracking
-│   │   ├── STL/                    STL algorithms, pairs, vectors
-│   │   └── PRAC/                   Practice problems
-│   │
-│   └── stl-cheatsheet/             C++ STL quick reference (Markdown)
+│   ├── binary-search/                  LeetCode binary search problems
+│   │   ├── lc374-guess-number.cpp
+│   │   ├── lc436-find-right-interval.cpp
+│   │   ├── lc441-arranging-coins.cpp
+│   │   ├── lc540-single-element-sorted-array.cpp
+│   │   └── lc69-sqrt-integer.cpp
+│   ├── complete-course/                Full DSA course implementations
+│   │   ├── ARRAY-ADT/                  Abstract data type arrays, binary/linear search
+│   │   ├── MATHS/                      GCD, modular arithmetic, power, primality
+│   │   ├── PRAC/                       Competitive programming practice
+│   │   └── RECURSION/                  Recursion, backtracking, N-Queens, combination sum
+│   └── leetcode/
+│       └── arrays/                     LeetCode array problems (Two Sum, etc.)
 │
 ├── 03_courses/
-│   ├── internshala/                Internshala DSA course
-│   │   ├── Array/                  Max, sum, transpose
-│   │   ├── Function/               Call by address/ref, scope, pointer-to-fn
-│   │   ├── Graphs/                 Graph creation (adjacency list)
-│   │   ├── Linkedlist/             Singly, Doubly, Circular LL
-│   │   ├── Pointers/               Pointer basics, dynamic memory
-│   │   ├── Queue/                  Circular queue implementation
-│   │   ├── Sorting/                Bubble, insertion, selection sort
-│   │   ├── Stacks/                 Stack implementation
-│   │   ├── Structures/             Struct basics
-│   │   ├── Trees/                  Binary tree, height, traversal, N-Queens
-│   │   └── search/                 Binary and linear search
-│   │
-│   ├── striver-a2z/                Striver A2Z DSA Sheet
-│   │   ├── lc1-two-sum-hashmap.cpp LeetCode 1 — Two Sum (HashMap approach)
-│   │   └── map-of-pairs.cpp        Map with pair keys
-│   │
-│   └── supreme-batch/              Love Babbar Supreme Batch
-│       ├── binary-search-template.cpp         BS template
-│       ├── find-right-interval.cpp            LC 436
-│       └── find-smallest-letter-greater-than-target.cpp  LC 744
-│
-├── 04_interview-prep/
-│   └── cc-qna/                     Competitive coding problems
-│       ├── basic-output-and-loop.cpp
-│       ├── array-processing-testcases.cpp
-│       ├── count-interior-lattice-points.cpp
-│       ├── digit-count-of-difference.cpp
-│       ├── digit-count.cpp
-│       ├── find-minimum-skill.cpp
-│       ├── matrix-multiplication.cpp
-│       ├── nearest-multiple-of-five.cpp
-│       ├── print-numbers-1-to-10.cpp
-│       ├── sieve-of-eratosthenes.cpp
-│       ├── song-key-matching.cpp
-│       ├── sort-class-implementation.cpp
-│       ├── string-split-count.cpp
-│       ├── target-search-in-array.cpp
-│       └── vector-input-processing.cpp
+│   ├── internshala/                    Internshala DSA course
+│   │   ├── search/                     Linear search, binary search
+│   │   ├── Structures/                 C++ structs, IELTS band calculator
+│   │   └── Trees/                      Binary tree creation, traversal, height, zigzag
+│   ├── striver-a2z/                    Striver A2Z DSA sheet
+│   │   └── lc1-two-sum-hashmap.cpp
+│   └── supreme-batch/                  Supreme Batch (Babbar) DSA
+│       └── binary-search-template.cpp
 │
 ├── 05_web/
-│   ├── html-basics/                HTML fundamentals (older set)
-│   │   ├── html-basics-1.html      ...through...
-│   │   ├── html-text-formatting.html  19 topic-named HTML files
-│   │   ├── biodata-svg-practice.html  SVG + biodata layout
-│   │   ├── internal-external-css-demo.html
-│   │   ├── transparent-button-demo.html  (with linked CSS + JS)
-│   │   ├── script.js               Dark mode toggle
-│   │   └── styles.css              Animated fade-in, background image
-│   │
-│   └── full-stack/                 Full-stack course files
-│       ├── HTML5/                  Complete HTML5 — forms, tables, audio, video
-│       ├── CSS/                    CSS — inline, internal, external, float, overflow
-│       └── Project_prac/
-│           ├── proj1/              Ultimatix Dashboard (HTML + CSS)
-│           ├── proj2/              Empower Young Minds (HTML + CSS + Font Awesome)
-│           └── proj3/              CSS Box Model visualiser
+│   ├── html-basics/                    HTML fundamentals, CSS, JS toggle
+│   │   ├── transparent-button-demo.html
+│   │   ├── project-practice-1.html
+│   │   ├── styles.css
+│   │   └── script.js
+│   └── full-stack/                     Full-stack experiments
 │
-├── 06_college/
-│   ├── increment-and-print.cpp     Pre-increment demo
-│   ├── find-max-of-three-numbers.cpp  Ternary operator max of 3
-│   └── dynamic-array-input.cpp     Dynamic array with new[]
+├── 06_college/                         College assignment programs (C++)
+│   ├── dynamic-array-heap-input.cpp    Heap-allocated array with user input
+│   ├── find-max-of-three-numbers.cpp   Max of three using ternary
+│   └── pre-increment-demo.cpp          Pre-increment and print
 │
-├── 07_projects/
-│   ├── employee-management-system-v1.cpp    EMS with struct, class, Sleep()
-│   ├── employee-management-system-final.cpp EMS final version
-│   ├── sorting-visualizer-sfml.cpp          Insertion sort visualizer (SFML)
-│   └── tetris-game.cpp                      Tetris game logic (wide strings)
-│
-└── Phase-1/
-    └── lc1-two-sum-brute.cpp       Two Sum — brute force skeleton
+└── 07_projects/                        Showpiece projects
+    ├── employee-management-system-final.cpp    Full EMS with structs and class methods
+    ├── sorting-visualizer-sfml.cpp             SFML insertion sort visualizer
+    └── tetris-game.cpp                         Tetris game in C++
 ```
 
 ---
 
-## Topics Covered
+## Highlighted Projects
 
-| Area | Topics |
-|------|--------|
-| **C** | Variables, operators, conditionals, loops, functions, pointers, arrays |
-| **C++** | All of the above + OOPs, inheritance, polymorphism, templates, STL, file I/O, C++11 |
-| **Java** | I/O, strings, arrays, collections (ArrayList, HashMap, Stack, Queue, PriorityQueue), OOPs |
-| **DSA** | Arrays, Linked Lists (Singly/Doubly/Circular), Stacks, Queues, Sorting, Binary Search, Recursion, Trees, Graphs |
-| **Web** | HTML5, CSS3 (inline/internal/external), JavaScript basics |
-| **Projects** | Employee Management System (C++), Sorting Visualizer (SFML), Tetris |
+### Employee Management System (`07_projects/employee-management-system-final.cpp`)
+A terminal-based C++ application that manages employee records using structs and classes.
+Features include adding employees, displaying records, animated loading screen, and a revoke
+function to reset data. Demonstrates: structs, arrays of structs, classes, static variables,
+string formatting with `iomanip`.
 
----
+### Sorting Visualizer (`07_projects/sorting-visualizer-sfml.cpp`)
+A real-time visual sorting algorithm using the SFML graphics library. Renders 80 bars on screen
+and animates insertion sort step by step, highlighting the active bar in green when sorted.
+Demonstrates: SFML, graphics loops, algorithm visualization, real-time rendering.
 
-## LeetCode Binary Search Problems
-
-All solutions are in `02_dsa/binary-search/`
-
-| # | File | Problem | Difficulty |
-|---|------|---------|-----------|
-| LC 33 | `lc33-search-rotated-sorted-array.cpp` | Search in Rotated Sorted Array | Medium |
-| LC 34 | `lc34-first-last-position.cpp` | First and Last Position of Element | Medium |
-| LC 34 | `lc34-first-last-position-v2.cpp` | First and Last Position (alternate) | Medium |
-| LC 69 | `lc69-sqrt-integer.cpp` | Sqrt(x) | Easy |
-| LC 275 | `lc275-h-index-ii.cpp` | H-Index II | Medium |
-| LC 278 | `lc278-first-bad-version.cpp` | First Bad Version | Easy |
-| LC 374 | `lc374-guess-number-higher-or-lower.cpp` | Guess Number Higher or Lower | Easy |
-| LC 436 | `lc436-find-right-interval.cpp` | Find Right Interval | Medium |
-| LC 441 | `lc441-arranging-coins.cpp` | Arranging Coins | Easy |
-| LC 540 | `lc540-single-element-sorted-array.cpp` | Single Element in a Sorted Array | Medium |
-| LC 1337 | `lc1337-k-weakest-rows-in-matrix.cpp` | K Weakest Rows in a Matrix | Easy |
+### Tetris Game (`07_projects/tetris-game.cpp`)
+Console-based Tetris implemented in C++ using wide strings (`wstring`) to represent Tetrimino
+pieces. Demonstrates: game logic structure, wide character rendering, piece rotation encoding.
 
 ---
 
-## C++ Course — Chapter Index
+## DSA Coverage
 
-| Chapter | Topic |
-|---------|-------|
-| 1 | Basics — Hello World, dynamic declaration, namespaces |
-| 2 | Data types, variables, operators, scope resolution |
-| 3 | Enums and typedef |
-| 4 | Conditional statements |
-| 5 | Short circuit, switch-case |
-| 7 | Arrays — 1D/2D, matrix operations, linear search |
-| 8 | Pointers — basics and arithmetic |
-| 9 | Strings — C-style string functions |
-| 10 | String class, iterators |
-| 11 | Functions — overloading, templates, default args |
-| 12 | Parameter passing — call by address, return by reference |
-| 13 | Recursion — min ways, pointer-to-function, sum to N |
-| 14 | OOPs — class, constructor, deep copy, this pointer, nested class |
-| 15 | Data handling, structure vs class |
-| 16 | Operator overloading — member, friend, insertion |
-| 17 | Inheritance — access specifiers, constructors, rectangle-cuboid |
-| 18 | Base class pointers and derived class objects |
-| 19 | Polymorphism — virtual functions, abstract class, function overriding |
-| 20 | Friend functions and static members |
-| 21 | Exception handling — try/catch/throw, stack overflow |
-| 22 | Template class (generic stack) |
-| 23 | Constants, preprocessors, namespaces |
-| 24 | Destructors and virtual destructors |
-| 25 | File I/O, streams, serialisation |
-| 26 | STL — Vector, Map, Set, Stack, Queue, Deque, Priority Queue, Algorithms |
-| 27 | C++11 — auto, lambda, smart pointers, final keyword |
+| Topic | Files | Source |
+|---|---|---|
+| Binary Search | 5 LeetCode problems | `02_dsa/binary-search/` |
+| Array ADT | Linear search, binary search, reverse, shift, shell sort | `02_dsa/complete-course/ARRAY-ADT/` |
+| Recursion | Fibonacci, N-Queens, combination sum, backtracking | `02_dsa/complete-course/RECURSION/` |
+| Mathematics | GCD, modular arithmetic, fast power, primality | `02_dsa/complete-course/MATHS/` |
+| Trees | Creation, traversal, height, diameter, zigzag BFS | `03_courses/internshala/Trees/` |
+| STL | Vector, Stack, Queue, Set, Map, Priority Queue | `01_languages/cpp/26-stl/` |
+| Sorting | Insertion sort (visualized), shell sort | `07_projects/`, `02_dsa/` |
 
 ---
 
-## How to Compile & Run
+## Languages & Tools
 
-**C:**
+- **Languages:** C, C++, HTML, CSS, JavaScript
+- **Libraries:** STL, SFML (graphics), `<bits/stdc++.h>`
+- **Concepts:** OOP, Recursion, Backtracking, Binary Search, Trees, Linked Lists, STL containers, File I/O, Templates, Operator Overloading, Smart Pointers, Lambda Expressions
+- **Tools:** GCC, Git, VS Code
+
+---
+
+## Setup
+
 ```bash
-gcc filename.c -o output && ./output
+# Compile any C file
+gcc 01_languages/c/08-even-odd-check.c -o even-odd
+
+# Compile any C++ file
+g++ 01_languages/cpp/26-stl/stl-vector.cpp -o stl-vector
+
+# Compile SFML project (requires SFML installed)
+g++ 07_projects/sorting-visualizer-sfml.cpp -lsfml-graphics -lsfml-window -lsfml-system -o sorting-visualizer
 ```
-
-**C++:**
-```bash
-g++ filename.cpp -o output && ./output
-```
-
-**Java:**
-```bash
-javac FileName.java && java FileName
-```
-
-**Sorting Visualizer (requires SFML):**
-```bash
-g++ sorting-visualizer-sfml.cpp -lsfml-graphics -lsfml-window -lsfml-system -o visualizer
-./visualizer
-```
-
----
-
-## About
-
-This repository documents my programming learning journey — from C fundamentals to advanced
-C++ OOPs, Java collections, DSA problem solving, and web development. Every file represents
-a concept practiced and understood.
-
