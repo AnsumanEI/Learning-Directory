@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Light Control Panel</title>
+    <link rel="stylesheet" href="/style.css">
+    <style type="text/css">
+    @import url("../Documents/Arduino/ESP32TRFSMAIN/data/style.css");
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Traffic Light Control Panel</h1>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+</nav>
+
+<div class="intersection">
+    <div class="road horizontal"></div>
+    <div class="road vertical"></div>
+    <div class="grass topleft"></div>
+    <div class="grass topright"></div>
+    <div class="grass bottomleft"></div>
+    <div class="grass bottomright"></div>
+
+    <div class="traffic-light north">
+        <div class="light red" id="northSouthRed"></div>
+        <div class="light" id="northSouthYellow"></div>
+        <div class="light" id="northSouthGreen"></div>
+        <div class="traffic-light-label">Post 1 - North</div>
+    </div>
+    <div class="traffic-light east">
+        <div class="light" id="eastWestRed"></div>
+        <div class="light yellow" id="eastWestYellow"></div>
+        <div class="light" id="eastWestGreen"></div>
+        <div class="traffic-light-label">Post 2 - East</div>
+    </div>
+    <div class="traffic-light south">
+        <div class="light" id="southNorthRed"></div>
+        <div class="light" id="southNorthYellow"></div>
+        <div class="light green" id="southNorthGreen"></div>
+        <div class="traffic-light-label">Post 3 - South</div>
+    </div>
+    <div class="traffic-light west">
+        <div class="light" id="westEastRed"></div>
+        <div class="light" id="westEastYellow"></div>
+      <div class="light" id="westEastGreen"></div>
+        <div class="traffic-light-label">Post 4 - West</div>
+    </div>
+</div>
+
+<div class="main-content">
+    <h2>Main Content Area</h2>
+    <p>This area can be used for additional information, text, and images.</p>
+</div>
+
+<footer>
+    <p>Contact us at: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="771e1911183703051611111e141418190305181b5914181a">[email&#160;protected]</a> | Follow us on social media: 
+        <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">Instagram</a>
+    </p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    async function fetchTrafficLightState() {
+        try {
+            const response = await fetch('/data');
+            const data = await response.json();
+            
+            document.getElementById('northSouthRed').style.backgroundColor = data.lightStates.northSouthRed;
+            document.getElementById('northSouthYellow').style.backgroundColor = data.lightStates.northSouthYellow;
+            document.getElementById('northSouthGreen').style.backgroundColor = data.lightStates.northSouthGreen;
+            
+            document.getElementById('eastWestRed').style.backgroundColor = data.lightStates.eastWestRed;
+            document.getElementById('eastWestYellow').style.backgroundColor = data.lightStates.eastWestYellow;
+            document.getElementById('eastWestGreen').style.backgroundColor = data.lightStates.eastWestGreen;
+         

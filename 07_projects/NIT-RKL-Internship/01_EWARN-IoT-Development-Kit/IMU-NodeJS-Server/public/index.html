@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor Data</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ws = new WebSocket('ws://localhost:3000');
+
+            ws.onmessage = event => {
+                const data = JSON.parse(event.data);
+
+                document.getElementById('accelX').innerText = data.accelX;
+                document.getElementById('accelY').innerText = data.accelY;
+                document.getElementById('accelZ').innerText = data.accelZ;
+                document.getElementById('gyroX').innerText = data.gyroX;
+                document.getElementById('gyroY').innerText = data.gyroY;
+                document.getElementById('gyroZ').innerText = data.gyroZ;
+            };
+
+            ws.onopen = () => {
+                console.log('WebSocket connection opened');
+            };
+
+            ws.onclose = () => {
+                console.log('WebSocket connection closed');
+            };
+
+            ws.onerror = error => {
+                console.error('WebSocket error:', error);
+            };
+        });
+    </script>
+</head>
+<body>
+    <h1>Sensor Data</h1>
+    <div>
+        <p>Accel X: <span id="accelX"></span></p>
+        <p>Accel Y: <span id="accelY"></span></p>
+        <p>Accel Z: <span id="accelZ"></span></p>
+        <p>Gyro X: <span id="gyroX"></span></p>
+        <p>Gyro Y: <span id="gyroY"></span></p>
+        <p>Gyro Z: <span id="gyroZ"></span></p>
+    </div>
+</body>
+</html>
