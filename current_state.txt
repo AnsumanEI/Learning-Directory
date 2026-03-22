@@ -1,0 +1,589 @@
+.gitignore
+01_languages/c/01-hello-world.c
+01_languages/c/02-variables-and-datatypes.c
+01_languages/c/03-addition-practice.c
+01_languages/c/04-user-input.c
+01_languages/c/05-arithmetic-practice.c
+01_languages/c/06-arithmetic-operators.c
+01_languages/c/07-operator-precedence.c
+01_languages/c/08-even-odd-check.c
+01_languages/c/09-logical-operators.c
+01_languages/c/1.first
+01_languages/c/10-ternary-operator.c
+01_languages/c/10.conditonal_operators
+01_languages/c/11-switch-case.c
+01_languages/c/11.switchcase
+01_languages/c/12-while-loop.c
+01_languages/c/12.Loop_control_instruction
+01_languages/c/2.variables
+01_languages/c/3.question1
+01_languages/c/4.input
+01_languages/c/5.Practice
+01_languages/c/6.Instructions
+01_languages/c/7.Operator_precedence
+01_languages/c/8.Conditonal_operators
+01_languages/c/9.logical_operators
+01_languages/c/c notes.txt
+01_languages/c/chapter 4/.vscode/settings.json
+01_languages/c/chapter 4/a.exe
+01_languages/c/chapter 4/asxsax.exe
+01_languages/c/chapter 4/break_statement.exe
+01_languages/c/chapter 4/check.exe
+01_languages/c/chapter 4/decrmenting_forloop.exe
+01_languages/c/chapter 4/question_3.exe
+01_languages/c/chapter 4/question_4.exe
+01_languages/c/chapter 4/question_5.exe
+01_languages/c/chapter 4/question_6.exe
+01_languages/c/chapter 4/table_in_reverse_order.c
+01_languages/c/chapter 4/table_in_reverse_order.exe
+01_languages/c/chapter 4/table_of_any_no
+01_languages/c/chapter 4/table_of_any_no..c
+01_languages/c/chapter 4/table_of_any_no..exe
+01_languages/c/chapter 4/tempCodeRunnerFile.c
+01_languages/c/chapter 5/basic.c
+01_languages/c/chapter 5/basic.exe
+01_languages/c/chapter 5/chang_function.c
+01_languages/c/chapter 5/cpc.c
+01_languages/c/chapter 5/cpc.exe
+01_languages/c/chapter 5/fibonacci.c
+01_languages/c/chapter 5/fibonacci.exe
+01_languages/c/chapter 5/functions.c
+01_languages/c/chapter 5/practice1.c
+01_languages/c/chapter 5/practice1.exe
+01_languages/c/chapter 5/practice2.c
+01_languages/c/chapter 5/practice2.exe
+01_languages/c/chapter 5/practice3.c
+01_languages/c/chapter 5/practice3.exe
+01_languages/c/chapter 5/quick_quiz1.c
+01_languages/c/chapter 5/quick_quiz1.exe
+01_languages/c/chapter 5/quickquiz1_alternate.c
+01_languages/c/chapter 5/recursion.exe
+01_languages/c/chapter 5/recursion_factorial.c
+01_languages/c/chapter 5/return.c
+01_languages/c/chapter 5/return.exe
+01_languages/c/chapter 6/call_by_refrence.c
+01_languages/c/chapter 6/call_by_refrence.exe
+01_languages/c/chapter 6/call_by_value.c
+01_languages/c/chapter 6/call_by_value.exe
+01_languages/c/chapter 6/pointer_basics.c
+01_languages/c/chapter 6/pointer_basics.exe
+01_languages/c/chapter 6/practice1.c
+01_languages/c/chapter 6/practice1.exe
+01_languages/c/chapter 6/practice2.c
+01_languages/c/chapter 6/practice2.exe
+01_languages/c/chapter 6/practice3.c
+01_languages/c/chapter 6/practice3.exe
+01_languages/c/chapter 6/practice4.c
+01_languages/c/chapter 6/practice5.c
+01_languages/c/chapter 6/practice6.c
+01_languages/c/chapter 7/array_input.c
+01_languages/c/chapter 7/array_intialisation.c
+01_languages/c/chapter 7/array_using_loops.c
+01_languages/c/chapter 7/arrays.c
+01_languages/c/chapter 7/pointer_arithmetic.c
+01_languages/c/chapter 7/pointer_arithmetic.exe
+01_languages/c/chapter-4-loops/break-statement.c
+01_languages/c/chapter-4-loops/continue-statement.c
+01_languages/c/chapter-4-loops/decrementing-for-loop.c
+01_languages/c/chapter-4-loops/factorial.c
+01_languages/c/chapter-4-loops/for-loop-basic.c
+01_languages/c/chapter-4-loops/infinite-while-loop-demo.c
+01_languages/c/chapter-4-loops/modulo-scratch.c
+01_languages/c/chapter-4-loops/prime-check.c
+01_languages/c/chapter-4-loops/sum-of-n-naturals.c
+01_languages/c/misc-practice/armstrong-number.c
+01_languages/c/misc-practice/basic-calculator.c
+01_languages/c/misc-practice/do-while-loop.c
+01_languages/c/misc-practice/find-largest-integer.c
+01_languages/c/misc-practice/for-loop-basic.c
+01_languages/c/misc-practice/logical-not-operator.c
+01_languages/c/misc-practice/memory-addresses.c
+01_languages/c/misc-practice/perfect-number.c
+01_languages/c/misc-practice/relational-operators.c
+01_languages/c/misc-practice/seconds-to-hours-minutes.c
+01_languages/c/misc-practice/square-root.c
+01_languages/c/misc-practice/toggle-char-case.c
+01_languages/c/new 1.txt
+01_languages/c/practice-age-check.c
+01_languages/c/practice-area-of-circle.c
+01_languages/c/practice-area-of-rectangle.c
+01_languages/c/practice-basic-calculator.c
+01_languages/c/practice-bitwise-and-divisibility.c
+01_languages/c/practice-celsius-to-fahrenheit.c
+01_languages/c/practice-find-greatest-of-four.c
+01_languages/c/practice-grade-calculator.c
+01_languages/c/practice-income-tax-calculator.c
+01_languages/c/practice-leap-year-check.c
+01_languages/c/practice-marks-percentage.c
+01_languages/c/practice-uppercase-lowercase-check.c
+01_languages/c/practice_loop.c
+01_languages/c/projects of c programme/a.exe
+01_languages/c/projects of c programme/do_while_loop.c
+01_languages/c/projects of c programme/project1.c
+01_languages/c/projects of c programme/project1.exe
+01_languages/c/projects of c programme/random_no_gen.c
+01_languages/c/projects of c programme/random_no_gen.exe
+01_languages/c/projects of c programme/while_loop.c
+01_languages/c/quest
+01_languages/cpp/.vs/C++/FileContentIndex/10c80c22-2d78-483b-b1a7-39b86731ed32.vsidx
+01_languages/cpp/.vs/C++/FileContentIndex/5aa521e2-50bb-41be-84d2-1f7d98163374.vsidx
+01_languages/cpp/.vs/C++/FileContentIndex/read.lock
+01_languages/cpp/.vs/C++/v17/.wsuo
+01_languages/cpp/.vs/C++/v17/Browse.VC.db
+01_languages/cpp/.vs/C++/v17/ipch/AutoPCH/4824362a375cf276/ARRAY.ipch
+01_languages/cpp/.vs/ProjectSettings.json
+01_languages/cpp/.vs/VSWorkspaceState.json
+01_languages/cpp/.vs/slnx.sqlite
+01_languages/cpp/1.BASICS/DYNAMIC_DECLARATION.cpp
+01_languages/cpp/1.BASICS/HEAP_DECLARATION.cpp
+01_languages/cpp/1.BASICS/HELLO_WORLD.cpp
+01_languages/cpp/1.BASICS/STANDARD_NAMESPACE.cpp
+01_languages/cpp/1.BASICS/SUM.cpp
+01_languages/cpp/1.BASICS/TAKING_INPUT_SUM.cpp
+01_languages/cpp/10.CLASS STRINGS AND FUNCTIONS/STRING_CLASS.cpp
+01_languages/cpp/10.CLASS STRINGS AND FUNCTIONS/STRING_CLASS.exe
+01_languages/cpp/10.CLASS STRINGS AND FUNCTIONS/STRING_CLASS_FUCNTIONS.cpp
+01_languages/cpp/10.CLASS STRINGS AND FUNCTIONS/STRING_CLASS_FUCNTIONS.exe
+01_languages/cpp/10.CLASS STRINGS AND FUNCTIONS/STRING_CLASS_FUNCTIONS2.cpp
+01_languages/cpp/10.CLASS STRINGS AND FUNCTIONS/STRING_CLASS_FUNCTIONS2.exe
+01_languages/cpp/10.CLASS STRINGS AND FUNCTIONS/STRING_ITERATOR.cpp
+01_languages/cpp/10.CLASS STRINGS AND FUNCTIONS/STRING_ITERATOR.exe
+01_languages/cpp/11.FUNCTION/DEFAULT_ARGUMENT_TERNARY.cpp
+01_languages/cpp/11.FUNCTION/FUNCTIONS.cpp
+01_languages/cpp/11.FUNCTION/LINEAR_SEARCH_FUNCTION.cpp
+01_languages/cpp/11.FUNCTION/MAXM_NUMBER_FUNCTION.cpp
+01_languages/cpp/11.FUNCTION/OVERFLOW.cpp
+01_languages/cpp/11.FUNCTION/OVERLOADING_FUNCTION.cpp
+01_languages/cpp/11.FUNCTION/POINTER_TO_FUNCTION.cpp
+01_languages/cpp/11.FUNCTION/TEMPLATE_FUNCTION.cpp
+01_languages/cpp/12.PARAMETRE PASSING & RETURNING & POINTING FUCNTIONS/CALL_BY_ADDRESS.cpp
+01_languages/cpp/12.PARAMETRE PASSING & RETURNING & POINTING FUCNTIONS/RETURN_BY_ADDRESS.cpp
+01_languages/cpp/12.PARAMETRE PASSING & RETURNING & POINTING FUCNTIONS/RETURN_BY_ADDRESS.exe
+01_languages/cpp/12.PARAMETRE PASSING & RETURNING & POINTING FUCNTIONS/RETURN_BY_REFERENCE.cpp
+01_languages/cpp/12.PARAMETRE PASSING & RETURNING & POINTING FUCNTIONS/RETURN_BY_REFERENCE.exe
+01_languages/cpp/13.RECURSIONS/RECURSION_MINM_WAYS.cpp
+01_languages/cpp/13.RECURSIONS/RECURSION_POINTER_TO_FUNCTION.cpp
+01_languages/cpp/13.RECURSIONS/RECURSION_SUM_TO_N.cpp
+01_languages/cpp/13.RECURSIONS/RECURSIVE_FUNCTIONS.cpp
+01_languages/cpp/13.RECURSIONS/SORTING_BY_RECURSION.cpp
+01_languages/cpp/14.OOPS/CLASS.cpp
+01_languages/cpp/14.OOPS/CONSTRUCTOR.cpp
+01_languages/cpp/14.OOPS/DEEPCOPY_CONSTRUCTOR.cpp
+01_languages/cpp/14.OOPS/POINTER_TO_CLASS.cpp
+01_languages/cpp/14.OOPS/SCOPE_RESOLUTION_CLASS.cpp
+01_languages/cpp/14.OOPS/THIS_POINTER.cpp
+01_languages/cpp/14.OOPS/nested-inner-class.cpp
+01_languages/cpp/14.OOPS/object-on-heap.cpp
+01_languages/cpp/14.OOPS/rectangle-class-complete.cpp
+01_languages/cpp/15.DATA HANDLING/DATA_HANDLING.cpp
+01_languages/cpp/15.DATA HANDLING/STRUCTURE_VS_CLASS.cpp
+01_languages/cpp/15.DATA HANDLING/STRUCTURE_VS_CLASS.exe
+01_languages/cpp/16.OVERLOADING/INSERTION_OVERLOADING.cpp
+01_languages/cpp/16.OVERLOADING/OPERATOR_OVERLOAD.cpp
+01_languages/cpp/16.OVERLOADING/OVERLOADING_FRIEND.cpp
+01_languages/cpp/16.OVERLOADING/OVERLOADING_QUESTION.cpp
+01_languages/cpp/17.INHERITANCE/ACCESS_SPECIFIERS.cpp
+01_languages/cpp/17.INHERITANCE/CONSTRUCTORS_INHEIRTANCE.cpp
+01_languages/cpp/17.INHERITANCE/INHERITANCE_QUESTION.cpp
+01_languages/cpp/17.INHERITANCE/INHERITANCE_RECT_CUBOID.cpp
+01_languages/cpp/17.INHERITANCE/isA_hasA.cpp
+01_languages/cpp/18.BASE CLASS POINTERS AND DERIVED CLASS  OBJECT/POINTER_OBJECT_AND_CLASS.cpp
+01_languages/cpp/18.BASE CLASS POINTERS AND DERIVED CLASS  OBJECT/POINTER_OBJECT_AND_CLASS.exe
+01_languages/cpp/19.POLYMORPHISM/ABSTRACT_CLASS.cpp
+01_languages/cpp/19.POLYMORPHISM/FUNCTION_OVERRIDING.cpp
+01_languages/cpp/19.POLYMORPHISM/POLYMORPHISM.cpp
+01_languages/cpp/19.POLYMORPHISM/SUMMARY_QUESTION.cpp
+01_languages/cpp/19.POLYMORPHISM/VIRTUAL_FUNCTIONS.cpp
+01_languages/cpp/2.DATA TYPES,VARIBALES,OPERATORS,EXPRESSIONS/INCREMENT_DECREMENT.cpp
+01_languages/cpp/2.DATA TYPES,VARIBALES,OPERATORS,EXPRESSIONS/INCREMENT_DECREMENT.exe
+01_languages/cpp/2.DATA TYPES,VARIBALES,OPERATORS,EXPRESSIONS/LOGICAL_OPERATORS.cpp
+01_languages/cpp/2.DATA TYPES,VARIBALES,OPERATORS,EXPRESSIONS/LOGICAL_OPERATORS.exe
+01_languages/cpp/2.DATA TYPES,VARIBALES,OPERATORS,EXPRESSIONS/REFERENCE_VAR.cpp
+01_languages/cpp/2.DATA TYPES,VARIBALES,OPERATORS,EXPRESSIONS/REFERENCE_VAR.exe
+01_languages/cpp/2.DATA TYPES,VARIBALES,OPERATORS,EXPRESSIONS/SCOPE_RESOLUTION.cpp
+01_languages/cpp/2.DATA TYPES,VARIBALES,OPERATORS,EXPRESSIONS/SCOPE_RESOLUTION.exe
+01_languages/cpp/2.DATA TYPES,VARIBALES,OPERATORS,EXPRESSIONS/SUM_OF_N.cpp
+01_languages/cpp/2.DATA TYPES,VARIBALES,OPERATORS,EXPRESSIONS/SUM_OF_N.exe
+01_languages/cpp/2.DATA TYPES,VARIBALES,OPERATORS,EXPRESSIONS/SUM_OF_N_FROM_LAST.cpp
+01_languages/cpp/2.DATA TYPES,VARIBALES,OPERATORS,EXPRESSIONS/SUM_OF_N_FROM_LAST.exe
+01_languages/cpp/20.FRIEND AND STATIC MEMBERS/FRIEND_FUNTIONS_AND_CLASSES.cpp
+01_languages/cpp/20.FRIEND AND STATIC MEMBERS/FRIEND_FUNTIONS_AND_CLASSES.exe
+01_languages/cpp/20.FRIEND AND STATIC MEMBERS/STATIC2.cpp
+01_languages/cpp/20.FRIEND AND STATIC MEMBERS/STATIC2.exe
+01_languages/cpp/20.FRIEND AND STATIC MEMBERS/STATIC_MEMBERS.cpp
+01_languages/cpp/20.FRIEND AND STATIC MEMBERS/STATIC_MEMBERS.exe
+01_languages/cpp/20.FRIEND AND STATIC MEMBERS/tempCodeRunnerFile.cpp
+01_languages/cpp/21.EXCEPTION HANDLING/CATCH.cpp
+01_languages/cpp/21.EXCEPTION HANDLING/CATCH.exe
+01_languages/cpp/21.EXCEPTION HANDLING/EXCEPTION_HANDLING.cpp
+01_languages/cpp/21.EXCEPTION HANDLING/EXCEPTION_HANDLING.exe
+01_languages/cpp/21.EXCEPTION HANDLING/STACK_OVERFLOW_UNDERFLOW.cpp
+01_languages/cpp/21.EXCEPTION HANDLING/STACK_OVERFLOW_UNDERFLOW.exe
+01_languages/cpp/21.EXCEPTION HANDLING/THROW_CATCH_BETWEEN_FUNCTION.cpp
+01_languages/cpp/21.EXCEPTION HANDLING/THROW_CATCH_BETWEEN_FUNCTION.exe
+01_languages/cpp/21.EXCEPTION HANDLING/THROW_CLASS.cpp
+01_languages/cpp/21.EXCEPTION HANDLING/THROW_CLASS.exe
+01_languages/cpp/22.TEMPLATE CLASS/TEMPLATE_CLASS.cpp
+01_languages/cpp/23.CONSTANTS AND PREPROCESSOR/CONSTANTS.cpp
+01_languages/cpp/23.CONSTANTS AND PREPROCESSOR/CONSTANTS.exe
+01_languages/cpp/23.CONSTANTS AND PREPROCESSOR/CONSTANT_FUNCTIONS.cpp
+01_languages/cpp/23.CONSTANTS AND PREPROCESSOR/CONSTANT_FUNCTIONS.exe
+01_languages/cpp/23.CONSTANTS AND PREPROCESSOR/NAMESPACES.cpp
+01_languages/cpp/23.CONSTANTS AND PREPROCESSOR/NAMESPACES.exe
+01_languages/cpp/23.CONSTANTS AND PREPROCESSOR/PREPROCESSORS.cpp
+01_languages/cpp/23.CONSTANTS AND PREPROCESSOR/PREPROCESSORS.exe
+01_languages/cpp/24.DESTRUCTOR AND VIRTUAL DESTRUCTORS/DESTRUCTOR.cpp
+01_languages/cpp/24.DESTRUCTOR AND VIRTUAL DESTRUCTORS/DESTRUCTOR.exe
+01_languages/cpp/24.DESTRUCTOR AND VIRTUAL DESTRUCTORS/VIRTUAL_DESTRUCTOR.cpp
+01_languages/cpp/24.DESTRUCTOR AND VIRTUAL DESTRUCTORS/VIRTUAL_DESTRUCTOR.exe
+01_languages/cpp/25.IOSTREAMS/READING_FROM_FILE.cpp
+01_languages/cpp/25.IOSTREAMS/SERIALISATION.cpp
+01_languages/cpp/25.IOSTREAMS/STREAMS.cpp
+01_languages/cpp/25.IOSTREAMS/STUDENT_EXCERSISE.cpp
+01_languages/cpp/25.IOSTREAMS/demo.txt
+01_languages/cpp/25.IOSTREAMS/grocery.txt
+01_languages/cpp/26.STL/STL_ALGORITHMS.cpp
+01_languages/cpp/26.STL/STL_ARRAY.cpp
+01_languages/cpp/26.STL/STL_DEQUE.cpp
+01_languages/cpp/26.STL/STL_LIST.cpp
+01_languages/cpp/26.STL/STL_MAP1.cpp
+01_languages/cpp/26.STL/STL_MAP2.cpp
+01_languages/cpp/26.STL/STL_PRIORITY_QUEUE.cpp
+01_languages/cpp/26.STL/STL_QUEUE.cpp
+01_languages/cpp/26.STL/STL_SET.cpp
+01_languages/cpp/26.STL/STL_STACK.cpp
+01_languages/cpp/26.STL/STL_VECTOR.cpp
+01_languages/cpp/26.STL/STLs.cpp
+01_languages/cpp/26.STL/STRIVER.cpp
+01_languages/cpp/26.STL/STUDENT_EXCERCISE.cpp
+01_languages/cpp/26.STL/grocery.txt
+01_languages/cpp/27.c++11/AUTO.cpp
+01_languages/cpp/27.c++11/FINAL_KEYWORD.cpp
+01_languages/cpp/27.c++11/LAMBDA_EXPRESSIONS.cpp
+01_languages/cpp/27.c++11/SMART_POINTER.cpp
+01_languages/cpp/3.ENUM,TYPEDEF/ENUM.cpp
+01_languages/cpp/3.ENUM,TYPEDEF/TYPEDEF.cpp
+01_languages/cpp/4.CONDITIONAL STATEMENTS/STATEMENT_AND_SWITCHCASE.cpp
+01_languages/cpp/5.SHORT CIRCUIT,SWITCH/SHORT_CIRCUIT.cpp
+01_languages/cpp/5.SHORT CIRCUIT,SWITCH/STATEMENT_AND_SWITCHCASE.cpp
+01_languages/cpp/5.SHORT CIRCUIT,SWITCH/SWITCH_CASE.cpp
+01_languages/cpp/5.SHORT CIRCUIT,SWITCH/SWITCH_CASE2.cpp
+01_languages/cpp/5.SHORT CIRCUIT,SWITCH/SWITCH_CASE2.exe
+01_languages/cpp/7.ARRAYS/2DARRAY.cpp
+01_languages/cpp/7.ARRAYS/2D_ARRAY_MATRIX.cpp
+01_languages/cpp/7.ARRAYS/2D_ARRAY_MULTIPLICATION.cpp
+01_languages/cpp/7.ARRAYS/ADDITION_2D_ARRAY.cpp
+01_languages/cpp/7.ARRAYS/ARRAY.cpp
+01_languages/cpp/7.ARRAYS/ARRAY_ADDITION.cpp
+01_languages/cpp/7.ARRAYS/LARGEST_ELEMENT_IN_ARRAY.cpp
+01_languages/cpp/7.ARRAYS/LINEAR_SEACRH_ARRAY.cpp
+01_languages/cpp/7.ARRAYS/MAX_NUM.cpp
+01_languages/cpp/8.POINTERS BASIC ONLY/POINTERS.cpp
+01_languages/cpp/8.POINTERS BASIC ONLY/POINTERS.exe
+01_languages/cpp/8.POINTERS BASIC ONLY/POINTERS_ARITHMETIC.cpp
+01_languages/cpp/9.STRINGS/FUNCTIONS_STRINGS.cpp
+01_languages/cpp/9.STRINGS/FUNCTIONS_STRINGS2.cpp
+01_languages/cpp/9.STRINGS/INPUT_STRINGS.cpp
+01_languages/cpp/9.STRINGS/STRINGS.cpp
+01_languages/cpp/9.STRINGS/STRINGS_FUNCTION.cpp
+01_languages/cpp/CppProperties.json
+01_languages/cpp/QUESTIONS/AZTEC.cpp
+01_languages/cpp/QUESTIONS/GCD.cpp
+01_languages/cpp/QUESTIONS/He.cpp
+01_languages/cpp/QUESTIONS/NUMBER_OF_NEGATIVE_INT.cpp
+01_languages/cpp/QUESTIONS/P1.cpp
+01_languages/cpp/QUESTIONS/P2.cpp
+01_languages/cpp/QUESTIONS/P3.cpp
+01_languages/cpp/QUESTIONS/aaaaa.cPP
+01_languages/cpp/QUESTIONS/areaofcircle.cpp
+01_languages/cpp/QUESTIONS/armstrong_number.cpp
+01_languages/cpp/QUESTIONS/array-assignment-scratch.cpp
+01_languages/cpp/QUESTIONS/binary-representation-steps.cpp
+01_languages/cpp/QUESTIONS/capital_to_small.cpp
+01_languages/cpp/QUESTIONS/check_pallindrome.cpp
+01_languages/cpp/QUESTIONS/defining_roots.cpp
+01_languages/cpp/QUESTIONS/display_grades.cpp
+01_languages/cpp/QUESTIONS/dynamic-array-heap.cpp
+01_languages/cpp/QUESTIONS/empty-skeleton.cpp
+01_languages/cpp/QUESTIONS/factorial.cpp
+01_languages/cpp/QUESTIONS/factors.cpp
+01_languages/cpp/QUESTIONS/find-max-of-three.cpp
+01_languages/cpp/QUESTIONS/incomplete-scratch.cpp
+01_languages/cpp/QUESTIONS/matrix-multiplication-2d-array.cpp
+01_languages/cpp/QUESTIONS/multiplication_table.cpp
+01_languages/cpp/QUESTIONS/pallindrome.cpp
+01_languages/cpp/QUESTIONS/perfect_numbers.cpp
+01_languages/cpp/QUESTIONS/prime_numbers.cpp
+01_languages/cpp/QUESTIONS/quadratic-roots.cpp
+01_languages/cpp/QUESTIONS/range-and-power-of-two-check.cpp
+01_languages/cpp/QUESTIONS/rectangle-class-oops.cpp
+01_languages/cpp/QUESTIONS/reverse_numbers.cpp
+01_languages/cpp/QUESTIONS/running-score-tracker.cpp
+01_languages/cpp/QUESTIONS/string-length-check.cpp
+01_languages/cpp/QUESTIONS/sum-of-digits.cpp
+01_languages/cpp/QUESTIONS/sum_n_number.cpp
+01_languages/cpp/QUESTIONS/testcase-skeleton.cpp
+01_languages/cpp/QUESTIONS/username_ingmail.cpp
+01_languages/cpp/QUESTIONS/words_consonants_vowels.cpp
+01_languages/java/ArrayListDemo.java
+01_languages/java/ArraysDemo.java
+01_languages/java/BasicInputOutput.java
+01_languages/java/Car.java
+01_languages/java/CircleClass.java
+01_languages/java/DefaultValuesDemo.java
+01_languages/java/EmptySkeleton.java
+01_languages/java/StaticMethodsAndSwap.java
+01_languages/java/StringBasics.java
+01_languages/java/StringMethods.java
+01_languages/java/Strings.class
+01_languages/java/arraylist.class
+01_languages/java/arrays.class
+01_languages/java/basic.class
+01_languages/java/circle.class
+01_languages/java/functions.class
+01_languages/java/hashmap.class
+01_languages/java/hashmap.java
+01_languages/java/javatcs/Car.class
+01_languages/java/javatcs/Car.java
+01_languages/java/javatcs/Main.java
+01_languages/java/memoryconcept.class
+01_languages/java/memoryconcept.java
+01_languages/java/objini.class
+01_languages/java/objini.java
+01_languages/java/point.class
+01_languages/java/point.java
+01_languages/java/priorityqueue.class
+01_languages/java/priorityqueue.java
+01_languages/java/queue.class
+01_languages/java/queue.java
+01_languages/java/scanner.java
+01_languages/java/stack.class
+01_languages/java/stack.java
+01_languages/java/stringbuilder.class
+01_languages/java/stringbuilder.java
+01_languages/java/substring.class
+01_languages/java/substring.java
+01_languages/java/timediffrence.class
+01_languages/java/timediffrence.java
+01_languages/java/twodarrays.class
+01_languages/java/twodarrays.java
+02_dsa/binary-search/arranging-coins.cpp
+02_dsa/binary-search/find-right-interval.cpp
+02_dsa/binary-search/first-bad-version.cpp
+02_dsa/binary-search/first-last-position-v2.cpp
+02_dsa/binary-search/first-last-position.cpp
+02_dsa/binary-search/guess-number.cpp
+02_dsa/binary-search/h-index.cpp
+02_dsa/binary-search/k-weakest-rows.cpp
+02_dsa/binary-search/search-rotated-array.cpp
+02_dsa/binary-search/single-non-duplicate.cpp
+02_dsa/binary-search/sqrt-integer.cpp
+02_dsa/complete-course/ARRAY-ADT/abstractdatatypearray.cpp
+02_dsa/complete-course/ARRAY-ADT/binarysearch.cpp
+02_dsa/complete-course/ARRAY-ADT/linearsearch.cpp
+02_dsa/complete-course/ARRAY-ADT/reverseandshift.cpp
+02_dsa/complete-course/ARRAY-ADT/shell_sorting.cpp
+02_dsa/complete-course/MATHS/GCD.cpp
+02_dsa/complete-course/MATHS/MODULO ARITHMETIC/multiplicativeinverse.cpp
+02_dsa/complete-course/MATHS/MODULO ARITHMETIC/multiplicativeinverse.exe
+02_dsa/complete-course/MATHS/MODULO ARITHMETIC/optimisedpower.cpp
+02_dsa/complete-course/MATHS/MODULO ARITHMETIC/optimisedpower.exe
+02_dsa/complete-course/MATHS/optimisedprimality.cpp
+02_dsa/complete-course/MATHS/optimisedprimalitycheckfor_n_numbers.cpp
+02_dsa/complete-course/MATHS/primalitycheck.cpp
+02_dsa/complete-course/MATHS/primalitycheckfor_n_numbers.cpp
+02_dsa/complete-course/MATHS/sieveoferatosthemes.cpp
+02_dsa/complete-course/PRAC/freq.cpp
+02_dsa/complete-course/RECURSION/MULTIPLE RECURSION/multiplerecursion.cpp
+02_dsa/complete-course/RECURSION/MULTIPLE RECURSION/multiplerecursion.exe
+02_dsa/complete-course/RECURSION/Nqueen.cpp
+02_dsa/complete-course/RECURSION/Nqueenbrute.cpp
+02_dsa/complete-course/RECURSION/backtracking.cpp
+02_dsa/complete-course/RECURSION/combinationsum.cpp
+02_dsa/complete-course/RECURSION/combinationsum2.cpp
+02_dsa/complete-course/RECURSION/functionalrec.cpp
+02_dsa/complete-course/RECURSION/magic_triplets.cpp
+02_dsa/complete-course/RECURSION/permutations2.cpp
+02_dsa/complete-course/RECURSION/permutationstring.cpp
+02_dsa/complete-course/RECURSION/rough.cpp
+02_dsa/complete-course/RECURSION/rough2.cpp
+02_dsa/complete-course/RECURSION/rough3.cpp
+02_dsa/complete-course/RECURSION/subsequence.cpp
+02_dsa/complete-course/RECURSION/subsetsum.cpp
+02_dsa/complete-course/RECURSION/subsetsum2.cpp
+02_dsa/complete-course/RECURSION/sudokusolver.cpp
+02_dsa/complete-course/RECURSION/working.cpp
+02_dsa/complete-course/STL/iterator.cpp
+02_dsa/complete-course/STL/pair.cpp
+02_dsa/complete-course/STL/pair_vector.cpp
+02_dsa/complete-course/STL/pairsortingquestion.cpp
+02_dsa/complete-course/STL/sort.cpp
+02_dsa/complete-course/STL/vector_of_pairs.cpp
+02_dsa/complete-course/STL/vectorpair.cpp
+02_dsa/complete-course/leetcode/q1.cpp
+02_dsa/complete-course/rough.cpp
+02_dsa/core/DSA 2.0/2D ARRAY/2d_array.cpp
+02_dsa/core/DSA 2.0/Array_func.cpp
+02_dsa/core/DSA 2.0/BST_using_recurssion.cpp
+02_dsa/core/DSA 2.0/PalindromeRecursion.java
+02_dsa/core/DSA 2.0/RECURSION/head_recursion.cpp
+02_dsa/core/DSA 2.0/RECURSION/indirect_recursion.cpp
+02_dsa/core/DSA 2.0/RECURSION/linear_recursion.cpp
+02_dsa/core/DSA 2.0/RECURSION/nested_recursion.cpp
+02_dsa/core/DSA 2.0/RECURSION/power_recursion.cpp
+02_dsa/core/DSA 2.0/RECURSION/questions/decimal_binary.cpp
+02_dsa/core/DSA 2.0/RECURSION/questions/fibonacci.cpp
+02_dsa/core/DSA 2.0/RECURSION/questions/gcd.cpp
+02_dsa/core/DSA 2.0/RECURSION/questions/gcsd.cpp
+02_dsa/core/DSA 2.0/RECURSION/questions/largest_element.cpp
+02_dsa/core/DSA 2.0/RECURSION/questions/matrix_multiplication.cpp
+02_dsa/core/DSA 2.0/RECURSION/questions/reverse_string.cpp
+02_dsa/core/DSA 2.0/RECURSION/questions/sum_of_digits.cpp
+02_dsa/core/DSA 2.0/RECURSION/recursion.cpp
+02_dsa/core/DSA 2.0/RECURSION/stack_heap.cpp
+02_dsa/core/DSA 2.0/RECURSION/static_variable.cpp
+02_dsa/core/DSA 2.0/RECURSION/sum_n_numbers.cpp
+02_dsa/core/DSA 2.0/RECURSION/tail_recursion.cpp
+02_dsa/core/DSA 2.0/RECURSION/taylor_series.cpp
+02_dsa/core/DSA 2.0/RECURSION/time_complexity.cpp
+02_dsa/core/DSA 2.0/RECURSION/tree_recursion.cpp
+02_dsa/core/DSA 2.0/binary-search-basic.cpp
+02_dsa/core/DSA 2.0/binary-search-exercise.cpp
+02_dsa/core/DSA 2.0/indirect-recursion.cpp
+02_dsa/core/DSA 2.0/space-complexity-array.cpp
+02_dsa/core/DSA 2.0/switch-case-demo.cpp
+02_dsa/core/DSA 2.0/tempCodeRunnerFile.cpp
+02_dsa/core/array-insert-at-index.cpp
+02_dsa/core/array-insert-element.cpp
+02_dsa/core/linked-list-implementation.cpp
+02_dsa/core/linked-list-node-struct.cpp
+02_dsa/core/pointer-to-1d-array.cpp
+02_dsa/core/pointer-to-2d-array.cpp
+02_dsa/stl-cheatsheet/cheetsheet.md
+03_courses/internshala/Array/maximum_in_arr.cpp
+03_courses/internshala/Array/sum_of_all.cpp
+03_courses/internshala/Array/transpose.cpp
+03_courses/internshala/Function/call-by-address-swap.cpp
+03_courses/internshala/Function/call-by-reference.cpp
+03_courses/internshala/Function/function-basics.cpp
+03_courses/internshala/Function/global-scope-resolution.cpp
+03_courses/internshala/Function/passing-array-to-function.cpp
+03_courses/internshala/Function/pointer-to-function.cpp
+03_courses/internshala/Function/scope-resolution-operator.cpp
+03_courses/internshala/Graphs/creation.cpp
+03_courses/internshala/Linkedlist/DoublyLL.cpp
+03_courses/internshala/Linkedlist/DoublyLLwithMenu.cpp
+03_courses/internshala/Linkedlist/SinglyLL.cpp
+03_courses/internshala/Linkedlist/singleCircularLL.cpp
+03_courses/internshala/Pointers/dynamic-memory-allocation.cpp
+03_courses/internshala/Pointers/pointers.cpp
+03_courses/internshala/Queue/queue.cpp
+03_courses/internshala/Sorting/bubble-sort.cpp
+03_courses/internshala/Sorting/insertionsort.cpp
+03_courses/internshala/Sorting/selectionsort.cpp
+03_courses/internshala/Sorting/sort.cpp
+03_courses/internshala/Stacks/stack.cpp
+03_courses/internshala/Structures/cc.cpp
+03_courses/internshala/Structures/struct.cpp
+03_courses/internshala/Trees/Height.cpp
+03_courses/internshala/Trees/Mytree.cpp
+03_courses/internshala/Trees/Mytree2.cpp
+03_courses/internshala/Trees/Prac/practre.cpp
+03_courses/internshala/Trees/Prac/singlyll.cpp
+03_courses/internshala/Trees/V2/zigzagtrav.cpp
+03_courses/internshala/Trees/binarytree.cpp
+03_courses/internshala/Trees/creationbt.cpp
+03_courses/internshala/Trees/identical.cpp
+03_courses/internshala/Trees/pracq.cpp
+03_courses/internshala/Trees/practice.cpp
+03_courses/internshala/search/binary.cpp
+03_courses/internshala/search/linear.cpp
+03_courses/striver-a2z/lc1-two-sum.cpp
+03_courses/striver-a2z/map-of-pairs.cpp
+03_courses/supreme-batch/binary-search-template.cpp
+03_courses/supreme-batch/find-right-interval.cpp
+03_courses/supreme-batch/find-smallest-letter-greater-than-target.cpp
+04_interview-prep/cc-qna/PP1.CPP
+04_interview-prep/cc-qna/array-processing-testcases.cpp
+04_interview-prep/cc-qna/count-interior-points.cpp
+04_interview-prep/cc-qna/digit-count-of-difference.cpp
+04_interview-prep/cc-qna/digit-count.cpp
+04_interview-prep/cc-qna/matrix-multiplication.cpp
+04_interview-prep/cc-qna/min-skill-in-array.cpp
+04_interview-prep/cc-qna/nearest-multiple-of-five.cpp
+04_interview-prep/cc-qna/print-numbers-1-to-10.cpp
+04_interview-prep/cc-qna/sieve-of-eratosthenes.cpp
+04_interview-prep/cc-qna/song-key-matching.cpp
+04_interview-prep/cc-qna/sort-class-implementation.cpp
+04_interview-prep/cc-qna/string-split-count.cpp
+04_interview-prep/cc-qna/target-search-in-array.cpp
+04_interview-prep/cc-qna/vector-input-processing.cpp
+05_web/full-stack/CSS/extrenalcss.html
+05_web/full-stack/CSS/indexfloat.html
+05_web/full-stack/CSS/indexoverflow.html
+05_web/full-stack/CSS/inlinecss.html
+05_web/full-stack/CSS/internalcss.html
+05_web/full-stack/CSS/style.css
+05_web/full-stack/HTML5/Lutt Le Gaya (From Dhurandhar).mp3
+05_web/full-stack/HTML5/hyperlink.html
+05_web/full-stack/HTML5/index.html
+05_web/full-stack/HTML5/index.php
+05_web/full-stack/HTML5/indexaudio.html
+05_web/full-stack/HTML5/indexbuttons.html
+05_web/full-stack/HTML5/indexfavicon.html
+05_web/full-stack/HTML5/indexforms.html
+05_web/full-stack/HTML5/indeximage.html
+05_web/full-stack/HTML5/indexlist.html
+05_web/full-stack/HTML5/indextable.html
+05_web/full-stack/HTML5/indexvideo.html
+05_web/full-stack/HTML5/lyrics.html
+05_web/full-stack/HTML5/spananddiv.html
+05_web/full-stack/HTML5/textformmating.html
+05_web/full-stack/HTML5/thankyou.html
+05_web/full-stack/Project_prac/proj1/index.html
+05_web/full-stack/Project_prac/proj1/style.css
+05_web/full-stack/Project_prac/proj2/index.html
+05_web/full-stack/Project_prac/proj2/style.css
+05_web/full-stack/Project_prac/proj3/index.html
+05_web/full-stack/Project_prac/proj3/styles.css
+05_web/html-basics/Beautiful Rain Wallpapers For Your Desktop.jpg
+05_web/html-basics/R.jpg
+05_web/html-basics/attributes styles .htm
+05_web/html-basics/background,fonts,allign.htm
+05_web/html-basics/backgrund and elnt.htm
+05_web/html-basics/biodata-practice-project.html
+05_web/html-basics/button.htm
+05_web/html-basics/colours.htm
+05_web/html-basics/default.asp
+05_web/html-basics/headings links and image .htm
+05_web/html-basics/hr br and pre  element.htm
+05_web/html-basics/html basic 1 .htm
+05_web/html-basics/html link color.htm
+05_web/html-basics/htmli lbuttons customisation.htm
+05_web/html-basics/image map.htm
+05_web/html-basics/internal-external-css-demo.html
+05_web/html-basics/java script in html.htm
+05_web/html-basics/orange-ceramic-mug-of-coffee-on-tray-2868979.jpg
+05_web/html-basics/picture.htm
+05_web/html-basics/project pratice 1.htm
+05_web/html-basics/quotation and citation.htm
+05_web/html-basics/script.js
+05_web/html-basics/styles.css
+05_web/html-basics/styling a button.htm
+05_web/html-basics/table.htm
+05_web/html-basics/target attribute .htm
+05_web/html-basics/text formatting .htm
+05_web/html-basics/transparent-button-demo.html
+06_college/dynamic-array-input.cpp
+06_college/find-max-of-three.cpp
+06_college/increment-and-print.cpp
+07_projects/employee-management-system-final.cpp
+07_projects/employee-management-system-v1.cpp
+07_projects/sorting-visualizer-sfml.cpp
+07_projects/tetris-game.cpp
+Phase-1/two_sum.cpp
+README.md
+file_analysis.txt
+final_restructure.sh
+rename_all.sh
+restructure.sh
