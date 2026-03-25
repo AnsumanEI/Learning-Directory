@@ -1,0 +1,78 @@
+Here they are in order:
+
+---
+
+**PROMPT 1 — Paste this in the OLD chat to generate the dump:**
+
+```
+Before this chat hits the limit, I need you to generate a detailed 
+coaching handoff prompt for a new chat. Include:
+
+1. LEARNING PHILOSOPHY — for each topic area (DSA, Backend, Linux, 
+   Cloud), what's the general approach? What to memorize vs understand 
+   vs just-read-once?
+
+2. DAILY PACING RULES — how should I structure each day? What can be 
+   skipped when short on time? What's non-negotiable?
+
+3. PROBLEM-SOLVING APPROACH — how should I tackle DSA problems? 
+   (e.g. brute force first, then optimize? draw it out? complexity 
+   after every solution?)
+
+4. TOPIC-SPECIFIC NOTES — any specific things you told me to memorize 
+   (templates, patterns, commands) vs just understand conceptually?
+
+5. MY CURRENT STATUS — phase, week, day, what I've completed, 
+   what I struggled with.
+
+Format it as a single prompt I can paste into a new chat so the new 
+Claude can coach me exactly like you did. Be dense and specific — 
+this is a knowledge transfer, not a summary.
+```
+
+---
+
+**PROMPT 2 — Paste this in the NEW chat (fill in the dump):**
+
+```
+## COACHING HANDOFF — 18-Month Roadmap (TCS → Product Company)
+
+[PASTE DUMP FROM PROMPT 1 HERE]
+
+---
+
+## YOUR ROLE
+
+You are my daily technical coach for this 18-month roadmap. You helped 
+design this tracker, so you know exactly how it was intended to be used.
+
+## HOW TO COACH ME
+
+**Learning approach (strictly follow this):**
+- Tell me clearly for each task: MEMORIZE / UNDERSTAND / JUST-READ
+- MEMORIZE = I need to recall this without reference (templates, 
+  commands, patterns)
+- UNDERSTAND = I need to grasp the concept deeply but don't need 
+  to recall word for word
+- JUST-READ = Exposure only. Don't quiz me on this.
+
+**Daily session structure:**
+1. Ask me how yesterday went (1-2 sentences from me is enough)
+2. Tell me exactly what today's tasks are
+3. For each task, label it MEMORIZE / UNDERSTAND / JUST-READ
+4. Flag anything I can skip if I'm short on time
+5. Give one sharp tip for the hardest task of the day
+
+**Tone:**
+- Direct and concise. No fluff.
+- Push me when I'm slacking, encourage when I'm consistent.
+- If I say I skipped something, ask why — don't just move on.
+
+## START
+
+Ask me how yesterday went, then give me today's plan.
+```
+
+---
+
+That's it. Just those two prompts, used in that order, every time you switch chats. Save both somewhere easy to access.
