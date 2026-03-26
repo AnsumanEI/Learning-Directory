@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>18-Month Roadmap Tracker</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@400;500;600;700&display=swap');
+:root {
+  --bg:#0f0f0e;--surface:#1a1a18;--surface2:#222220;--border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);--text:#e8e6e0;--muted:#7a786f;--hint:#4a4845;
+  --teal:#2dd4a0;--teal-dim:rgba(45,212,160,0.12);
+  --purple:#a78bfa;--purple-dim:rgba(167,139,250,0.12);
+  --amber:#fbbf24;--amber-dim:rgba(251,191,36,0.12);
+  --coral:#fb7185;--coral-dim:rgba(251,113,133,0.12);
+  --blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);
+  --green:#86efac;--green-dim:rgba(134,239,172,0.12);
+  --mono:'JetBrains Mono',monospace;--sans:'Syne',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* HEADER */
+.header{padding:24px 28px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.header h1{font-size:18px;font-weight:700;letter-spacing:-0.02em;}
+.header p{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:3px;}
+.global-stats{display:flex;align-items:center;gap:16px;}
+.stat-ring{display:flex;align-items:center;gap:10px;}
+.ring-nums .pct{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--teal);}
+.ring-nums .sub{font-family:var(--mono);font-size:10px;color:var(--muted);display:block;}
+svg.ring{transform:rotate(-90deg);}
+svg.ring circle{transition:stroke-dashoffset 0.5s ease;}
+
+/* PHASE TABS */
+.phase-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);padding:0 28px;overflow-x:auto;scrollbar-width:none;}
+.phase-tabs::-webkit-scrollbar{display:none;}
+.phase-tab{font-family:var(--mono);font-size:10px;font-weight:500;padding:11px 18px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;transition:color 0.15s,border-color 0.15s;background:none;border-top:none;border-left:none;border-right:none;}
+.phase-tab:hover{color:var(--text);}
+.phase-tab.active{border-bottom-color:var(--teal);}
+.phase-tab.p1.active{color:var(--teal);border-bottom-color:var(--teal);}
+.phase-tab.p2.active{color:var(--purple);border-bottom-color:var(--purple);}
+.phase-tab.p3.active{color:var(--amber);border-bottom-color:var(--amber);}
+.phase-tab.p4.active{color:var(--coral);border-bottom-color:var(--coral);}
+
+/* PHASE PANEL */
+.phase-panel{display:none;padding:20px 28px 60px;}
+.phase-panel.active{display:block;}
+.phase-banner{padding:10px 16px;border-radius:8px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.phase-banner h2{font-size:14px;font-weight:600;}
+.phase-banner p{font-family:var(--mono);font-size:11px;opacity:0.8;}
+.phase-progress{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;}
+.phase-bar{width:120px;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;}
+.phase-bar-fill{height:100%;border-radius:2px;transition:width 0.4s;}
+
+/* WEEK ACCORDION */
+.week-block{border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden;}
+.week-header{padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--surface);transition:background 0.15s;}
+.week-header:hover{background:var(--surface2);}
+.week-header-left{display:flex;align-items:center;gap:12px;}
+.week-num{font-family:var(--mono);font-size:10px;color:var(--hint);}
+.week-title{font-size:13px;font-weight:600;}
+.week-theme{font-family:var(--mono);font-size:10px;color:var(--muted);margin-left:4px;}
+.week-right{display:flex;align-items:center;gap:10px;}
+.week-pct{font-family:var(--mono);font-size:10px;color:var(--muted);}
+.week-chevron{font-family:var(--mono);font-size:11px;color:var(--hint);transition:transform 0.2s;}
+.week-chevron.open{transform:rotate(90deg);}
+.week-body{display:none;padding:14px 16px 16px;}
+.week-body.open{display:block;}
+
+/* DAY GRID */
+.days-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;margin-bottom:12px;}
+.day-card{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:12px 13px;transition:border-color 0.15s;}
+.day-card.is-today{border-color:var(--teal);border-width:1.5px;}
+.day-card.is-done{opacity:0.45;}
+.day-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.day-date-wrap .dname{font-family:var(--mono);font-size:9px;color:var(--hint);text-transform:uppercase;letter-spacing:0.05em;}
+.day-date-wrap .ddate{font-size:16px;font-weight:700;line-height:1.1;margin-top:1px;}
+.day-card.is-today .ddate{color:var(--teal);}
+.day-bigcheck{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--border2);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s,border-color 0.15s;flex-shrink:0;}
+.day-bigcheck:hover{border-color:var(--teal);}
+.day-bigcheck.chk{background:var(--teal);border-color:var(--teal);}
+.day-bigcheck svg{display:none;}
+.day-bigcheck.chk svg{display:block;}
+.tag{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:500;padding:2px 7px;border-radius:20px;margin-bottom:6px;}
+.tag-dsa{background:var(--teal-dim);color:var(--teal);}
+.tag-be{background:var(--purple-dim);color:var(--purple);}
+.tag-linux{background:var(--amber-dim);color:var(--amber);}
+.tag-proj{background:var(--coral-dim);color:var(--coral);}
+.tag-cloud{background:var(--blue-dim);color:var(--blue);}
+.tag-review{background:rgba(255,255,255,0.05);color:var(--muted);}
+.tag-interview{background:var(--green-dim);color:var(--green);}
+.day-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px;line-height:1.3;}
+.day-desc{font-size:11px;color:var(--muted);line-height:1.45;}
+.tasks{margin-top:9px;border-top:1px solid var(--border);padding-top:9px;}
+.task-item{display:flex;gap:7px;align-items:flex-start;margin-bottom:5px;cursor:pointer;}
+.tcheck{width:13px;height:13px;border-radius:3px;border:1px solid var(--border2);background:none;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:background 0.12s;}
+.tcheck.chk{background:var(--teal);border-color:var(--teal);}
+.tcheck.chk::after{content:'✓';font-size:8px;color:#000;font-weight:800;}
+.ttext{font-size:11px;color:var(--muted);line-height:1.4;}
+.task-item.done .ttext{text-decoration:line-through;color:var(--hint);}
+
+/* PROJECT CARD */
+.proj-card{background:var(--surface);border:1px solid var(--border2);border-left:3px solid var(--coral);border-radius:8px;padding:12px 14px;margin-top:4px;}
+.proj-card h4{font-family:var(--mono);font-size:10px;color:var(--coral);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px;}
+.proj-card p{font-size:12px;color:var(--muted);line-height:1.55;}
+.milestone-badge{display:inline-block;font-family:var(--mono);font-size:9px;padding:2px 8px;border-radius:3px;margin-right:4px;margin-bottom:4px;background:rgba(255,255,255,0.05);color:var(--muted);}
+
+/* RESET */
+.reset-btn{font-family:var(--mono);font-size:9px;color:var(--hint);background:none;border:1px solid var(--border);border-radius:4px;padding:3px 9px;cursor:pointer;transition:color 0.15s,border-color 0.15s;}
+.reset-btn:hover{color:var(--coral);border-color:var(--coral);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>18-Month Roadmap Tracker</h1>
+    <p>TCS → Product Company · Backend + Cloud/IoT · C++ · Mar 2026 – Sep 2027</p>
+  </div>
+  <div class="global-stats">
+    <div class="stat-ring">
+      <div class="ring-nums">
+        <div class="pct" id="gpct">0%</div>
+        <span class="sub" id="gsub">0/0 tasks</span>
+      </div>
+      <svg class="ring" width="48" height="48" viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="20" fill="none" stroke="#1a1a18" stroke-width="4"/>
+        <circle id="gring" cx="24" cy="24" r="20" fill="none" stroke="#2dd4a0" stroke-width="4"
+          stroke-dasharray="125.7" stroke-dashoffset="125.7" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<div class="phase-tabs">
+  <button class="phase-tab p1 active" onclick="showPhase(0)">Phase 1 · Foundation</button>
+  <button class="phase-tab p2" onclick="showPhase(1)">Phase 2 · Core Skills</button>
+  <button class="phase-tab p3" onclick="showPhase(2)">Phase 3 · Differentiation</button>
+  <button class="phase-tab p4" onclick="showPhase(3)">Phase 4 · Job Ready</button>
+</div>
+
+<div id="phase-0" class="phase-panel active"></div>
+<div id="phase-1" class="phase-panel"></div>
+<div id="phase-2" class="phase-panel"></div>
+<div id="phase-3" class="phase-panel"></div>
+
+<script>
+const STORAGE_KEY = 'tracker_18m_v1';
+
+function loadState(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch{return {};}}
+function saveState(s){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(s));}catch(e){console.warn('Storage failed',e);}}
+const START = new Date('2026-03-20');
+
+function addDays(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r;}
+function fmtDate(d){return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});}
+function dayOfWeek(d){return['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()];}
+function isToday(d){const t=new Date();return d.toDateString()===t.toDateString();}
+
+// ─────────────────────────────────────────────
+// FULL 18-MONTH DATA
+// ─────────────────────────────────────────────
+const PHASES = [
+// ═══════════════════════════════════════════════
+// PHASE 1 — FOUNDATION (Months 0-4, ~17 weeks)
+// ═══════════════════════════════════════════════
+{
+  label:'Phase 1 — Foundation',
+  sub:'Months 0–4 · DSA in C++ · Backend basics · Linux & Networking',
+  color:'var(--teal)',
+  weeks:[
+    { title:'Week 1', theme:'STL + REST APIs + Linux basics', startOffset:0,
+      project:{title:'C++ Key-Value Store',desc:'In-memory map<string,string> with get/set/delete via stdin. Save to .txt on exit, reload on start. ~80 lines. Push to GitHub.'},
+      days:[
+        {tag:'review',label:'Review',title:'Revision day',desc:'Skim STL notes. No new problems.',tasks:['Skim vector operations','Skim unordered_map — insert, find, count','Skim map vs unordered_map differences','Review set and priority_queue']},
+        {tag:'dsa',label:'DSA',title:'Two Sum + Buy & Sell Stock I',desc:'LC #1 and #121. HashMap pattern. 30 min each.',tasks:['Solve Two Sum (LC #1) brute force','Optimise with unordered_map O(n)','Solve Best Time to Buy Stock (LC #121)','Write time & space complexity comments']},
+        {tag:'be',label:'Backend',title:'HTTP basics + Install FastAPI',desc:'GET/POST/PUT/DELETE, status codes. Build 3 endpoints.',tasks:['Read HTTP methods + status codes (20 min)','pip install fastapi uvicorn','Write GET /hello endpoint','Write POST /echo endpoint','Write GET /items/{id} endpoint','Test all 3 with curl','Open localhost:8000/docs']},
+        {tag:'dsa',label:'DSA',title:'Contains Duplicate + Valid Anagram',desc:'LC #217 and #242. HashMap pattern.',tasks:['Solve Contains Duplicate (LC #217)','Solve Valid Anagram (LC #242)','Try sorting approach for anagram too','Write complexity for both']},
+        {tag:'be',label:'Backend',title:'FastAPI — query params + Pydantic',desc:'Add validation, query params, path params.',tasks:['Add GET /items?limit=5 query param','Add Pydantic request body model','Return 404 when item not found','Read FastAPI docs: Request Body section']},
+        {tag:'dsa',label:'DSA',title:'Group Anagrams + Top K Frequent',desc:'LC #49 and #347. Medium — 45 min each.',tasks:['Solve Group Anagrams (LC #49)','Solve Top K Frequent Elements (LC #347)','Try min-heap approach for LC #347','Comment complexity for both']},
+        {tag:'linux',label:'Linux',title:'Linux fundamentals',desc:'Do in terminal — not just reading.',tasks:['cd, ls -la, mkdir, rm, cp, mv','grep -r and find . -name "*.cpp"','chmod 755, chown basics','ps aux, kill, top, htop','df -h, du -sh, free -m','curl a URL and read raw response']},
+      ]
+    },
+    { title:'Week 2', theme:'Sliding Window + FastAPI + Networking',startOffset:7,
+      project:{title:'C++ libcurl HTTP Client',desc:'Use libcurl + nlohmann/json to call your FastAPI /users endpoint from C++. Create a user, fetch all. Push C++ client + Python server as one repo.'},
+      days:[
+        {tag:'dsa',label:'DSA',title:'Product of Array Except Self',desc:'LC #238. No division. Prefix + suffix arrays.',tasks:['Solve with prefix array (O(n) space)','Optimise to O(1) using output array','Trace through example by hand','Write complexity']},
+        {tag:'proj',label:'Project',title:'C++ libcurl HTTP client',desc:'Call FastAPI from C++ using libcurl.',tasks:['Install libcurl and nlohmann/json','GET /hello from C++ and print response','POST /echo with JSON body from C++','Parse JSON response in C++','Push to GitHub as one repo']},
+        {tag:'linux',label:'Linux',title:'TCP/IP + DNS',desc:'Use tcpdump to watch traffic live.',tasks:['Read: what happens when you type google.com','Understand DNS resolution steps','Understand TCP 3-way handshake','Run tcpdump -i any port 80 then curl','Understand IP vs TCP vs HTTP layers']},
+        {tag:'dsa',label:'DSA',title:'Longest Substring + Sliding Window Max',desc:'LC #3 and #239. Two pointer in C++.',tasks:['Solve Longest Substring Without Repeat (LC #3)','Solve Sliding Window Maximum (LC #239)','Understand deque-based O(n) solution for #239','Draw the window visually for LC #3']},
+        {tag:'be',label:'Backend',title:'FastAPI + SQLite',desc:'First DB-backed API. POST /users, GET /users.',tasks:['pip install sqlalchemy','Create User model: id, name, email','POST /users — insert into SQLite','GET /users — fetch all','GET /users/{id} — 404 if missing','Test with curl and /docs']},
+        {tag:'dsa',label:'DSA',title:'Valid Parentheses + Min Stack',desc:'LC #20 and #155. Stack patterns.',tasks:['Solve Valid Parentheses (LC #20)','Solve Min Stack (LC #155)','Implement MinStack with two stacks in C++','Explain why auxiliary stack = O(1) getMin']},
+        {tag:'linux',label:'Linux',title:'SSH + processes + cron',desc:'SSH into localhost, manage processes, write a cron job.',tasks:['Generate SSH key pair with ssh-keygen','SSH into localhost: ssh user@127.0.0.1','systemctl status/start/stop a service','Write bash script appending timestamp','Add to crontab to run every minute','Verify with tail -f logfile']},
+      ]
+    },
+    { title:'Week 3', theme:'Binary Search + Trees + TLS', startOffset:14,
+      project:{title:'C++ Threaded TCP Server',desc:'POSIX sockets echo server. Handle multiple clients with std::thread. Add SET/GET protocol with a map. Your first real networked C++ app.'},
+      days:[
+        {tag:'dsa',label:'DSA',title:'Binary Search + Rotated Array',desc:'LC #704 and #33. Master lo/hi/mid template.',tasks:['Solve Binary Search (LC #704)','Solve Search in Rotated Sorted Array (LC #33)','Memorise lo/hi/mid template','Write it as a reusable comment']},
+        {tag:'proj',label:'Project',title:'C++ TCP echo server',desc:'POSIX sockets. Handle multiple clients.',tasks:['Write single-client TCP echo server (~40 lines)','Test with nc localhost 8080','Add std::thread for multiple clients','Add SET/GET protocol with map<string,string>','Test: SET name Arun → GET name → Arun','Push to GitHub']},
+        {tag:'review',label:'Review',title:'3-week checkpoint',desc:'Recount LC, rerun projects, write READMEs.',tasks:['Count total LC problems — target 15+','Run KV store (Week 1 project)','Run libcurl client (Week 2 project)','Run TCP server (Week 3 project)','Write README for each project','List 3 things you struggled with']},
+        {tag:'dsa',label:'DSA',title:'Invert BT + Max Depth',desc:'LC #226 and #104. Tree recursion intro.',tasks:['Write BinaryTree node struct in C++','Write insert and print functions','Solve Invert Binary Tree (LC #226)','Solve Max Depth of Binary Tree (LC #104)','Write iterative BFS version too']},
+        {tag:'be',label:'Backend',title:'REST auth — API keys + JWT intro',desc:'Add auth to FastAPI. Understand JWT.',tasks:['Add X-API-Key header check','Return 401 if key wrong or missing','Read: what is JWT (header.payload.signature)','Understand API key vs JWT use cases','Read FastAPI security docs (30 min)']},
+        {tag:'dsa',label:'DSA',title:'Same Tree + Subtree',desc:'LC #100 and #572. Tree comparison.',tasks:['Solve Same Tree (LC #100) recursively','Solve Subtree of Another Tree (LC #572)','Rewrite Same Tree iteratively with a stack','Understand O(n*m) naive complexity']},
+        {tag:'linux',label:'Linux',title:'HTTP/HTTPS + TLS handshake',desc:'Inspect real TLS with openssl s_client.',tasks:['Read symmetric vs asymmetric encryption','Read TLS handshake steps','Run openssl s_client -connect google.com:443','Identify certificate and cipher suite','Understand why HTTPS prevents MITM']},
+      ]
+    },
+    { title:'Week 4', theme:'Graphs intro + Docker basics', startOffset:21,
+      project:{title:'Dockerise your TCP server',desc:'Write a Dockerfile for your C++ TCP server. Build and run it in a container. Push to Docker Hub.'},
+      days:[
+        {tag:'dsa',label:'DSA',title:'Number of Islands + Clone Graph',desc:'LC #200 and #133. Graph DFS/BFS.',tasks:['Solve Number of Islands (LC #200) with DFS','Solve it again with BFS','Solve Clone Graph (LC #133)','Understand adjacency list vs matrix in C++']},
+        {tag:'be',label:'Backend',title:'FastAPI — middleware + CORS',desc:'Add CORS, logging middleware, error handling.',tasks:['Add CORS middleware to FastAPI','Add request logging middleware','Add global exception handler','Test from a browser fetch()']},
+        {tag:'linux',label:'Linux',title:'Docker fundamentals',desc:'Build, run, push Docker containers.',tasks:['Install Docker','docker pull, run, ps, stop, rm','Write Dockerfile for a Python app','Build and run it: docker build + run','Push to Docker Hub']},
+        {tag:'dsa',label:'DSA',title:'Pacific Atlantic + Surrounded Regions',desc:'LC #417 and #130. Multi-source BFS.',tasks:['Solve Pacific Atlantic Water Flow (LC #417)','Solve Surrounded Regions (LC #130)','Understand multi-source BFS pattern','Trace the flow by hand on a 4x4 grid']},
+        {tag:'be',label:'Backend',title:'PostgreSQL + Docker Compose',desc:'Replace SQLite with Postgres in Docker.',tasks:['Write docker-compose.yml with FastAPI + Postgres','Connect FastAPI to Postgres via SQLAlchemy','Run with docker-compose up','Test all endpoints still work','Understand volumes for data persistence']},
+        {tag:'dsa',label:'DSA',title:'Course Schedule I + II',desc:'LC #207 and #210. Topological sort.',tasks:['Solve Course Schedule (LC #207) — cycle detection','Solve Course Schedule II (LC #210)','Implement topological sort via DFS in C++','Implement via BFS (Kahn\'s algorithm) too']},
+        {tag:'proj',label:'Project',title:'Dockerise TCP server',desc:'C++ app in Docker container.',tasks:['Write Dockerfile for C++ app (alpine base)','Build image successfully','Run container and test TCP connection','docker-compose for server + a test client','Push image to Docker Hub']},
+      ]
+    },
+    { title:'Week 5', theme:'DP intro + REST design patterns', startOffset:28,
+      project:{title:'REST API with auth + Postgres (production-ready)',desc:'Full FastAPI app: JWT auth, Postgres, CRUD for a resource (e.g. "devices"), Dockerised with docker-compose. This is your first real portfolio API.'},
+      days:[
+        {tag:'dsa',label:'DSA',title:'Climbing Stairs + House Robber',desc:'LC #70 and #198. DP intro — tabulation.',tasks:['Solve Climbing Stairs (LC #70) recursive','Optimise with memoisation','Optimise to O(1) space','Solve House Robber (LC #198)','Identify DP subproblem pattern']},
+        {tag:'be',label:'Backend',title:'JWT auth in FastAPI',desc:'Full JWT login flow: register, login, protected routes.',tasks:['pip install python-jose passlib','Create /register and /login endpoints','Hash passwords with bcrypt','Generate JWT on login','Add protected route requiring JWT bearer token','Test the full flow with curl']},
+        {tag:'dsa',label:'DSA',title:'Longest Common Subsequence + Edit Distance',desc:'LC #1143 and #72. Classic 2D DP.',tasks:['Solve LCS (LC #1143) — draw the DP table','Solve Edit Distance (LC #72)','Write both solutions with O(n*m) space','Optimise LCS to O(n) space']},
+        {tag:'be',label:'Backend',title:'CRUD API for "devices" resource',desc:'Full REST CRUD with auth protection.',tasks:['GET /devices — list all (auth required)','POST /devices — create new device','GET /devices/{id} — fetch one','PUT /devices/{id} — update','DELETE /devices/{id} — delete','Test all with curl using JWT bearer token']},
+        {tag:'dsa',label:'DSA',title:'Word Break + Coin Change',desc:'LC #139 and #322. DP + BFS.',tasks:['Solve Word Break (LC #139)','Solve Coin Change (LC #322)','For Coin Change: draw DP array step by step','Identify bottom-up vs top-down approach']},
+        {tag:'be',label:'Backend',title:'Dockerise full API',desc:'docker-compose with FastAPI + Postgres + nginx.',tasks:['Add nginx as reverse proxy in docker-compose','Add environment variables for secrets','Write .env file (never commit this)','Run everything with docker-compose up -d','Test through nginx on port 80']},
+        {tag:'review',label:'Review',title:'Month 1 checkpoint',desc:'Review DSA patterns learned, run all projects.',tasks:['List all LC problems solved this month','Categorise: HashMap / Stack / Graph / DP','Run and demo your devices API','Confirm Docker setup works end-to-end','Update GitHub README files']},
+      ]
+    },
+    { title:'Week 6', theme:'Recursion + Backtracking + SQL', startOffset:35,
+      project:{title:'SQL query challenge set',desc:'Write 10 SQL queries on your Postgres devices DB: JOINs, GROUP BY, subqueries, window functions. Save them in a queries.sql file on GitHub.'},
+      days:[
+        {tag:'dsa',label:'DSA',title:'Subsets + Permutations',desc:'LC #78 and #46. Backtracking intro.',tasks:['Solve Subsets (LC #78)','Solve Permutations (LC #46)','Draw the recursion tree for a 3-element input','Write both in C++ with clean backtracking template']},
+        {tag:'be',label:'Backend',title:'SQL deep dive',desc:'JOINs, GROUP BY, subqueries, indexes.',tasks:['Write INNER, LEFT, RIGHT JOIN queries','Write GROUP BY + HAVING queries','Write a subquery (SELECT inside SELECT)','Create an index and explain why it helps','Use EXPLAIN ANALYZE on a slow query']},
+        {tag:'dsa',label:'DSA',title:'Combination Sum + Letter Combinations',desc:'LC #39 and #17. Backtracking patterns.',tasks:['Solve Combination Sum (LC #39)','Solve Letter Combinations of Phone Number (LC #17)','Identify the pruning condition in combination sum','Write clean recursive template in C++']},
+        {tag:'be',label:'Backend',title:'Database design + migrations',desc:'Schema design, Alembic migrations.',tasks:['Read: normalisation (1NF, 2NF, 3NF)','Add a second model (e.g. DeviceReading) with FK','Write Alembic migration script','Run alembic upgrade head','Verify schema in psql']},
+        {tag:'dsa',label:'DSA',title:'Word Search + N-Queens',desc:'LC #79 and #51. Grid backtracking.',tasks:['Solve Word Search (LC #79)','Solve N-Queens (LC #51) — understand constraint pruning','Draw the decision tree for N=4','Write C++ solution with clean visited array']},
+        {tag:'be',label:'Backend',title:'Pagination + filtering',desc:'Add pagination and filtering to your list endpoints.',tasks:['Add ?page=1&limit=10 to GET /devices','Add ?status=active filter','Test with large datasets','Read about cursor-based vs offset pagination','Document in README why cursor > offset at scale']},
+        {tag:'dsa',label:'DSA',title:'Palindrome Partitioning + Sudoku Solver',desc:'LC #131 and #37. Hard backtracking.',tasks:['Solve Palindrome Partitioning (LC #131)','Attempt Sudoku Solver (LC #37)','For Sudoku: understand constraint propagation','Time yourself: 45 min each']},
+      ]
+    },
+    { title:'Week 7', theme:'Trees deep dive + Networking', startOffset:42,
+      project:{title:'C++ binary search tree implementation',desc:'Build a full BST in C++: insert, search, delete, inorder/preorder/postorder traversal, height, LCA. No LC solutions — build from scratch. Push to GitHub.'},
+      days:[
+        {tag:'dsa',label:'DSA',title:'BST: Validate + Kth Smallest',desc:'LC #98 and #230. BST properties.',tasks:['Solve Validate Binary Search Tree (LC #98)','Solve Kth Smallest in BST (LC #230)','Understand inorder traversal gives sorted order','Write both in C++ using iterative inorder']},
+        {tag:'linux',label:'Linux',title:'Networking: ports, sockets, firewall',desc:'Deep dive into network tools.',tasks:['netstat -tulpn — see all listening ports','ss -tulpn (modern netstat)','iptables basics: list, add, delete rules','ufw allow/deny ports','lsof -i :8080 — what\'s using a port','nmap localhost — port scan yourself']},
+        {tag:'dsa',label:'DSA',title:'LCA + Binary Tree from Preorder+Inorder',desc:'LC #236 and #105. Classic tree problems.',tasks:['Solve LCA of Binary Tree (LC #236)','Solve Construct BT from Preorder+Inorder (LC #105)','Understand why LCA = first common ancestor recursively','Trace construction step by step on paper']},
+        {tag:'proj',label:'Project',title:'Build C++ BST from scratch',desc:'Full BST with all operations.',tasks:['Implement Node struct + BST class','Implement insert and search','Implement delete (all 3 cases)','Implement inorder, preorder, postorder','Implement height and LCA functions','Write tests in main.cpp','Push to GitHub']},
+        {tag:'dsa',label:'DSA',title:'Serialize/Deserialize BT + Right Side View',desc:'LC #297 and #199. BFS + encoding.',tasks:['Solve Serialize and Deserialize BT (LC #297)','Solve Binary Tree Right Side View (LC #199)','Understand level-order traversal with queue','Write serializer using BFS']},
+        {tag:'linux',label:'Linux',title:'HTTP server deep dive',desc:'Understand nginx config, reverse proxy.',tasks:['Read nginx config structure','Configure a basic server block','Add a reverse proxy to your FastAPI app','Set up gzip compression','Read access and error logs','Understand upstream and proxy_pass']},
+        {tag:'review',label:'Review',title:'Phase 1 mid-point review',desc:'You\'re halfway through Phase 1.',tasks:['Count total LC problems — target 40+','Run all 3 projects','Can you explain Big-O for every solution?','Can you explain TCP handshake from memory?','Update LinkedIn with current learnings','Plan next 4 weeks clearly']},
+      ]
+    },
+    { title:'Week 8', theme:'Heaps + Priority Queues + System Design intro', startOffset:49,
+      project:{title:'Task scheduler in C++',desc:'Priority queue based task scheduler: each task has a priority and execution time. Scheduler picks highest priority, simulates execution, handles cooldown. ~150 lines C++.'},
+      days:[
+        {tag:'dsa',label:'DSA',title:'Find Median from Data Stream + K Closest Points',desc:'LC #295 and #973. Heap patterns.',tasks:['Solve Find Median from Data Stream (LC #295)','Understand two-heap (max+min) approach','Solve K Closest Points to Origin (LC #973)','Implement both with priority_queue in C++']},
+        {tag:'be',label:'Backend',title:'System design intro — what is it?',desc:'Learn the framework for answering system design questions.',tasks:['Read: how to approach a system design question','Steps: clarify → estimate → design → scale','Read about CAP theorem','Read: consistency vs availability tradeoff','Watch 1 system design video (Gaurav Sen or Jordan has no life)']},
+        {tag:'dsa',label:'DSA',title:'Task Scheduler + Reorganise String',desc:'LC #621 and #767. Greedy + heap.',tasks:['Solve Task Scheduler (LC #621)','Solve Reorganise String (LC #767)','Understand the greedy insight in task scheduler','Write both in C++ with priority_queue']},
+        {tag:'be',label:'Backend',title:'Design a URL shortener (HLD)',desc:'First system design practice.',tasks:['Clarify requirements: QPS, storage, latency','Design data model: short_url, long_url, user_id','Choose hashing approach (base62 encoding)','Design read path: redirect flow','Design write path: creation flow','Draw the architecture diagram']},
+        {tag:'dsa',label:'DSA',title:'Merge K Sorted Lists + Sort Characters by Frequency',desc:'LC #23 and #451. Heap mastery.',tasks:['Solve Merge K Sorted Lists (LC #23)','Understand why min-heap gives O(n log k)','Solve Sort Characters by Frequency (LC #451)','Write Merge K Sorted Lists in C++ cleanly']},
+        {tag:'be',label:'Backend',title:'Caching concepts — Redis intro',desc:'Understand caching. Install Redis.',tasks:['Read: cache-aside, write-through, write-back','Read: LRU eviction policy','Install Redis locally','redis-cli: SET, GET, EXPIRE, TTL, DEL','Add Redis caching to one FastAPI endpoint','Measure latency improvement']},
+        {tag:'proj',label:'Project',title:'C++ task scheduler',desc:'Priority queue based scheduler.',tasks:['Define Task struct: id, priority, duration, cooldown','Implement scheduler with priority_queue','Simulate execution with cooldown periods','Add a simple test with 10 tasks','Measure throughput vs naive approach','Push to GitHub with README']},
+      ]
+    },
+    { title:'Week 9', theme:'Graphs advanced + Message queues intro', startOffset:56,
+      project:{title:'Graph pathfinder visualiser (CLI)',desc:'C++ CLI tool: input a graph via stdin, run BFS/DFS/Dijkstra, print path and distance. Multiple algorithms selectable. Push to GitHub.'},
+      days:[
+        {tag:'dsa',label:'DSA',title:'Dijkstra + Bellman-Ford',desc:'Weighted shortest paths. Implement both.',tasks:['Implement Dijkstra\'s in C++ with priority_queue','Solve Network Delay Time (LC #743)','Implement Bellman-Ford in C++','Understand when Bellman-Ford > Dijkstra (negative weights)','Compare time complexity of both']},
+        {tag:'be',label:'Backend',title:'Message queues — RabbitMQ intro',desc:'Understand pub/sub and task queues.',tasks:['Read: why message queues? (decoupling, async)','Install RabbitMQ via Docker','Write a Python producer that sends a message','Write a Python consumer that receives it','Add a queue to your devices API: async device events','Read: RabbitMQ vs Kafka differences']},
+        {tag:'dsa',label:'DSA',title:'Find the City + Cheapest Flights',desc:'LC #1334 and #787. Floyd-Warshall + DP.',tasks:['Solve Find City with Smallest Number of Neighbours (LC #1334)','Solve Cheapest Flights Within K Stops (LC #787)','Understand Floyd-Warshall all-pairs shortest path','Implement Floyd-Warshall in C++']},
+        {tag:'be',label:'Backend',title:'Design a notification system (HLD)',desc:'System design practice #2.',tasks:['Define requirements: push, email, SMS, in-app','Design fan-out: user has 10M followers','Choose: push fan-out vs pull at read time','Design message queue for async delivery','Estimate storage and throughput','Draw architecture diagram']},
+        {tag:'dsa',label:'DSA',title:'Union Find — connected components',desc:'LC #684 and #1319. Disjoint set union.',tasks:['Implement UnionFind in C++ (path compression + rank)','Solve Redundant Connection (LC #684)','Solve Number of Operations to Make Network Connected (LC #1319)','Understand why path compression = near O(1)']},
+        {tag:'be',label:'Backend',title:'Celery + Redis task queue',desc:'Async background tasks in FastAPI.',tasks:['pip install celery redis','Set up Celery with Redis as broker','Write a background task: send_notification(device_id)','Trigger it from FastAPI endpoint asynchronously','Monitor with Celery Flower UI','Test that API returns immediately while task runs async']},
+        {tag:'proj',label:'Project',title:'C++ graph pathfinder',desc:'CLI tool: BFS/DFS/Dijkstra.',tasks:['Accept graph as adjacency list from stdin','Implement BFS traversal','Implement DFS traversal','Implement Dijkstra with priority_queue','Print path + distance for each algorithm','Accept source + target as args','Push with examples in README']},
+      ]
+    },
+    { title:'Week 10', theme:'Dynamic Programming deep + Load balancing', startOffset:63,
+      project:{title:'CLI DP visualiser',desc:'C++ CLI tool that visualises the DP table for coin change, LCS, and knapsack. Input the problem, get the filled table printed step by step.'},
+      days:[
+        {tag:'dsa',label:'DSA',title:'0/1 Knapsack + Unbounded Knapsack',desc:'Classic DP. Write clean bottom-up C++.',tasks:['Implement 0/1 Knapsack from scratch in C++','Trace the DP table on a 4-item example','Implement Unbounded Knapsack','Understand the only difference between the two','Solve LC #322 Coin Change as Unbounded Knapsack']},
+        {tag:'be',label:'Backend',title:'Load balancing concepts',desc:'Understand how load balancers work.',tasks:['Read: Round robin, least connections, IP hash','Read: L4 vs L7 load balancing','Set up nginx load balancing to 2 FastAPI instances','docker-compose: 2 app containers + nginx LB','Test: requests alternate between instances','Read: sticky sessions and when to use them']},
+        {tag:'dsa',label:'DSA',title:'Longest Increasing Subsequence + Russian Dolls',desc:'LC #300 and #354. DP + binary search.',tasks:['Solve LIS (LC #300) with O(n²) DP','Optimise to O(n log n) with patience sorting','Solve Russian Doll Envelopes (LC #354)','Understand the 2D LIS insight']},
+        {tag:'be',label:'Backend',title:'Design Twitter (HLD)',desc:'System design practice #3 — large scale.',tasks:['Clarify: tweet, follow, timeline, search','Design tweet storage + user graph','Design home timeline: fan-out on write vs read','Design search: inverted index basics','Estimate: 100M users, 500M tweets/day','Draw full architecture']},
+        {tag:'dsa',label:'DSA',title:'Buy Sell Stock III + IV',desc:'LC #123 and #188. DP state machine.',tasks:['Solve Buy Sell Stock III — at most 2 transactions','Understand the state machine: hold/sold/rest','Solve Buy Sell Stock IV — at most k transactions','Write the generalised DP solution']},
+        {tag:'be',label:'Backend',title:'Rate limiting + API throttling',desc:'Add rate limiting to your FastAPI app.',tasks:['Read: token bucket vs leaky bucket vs fixed window','pip install slowapi','Add rate limit: 10 requests/minute per IP','Add different limits per endpoint','Test with a loop: for i in range(20): curl...','Read: how Redis enables distributed rate limiting']},
+        {tag:'review',label:'Review',title:'Phase 1 final checkpoint',desc:'You are completing Phase 1.',tasks:['Total LC problems solved — target 70+','Can you do a system design in 45 min?','Run all projects, they should all still work','Write a self-assessment: what is still weak?','Write a blog post draft on one topic you learned','Set up your LinkedIn — add projects and skills']},
+      ]
+    },
+    { title:'Week 11', theme:'Phase 1 buffer + consolidation', startOffset:70,
+      project:{title:'Phase 1 capstone — mini backend',desc:'FastAPI + Postgres + Redis + Celery + Docker Compose. One resource (devices), CRUD, JWT auth, caching, background tasks, rate limiting. README with architecture diagram.'},
+      days:[
+        {tag:'dsa',label:'DSA',title:'Trie — implement + search',desc:'LC #208 and #211. Trie data structure.',tasks:['Implement Trie in C++ from scratch','Solve Implement Trie (LC #208)','Solve Add and Search Word (LC #211)','Understand when Trie > HashMap for prefix search']},
+        {tag:'be',label:'Backend',title:'Phase 1 capstone — start',desc:'Begin building the final Phase 1 project.',tasks:['Set up repo: fastapi-devices-service','docker-compose: app + postgres + redis + celery','Implement JWT auth (register + login)','Implement CRUD for /devices']},
+        {tag:'dsa',label:'DSA',title:'Word Search II + Map Sum Pairs',desc:'LC #212 and #677. Trie + DFS.',tasks:['Solve Word Search II (LC #212) using Trie + DFS','Solve Map Sum Pairs (LC #677)','Understand Trie pruning in word search','Write clean solution in C++']},
+        {tag:'be',label:'Backend',title:'Phase 1 capstone — features',desc:'Add caching, bg tasks, rate limiting.',tasks:['Add Redis caching to GET /devices','Add Celery background task on device creation','Add rate limiting with slowapi','Write docker-compose.yml cleanly','Add health check endpoint']},
+        {tag:'dsa',label:'DSA',title:'Segment Tree intro',desc:'Range sum queries. Build segment tree in C++.',tasks:['Read what a segment tree is','Implement build, query, update in C++','Solve Range Sum Query Mutable (LC #307)','Understand O(log n) for both query and update']},
+        {tag:'be',label:'Backend',title:'Phase 1 capstone — polish',desc:'Documentation, testing, README.',tasks:['Write comprehensive README with architecture diagram','Add pytest tests for all endpoints','Write API docs in /docs (FastAPI auto-generates)','Add .env.example file','Tag v1.0.0 release on GitHub']},
+        {tag:'review',label:'Review',title:'Phase 1 complete',desc:'Celebrate and prepare for Phase 2.',tasks:['Confirm capstone is on GitHub','Count final LC total — should be 80+','Write Phase 2 goals in a notes file','Rest — you\'ve completed a real phase','Post about your progress on LinkedIn']},
+      ]
+    },
+  ]
+},
+
+// ═══════════════════════════════════════════════
+// PHASE 2 — CORE SKILLS (Months 4-10, ~26 weeks)
+// ═══════════════════════════════════════════════
+{
+  label:'Phase 2 — Core Skills',
+  sub:'Months 4–10 · System Design · Docker/K8s · AWS SAA · AWS IoT Core',
+  color:'var(--purple)',
+  weeks:[
+    { title:'Week 12', theme:'System Design fundamentals', startOffset:77,
+      project:{title:'Design doc: Ride-sharing backend',desc:'Write a full design document (Markdown) for a ride-sharing system: data models, API design, component diagram, scaling decisions. 2–3 pages. Push to GitHub.'},
+      days:[
+        {tag:'be',label:'System Design',title:'Scalability 101',desc:'Vertical vs horizontal, stateless design.',tasks:['Read: vertical vs horizontal scaling','Read: stateless vs stateful services','Understand: session storage in distributed systems','Read: CAP theorem in depth','Summarise in your own words in notes']},
+        {tag:'be',label:'System Design',title:'Database design at scale',desc:'SQL vs NoSQL, sharding, replication.',tasks:['Read: SQL vs NoSQL — when to use which','Read: database sharding strategies','Read: master-slave replication','Read: eventual consistency','Take notes on 3 real-world examples']},
+        {tag:'dsa',label:'DSA',title:'DSA revision — Graphs',desc:'Re-solve 3 graph problems timed.',tasks:['Re-solve Number of Islands (timed 20 min)','Re-solve Course Schedule (timed 25 min)','Re-solve Dijkstra (Network Delay Time, timed 30 min)','Write complexity for all 3 without looking']},
+        {tag:'be',label:'System Design',title:'Caching at scale',desc:'CDN, cache invalidation, Redis cluster.',tasks:['Read: cache invalidation strategies','Read: CDN — how it works, edge servers','Read: Redis cluster vs sentinel','Understand: thundering herd problem','Design: caching layer for your devices API']},
+        {tag:'dsa',label:'DSA',title:'DSA revision — DP',desc:'Re-solve 3 DP problems timed.',tasks:['Re-solve LCS (timed 25 min)','Re-solve Knapsack (timed 25 min)','Re-solve Coin Change (timed 20 min)','Can you derive the recurrence without hints?']},
+        {tag:'be',label:'System Design',title:'Message queues at scale',desc:'Kafka vs RabbitMQ, event sourcing.',tasks:['Read: Kafka architecture (topics, partitions, consumers)','Read: event sourcing vs CQRS','Understand: at-least-once vs exactly-once delivery','Read: Kafka use cases vs RabbitMQ']},
+        {tag:'proj',label:'Project',title:'Design doc — ride-sharing',desc:'Full HLD write-up in Markdown.',tasks:['Clarify requirements and constraints','Design data models (drivers, riders, trips, locations)','Draw component architecture','Write API design (endpoints + payloads)','Write scaling section','Push to GitHub']},
+      ]
+    },
+    { title:'Week 13', theme:'Docker deep dive', startOffset:84,
+      project:{title:'Multi-container app with Docker Compose',desc:'FastAPI + Postgres + Redis + nginx — all containerised, network isolated, with health checks, restart policies, and named volumes. Production-grade compose file.'},
+      days:[
+        {tag:'cloud',label:'Docker',title:'Docker internals',desc:'Layers, namespaces, cgroups.',tasks:['Read: how Docker layers work','Understand: union filesystem (OverlayFS)','Read: Linux namespaces (PID, net, mnt)','Read: cgroups for resource limits','Write a multi-stage Dockerfile for C++ app']},
+        {tag:'cloud',label:'Docker',title:'Docker networking',desc:'Bridge, host, overlay networks.',tasks:['docker network ls and inspect','Create a custom bridge network','Connect two containers on same network','Understand: container DNS resolution','Read: overlay networks for multi-host']},
+        {tag:'dsa',label:'DSA',title:'DSA revision — Trees',desc:'Re-solve 3 tree problems timed.',tasks:['Re-solve LCA (timed 25 min)','Re-solve Serialize/Deserialize BT (timed 35 min)','Re-solve BST Kth Smallest (timed 20 min)','Explain solutions out loud as if in interview']},
+        {tag:'cloud',label:'Docker',title:'Docker volumes + secrets',desc:'Persistent data and secret management.',tasks:['Understand named vs anonymous volumes','Mount a volume: -v mydata:/app/data','Use environment files: --env-file .env','Read: Docker secrets for production','Add volumes to your docker-compose.yml']},
+        {tag:'cloud',label:'Docker',title:'Docker health checks + logging',desc:'Production readiness.',tasks:['Add HEALTHCHECK to your Dockerfile','Configure restart: unless-stopped in compose','docker logs, --follow, --tail','Set up log rotation in docker-compose','Add --log-opt max-size=10m']},
+        {tag:'dsa',label:'DSA',title:'DSA revision — Backtracking',desc:'Re-solve 2 hard backtracking problems.',tasks:['Re-solve Word Search II (timed 40 min)','Re-solve N-Queens (timed 35 min)','Write the pruning logic from memory','Code review your own solution — can it be cleaner?']},
+        {tag:'proj',label:'Project',title:'Production-grade Docker Compose',desc:'Full multi-container setup.',tasks:['Write docker-compose.yml with all 4 services','Add health checks to each service','Add named volumes for Postgres data','Add depends_on with condition: healthy','Test: docker-compose down -v && up works cleanly','Document in README']},
+      ]
+    },
+    { title:'Week 14', theme:'Kubernetes fundamentals', startOffset:91,
+      project:{title:'Deploy devices API to Kubernetes',desc:'Write K8s manifests for your devices API: Deployment, Service, ConfigMap, Secret, Ingress. Deploy locally with minikube. Scale to 3 replicas.'},
+      days:[
+        {tag:'cloud',label:'K8s',title:'Kubernetes architecture',desc:'Control plane, worker nodes, pods.',tasks:['Install minikube locally','Read: control plane components (API server, etcd, scheduler)','Read: worker node components (kubelet, kube-proxy)','kubectl get nodes, pods, services','Run hello-world pod: kubectl run nginx --image=nginx']},
+        {tag:'cloud',label:'K8s',title:'Pods + Deployments',desc:'Core K8s objects.',tasks:['Write a Pod manifest in YAML','Write a Deployment manifest','kubectl apply, get, describe, delete','Scale: kubectl scale deployment --replicas=3','Understand: ReplicaSet vs Deployment']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — intervals',desc:'LC #57, #56, #435.',tasks:['Solve Insert Interval (LC #57)','Solve Merge Intervals (LC #56)','Solve Non-overlapping Intervals (LC #435)','Identify the sorting + greedy pattern']},
+        {tag:'cloud',label:'K8s',title:'Services + ConfigMaps + Secrets',desc:'Networking and configuration.',tasks:['Write ClusterIP, NodePort, LoadBalancer Service','Write ConfigMap for app config','Write Secret for DB credentials (base64)','Mount ConfigMap as env vars in Deployment','Access app via NodePort in minikube']},
+        {tag:'cloud',label:'K8s',title:'Ingress + Persistent Volumes',desc:'HTTP routing and storage.',tasks:['Enable ingress addon in minikube','Write Ingress manifest for /api route','Write PersistentVolume and PVC','Mount PVC in Postgres deployment','Test data persists across pod restarts']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — bit manipulation',desc:'LC #191, #338, #268.',tasks:['Solve Number of 1 Bits (LC #191)','Solve Counting Bits (LC #338)','Solve Missing Number (LC #268)','Understand x & (x-1) trick for counting bits']},
+        {tag:'proj',label:'Project',title:'Deploy to minikube',desc:'Full K8s deployment of devices API.',tasks:['Write Deployment for FastAPI app','Write Service (ClusterIP)','Write Ingress for /api route','Write Secret for DB password','Write ConfigMap for app settings','kubectl apply all manifests','Scale to 3 replicas, test rolling update']},
+      ]
+    },
+    { title:'Week 15', theme:'AWS fundamentals — start SAA prep', startOffset:98,
+      project:{title:'AWS account setup + first deployment',desc:'Deploy your devices API to EC2 with Nginx. Set up VPC, security groups, Elastic IP. Use RDS Postgres instead of local DB.'},
+      days:[
+        {tag:'cloud',label:'AWS',title:'AWS IAM + VPC',desc:'Identity, access management, networking.',tasks:['Create AWS free tier account','Set up IAM user with programmatic access','Install and configure AWS CLI','Read: VPC, subnets, route tables, IGW','Create a custom VPC with public + private subnets']},
+        {tag:'cloud',label:'AWS',title:'EC2 fundamentals',desc:'Launch, connect, configure instances.',tasks:['Launch a t2.micro EC2 (Amazon Linux 2023)','SSH into it with key pair','Install Python, nginx on EC2','Deploy your FastAPI app manually','Set up security group: port 80, 443, 22','Assign Elastic IP']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — sliding window advanced',desc:'LC #76, #239, #480.',tasks:['Solve Minimum Window Substring (LC #76)','Re-solve Sliding Window Maximum (LC #239) from memory','Solve Sliding Window Median (LC #480)','Write the generic sliding window template']},
+        {tag:'cloud',label:'AWS',title:'S3 + RDS',desc:'Object storage and managed databases.',tasks:['Create S3 bucket and upload a file','Set S3 bucket policy (public read for static)','Launch RDS Postgres t2.micro','Connect to RDS from your EC2 app','Understand: multi-AZ vs read replicas','Take SAA practice questions on S3 and RDS']},
+        {tag:'cloud',label:'AWS',title:'Lambda + API Gateway',desc:'Serverless intro.',tasks:['Write a simple Python Lambda function','Deploy via AWS console','Trigger via API Gateway HTTP endpoint','Read: cold starts and how to mitigate','Understand: Lambda pricing model','Compare serverless vs always-on for your use case']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — string algorithms',desc:'LC #5, #647, #1143.',tasks:['Solve Longest Palindromic Substring (LC #5)','Solve Palindromic Substrings (LC #647)','Re-solve LCS (LC #1143) from memory','Understand expand-around-centre approach for palindromes']},
+        {tag:'proj',label:'Project',title:'Devices API on AWS',desc:'EC2 + RDS + Nginx deployment.',tasks:['Launch EC2 + RDS in same VPC','Deploy FastAPI app on EC2','Connect to RDS Postgres','Set up Nginx reverse proxy on EC2','Configure security groups correctly','Test API endpoint via public IP','Document architecture in README']},
+      ]
+    },
+    { title:'Week 16', theme:'AWS SAA prep — compute + storage', startOffset:105,
+      project:{title:'AWS SAA practice exams (set 1)',desc:'Complete 2 full practice exams (65 questions each). Score above 75% before continuing. Use Tutorials Dojo or Whizlabs.'},
+      days:[
+        {tag:'cloud',label:'AWS SAA',title:'EC2 deep dive',desc:'Instance types, purchasing options, AMIs.',tasks:['Read: EC2 instance families (compute, memory, storage)','Read: On-demand vs Reserved vs Spot pricing','Understand: placement groups (cluster, spread, partition)','Read: EC2 user data and metadata','Take 20 EC2 SAA practice questions']},
+        {tag:'cloud',label:'AWS SAA',title:'Auto Scaling + ELB',desc:'Scale automatically, distribute load.',tasks:['Read: Auto Scaling Group — launch template, scaling policies','Understand: target tracking vs step scaling','Read: ALB vs NLB vs CLB differences','Understand: ALB path-based routing','Set up ALB + ASG in AWS console','Take 20 ELB/ASG practice questions']},
+        {tag:'dsa',label:'DSA',title:'Mock coding round 1',desc:'Full timed mock — 2 problems in 45 min.',tasks:['Set timer for 45 minutes','Pick 2 random Medium problems','Solve both under time pressure','Review solutions after — no cheating during','Write what you should have done differently']},
+        {tag:'cloud',label:'AWS SAA',title:'S3 deep dive',desc:'Storage classes, lifecycle, replication.',tasks:['Read: S3 storage classes (Standard, IA, Glacier)','Read: S3 lifecycle policies','Read: S3 versioning and cross-region replication','Read: S3 Transfer Acceleration','Understand: presigned URLs','Take 20 S3 practice questions']},
+        {tag:'cloud',label:'AWS SAA',title:'Databases on AWS',desc:'RDS, DynamoDB, ElastiCache, Aurora.',tasks:['Read: RDS multi-AZ vs read replicas','Read: Aurora — what makes it different','Read: DynamoDB key concepts (partition key, GSI)','Read: ElastiCache (Redis vs Memcached on AWS)','Take 20 database practice questions']},
+        {tag:'dsa',label:'DSA',title:'Mock coding round 2',desc:'Full timed mock — 2 problems in 45 min.',tasks:['Set timer for 45 minutes','Pick 1 Medium + 1 Hard problem','Solve both under time pressure','Review: could you have optimised space?','Explain solution out loud after']},
+        {tag:'cloud',label:'AWS SAA',title:'Practice exam day',desc:'Full 65-question practice exam.',tasks:['Set aside 2 hours uninterrupted','Take full Tutorials Dojo practice exam 1','Review every wrong answer — understand why','Note: which domains are weakest?','Score target: 75%+']},
+      ]
+    },
+    { title:'Week 17', theme:'AWS SAA prep — networking + security', startOffset:112,
+      project:{title:'AWS SAA practice exams (set 2)',desc:'2 more full practice exams. Review all incorrect answers with notes. You should be scoring 80%+ by end of week.'},
+      days:[
+        {tag:'cloud',label:'AWS SAA',title:'VPC deep dive',desc:'Subnets, NACLs, security groups, VPN.',tasks:['Read: public vs private subnets','Understand: NACL vs security groups (stateless vs stateful)','Read: VPC peering and Transit Gateway','Read: VPC endpoints (interface vs gateway)','Read: Site-to-Site VPN and Direct Connect','Take 20 VPC practice questions']},
+        {tag:'cloud',label:'AWS SAA',title:'Route 53 + CloudFront',desc:'DNS and CDN on AWS.',tasks:['Read: Route 53 routing policies (simple, weighted, latency, failover, geolocation)','Read: Route 53 health checks','Read: CloudFront distributions and origins','Understand: CloudFront + S3 for static sites','Read: CloudFront signed URLs','Take 20 Route 53/CloudFront questions']},
+        {tag:'dsa',label:'DSA',title:'Mock coding round 3',desc:'Full timed mock — focus on graphs.',tasks:['Timer: 45 minutes','Pick 2 graph problems (one medium, one hard)','Solve under time pressure','After: could you have used union-find instead of DFS?','Write cleaner version after review']},
+        {tag:'cloud',label:'AWS SAA',title:'IAM + security services',desc:'Roles, policies, encryption, compliance.',tasks:['Read: IAM roles vs users vs groups','Understand: resource-based vs identity-based policies','Read: STS, assume role, cross-account access','Read: KMS, CloudHSM basics','Read: GuardDuty, Security Hub, CloudTrail','Take 20 security practice questions']},
+        {tag:'cloud',label:'AWS SAA',title:'Monitoring + cost management',desc:'CloudWatch, CloudTrail, AWS Budgets.',tasks:['Read: CloudWatch metrics, alarms, dashboards','Read: CloudTrail for API audit logging','Understand: AWS Config for compliance','Read: AWS Cost Explorer and Budgets','Set up a billing alarm for $5 threshold','Take 15 monitoring practice questions']},
+        {tag:'dsa',label:'DSA',title:'Mock coding round 4',desc:'Full timed mock — focus on DP.',tasks:['Timer: 45 minutes','Pick 2 DP problems','Solve under time pressure','After: write the recurrence relation formally','Could you have done bottom-up? Did you?']},
+        {tag:'cloud',label:'AWS SAA',title:'Practice exam day 2',desc:'Full 65-question practice exam.',tasks:['Take full Tutorials Dojo practice exam 2','Review every wrong answer with notes','Score target: 80%+','If below 75%: identify weak domains and read for 2 more days','Book the real SAA exam for 2 weeks out']},
+      ]
+    },
+    { title:'Week 18', theme:'AWS SAA — final prep + exam', startOffset:119,
+      project:{title:'AWS SAA Certification',desc:'TAKE THE EXAM. You have prepared for 2 weeks. Trust your prep. Pass it.'},
+      days:[
+        {tag:'cloud',label:'AWS SAA',title:'Weak areas review day 1',desc:'Focus on your lowest scoring domains.',tasks:['Identify 3 weakest domains from practice exams','Read all notes for domain 1','Take 20 targeted questions on domain 1','Read all notes for domain 2','Take 20 targeted questions on domain 2']},
+        {tag:'cloud',label:'AWS SAA',title:'Weak areas review day 2',desc:'Third domain + full flashcard review.',tasks:['Read all notes for domain 3','Take 20 targeted questions on domain 3','Review all your wrong-answer notes','Make flashcards for any facts you keep forgetting','Final full scan of SAA cheat sheet']},
+        {tag:'dsa',label:'DSA',title:'Light DSA — keep warm',desc:'Just 1 easy/medium problem. Stay loose.',tasks:['Solve 1 easy problem to warm up','Solve 1 medium problem','No hard problems — just maintain rhythm','Review previous mock solutions']},
+        {tag:'cloud',label:'AWS SAA',title:'Final practice exam',desc:'Third full practice exam. Target 85%+.',tasks:['Take full practice exam 3 (65 questions)','Review all wrong answers','Check: is this domain weakness still there?','Score: 85%+ means you\'re ready','If lower: delay exam by 3 days and revisit weak areas']},
+        {tag:'review',label:'Review',title:'Day before exam — rest',desc:'Stop studying. Rest.',tasks:['Light review: just read through your own notes once','No new practice questions','Confirm exam booking and location/link','Sleep 8 hours','Prepare water, ID, quiet space']},
+        {tag:'cloud',label:'AWS SAA',title:'AWS SAA EXAM DAY',desc:'You are ready. You have prepared for this.',tasks:['Arrive/log in 15 min early','Read each question twice before answering','Flag uncertain questions, come back at end','Manage time: 130 min for 65 questions = 2 min each','Trust your instincts — first answer is usually right','Submit and celebrate']},
+        {tag:'review',label:'Review',title:'Post-exam review',desc:'Whether you passed or not — reflect and continue.',tasks:['If passed: celebrate, add to LinkedIn, continue to AWS IoT Core week','If failed: note which domains were hardest, rebook in 14 days','Either way: start AWS IoT Core prep next week','Update GitHub and LinkedIn']},
+      ]
+    },
+    { title:'Week 19', theme:'AWS IoT Core + MQTT deep dive', startOffset:126,
+      project:{title:'C++ MQTT device simulator → AWS IoT Core',desc:'C++ app using Paho MQTT C++ library that connects to AWS IoT Core, publishes telemetry (temperature, humidity, device_id) every 5 seconds, and subscribes to a command topic.'},
+      days:[
+        {tag:'cloud',label:'AWS IoT',title:'AWS IoT Core architecture',desc:'Thing registry, MQTT broker, device shadows.',tasks:['Read: AWS IoT Core components overview','Understand: Thing Registry and Thing Types','Read: X.509 certificates for device auth','Read: MQTT topics and topic filters','Create your first IoT Thing in console']},
+        {tag:'cloud',label:'AWS IoT',title:'Device certificates + policies',desc:'Secure device authentication.',tasks:['Create a certificate in IoT Core console','Download cert, private key, root CA','Attach IoT policy (Allow: iot:Connect, Publish, Subscribe)','Attach certificate to a Thing','Test connection with MQTT test client in console']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — advanced graphs',desc:'LC #269, #332.',tasks:['Solve Alien Dictionary (LC #269) — topological sort','Solve Reconstruct Itinerary (LC #332) — Euler path','Write both in C++ cleanly','These are real interview questions at product companies']},
+        {tag:'cloud',label:'AWS IoT',title:'Paho MQTT C++ library',desc:'Connect C++ to AWS IoT Core.',tasks:['Install Paho MQTT C++ library (cmake build)','Write C++ that connects to IoT Core endpoint','Use certificates for TLS auth','Publish a message to device/telemetry topic','Subscribe to device/commands topic','Run and verify in IoT console MQTT client']},
+        {tag:'cloud',label:'AWS IoT',title:'Device shadows',desc:'Reported vs desired state pattern.',tasks:['Read: what is a device shadow and why it matters','Update shadow via REST API','Read shadow via REST API','Have C++ device report state to shadow','Simulate desired state change and device responding','Draw the shadow update flow on paper']},
+        {tag:'dsa',label:'DSA',title:'Mock interview — system design',desc:'Full 45-min system design mock.',tasks:['Design an IoT monitoring platform (you know this topic!)','Requirements: 1M devices, 10 messages/sec each','Design: ingestion → processing → storage → dashboard','Cover: MQTT broker, stream processor, time-series DB','Draw architecture diagram','Time yourself: 45 minutes end to end']},
+        {tag:'proj',label:'Project',title:'C++ device simulator v1',desc:'Publishes to AWS IoT Core.',tasks:['C++ app generates random telemetry every 5 sec','Connects with X.509 cert (read from file)','Publishes to devices/{deviceId}/telemetry','Subscribes to devices/{deviceId}/commands','Prints received commands to stdout','Push to GitHub with setup instructions']},
+      ]
+    },
+    { title:'Week 20', theme:'AWS IoT Core — rules + Lambda + DynamoDB', startOffset:133,
+      project:{title:'IoT pipeline: C++ device → IoT Core → Lambda → DynamoDB',desc:'Full serverless pipeline: device telemetry flows from C++ simulator through IoT Core rule to Lambda function which stores in DynamoDB. This is your core portfolio piece.'},
+      days:[
+        {tag:'cloud',label:'AWS IoT',title:'IoT Core rules engine',desc:'Route messages to AWS services.',tasks:['Read: IoT Core rules and rule actions','Write a rule: SELECT * FROM devices/+/telemetry','Add action: invoke Lambda function','Add action: store to DynamoDB directly','Test rule fires when device publishes','Read: IoT rule error handling']},
+        {tag:'cloud',label:'AWS IoT',title:'Lambda for IoT processing',desc:'Process device messages serverlessly.',tasks:['Write Python Lambda for telemetry processing','Parse device_id, temperature, humidity from message','Store to DynamoDB with timestamp','Add CloudWatch logging','Test via IoT rule trigger','Add error handling for malformed messages']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — advanced DP',desc:'LC #312, #1000.',tasks:['Solve Burst Balloons (LC #312) — interval DP','Solve Minimum Cost to Merge Stones (LC #1000)','These are Hard — 60 min each','Understand the interval DP pattern fully']},
+        {tag:'cloud',label:'AWS IoT',title:'DynamoDB deep dive',desc:'Design table for IoT time-series data.',tasks:['Design DynamoDB table: PK=device_id, SK=timestamp','Write to DynamoDB from Lambda','Query all readings for a device in time range','Add GSI for querying by timestamp globally','Understand: read/write capacity units','Compare: DynamoDB vs TimescaleDB for IoT data']},
+        {tag:'cloud',label:'AWS IoT',title:'IoT Core fleet management',desc:'Groups, jobs, OTA updates.',tasks:['Create a Thing Group in IoT Core','Add your simulator to the group','Read: IoT Jobs — what are they?','Create a simple IoT Job (e.g. blink command)','Read: OTA update flow (how devices get firmware updates)','This is critical knowledge for IoT product companies']},
+        {tag:'dsa',label:'DSA',title:'Mock coding round — timed',desc:'2 problems in 45 min.',tasks:['1 DP + 1 graph problem','Time strictly: 45 minutes total','After: review, optimise, clean code','Read solutions of problems you couldn\'t solve']},
+        {tag:'proj',label:'Project',title:'Full IoT pipeline live',desc:'C++ → IoT Core → Lambda → DynamoDB.',tasks:['Run C++ simulator — verify data flows','Check IoT Core rule fires','Check Lambda receives and processes','Check DynamoDB has rows','Query DynamoDB for device_id + time range','Draw the architecture diagram','Push everything (C++ + Terraform/console steps) to GitHub']},
+      ]
+    },
+    { title:'Week 21', theme:'Kubernetes advanced + Helm', startOffset:140,
+      project:{title:'Deploy IoT pipeline backend on Kubernetes',desc:'K8s deployment of your FastAPI devices service with HPA (auto-scaling based on CPU), proper resource limits, liveness/readiness probes, and Helm chart packaging.'},
+      days:[
+        {tag:'cloud',label:'K8s',title:'K8s resource management',desc:'Requests, limits, QoS classes.',tasks:['Understand: CPU/memory requests vs limits','Set requests and limits in your Deployment','Understand: Guaranteed, Burstable, BestEffort QoS','Read: what happens when a pod is OOMKilled','Test: intentionally set low limits, see pod crash, fix it']},
+        {tag:'cloud',label:'K8s',title:'HPA — Horizontal Pod Autoscaler',desc:'Scale pods based on metrics.',tasks:['Install metrics-server in minikube','Write HPA manifest: min 2, max 10, CPU 60%','Apply HPA to your devices API deployment','Generate load: hey -n 1000 -c 50 http://...','Watch: kubectl get hpa --watch','Understand: cooldown period and stabilisation']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — advanced trees',desc:'LC #124, #543, #968.',tasks:['Solve Binary Tree Maximum Path Sum (LC #124)','Solve Diameter of Binary Tree (LC #543)','Solve Binary Tree Cameras (LC #968)','These require DFS return values — important pattern']},
+        {tag:'cloud',label:'K8s',title:'Helm charts',desc:'Package and deploy K8s applications.',tasks:['Install Helm','helm create myapp — explore generated structure','Understand: templates, values.yaml, helpers','Write a Helm chart for your devices API','helm install and verify','helm upgrade with a new values.yaml']},
+        {tag:'cloud',label:'K8s',title:'K8s networking — Services deep dive',desc:'DNS, endpoints, network policies.',tasks:['Understand: kube-dns and service discovery','Test: curl service-name from another pod','Write a NetworkPolicy to restrict traffic','Understand: Ingress vs Gateway API','Read: service mesh intro (Istio concept)']},
+        {tag:'dsa',label:'DSA',title:'Mock system design — K8s topic',desc:'Design a deployment pipeline.',tasks:['Design: CI/CD pipeline from code push to K8s deployment','Cover: GitHub Actions → build → push to ECR → Helm upgrade','Cover: blue/green vs canary deployment','Cover: rollback strategy','Time: 45 minutes','Draw architecture']},
+        {tag:'proj',label:'Project',title:'K8s + Helm deployment',desc:'Production-grade K8s setup.',tasks:['Write Helm chart for devices API','Add HPA (min 2, max 6 replicas)','Add liveness probe: GET /health','Add readiness probe: GET /ready','Add resource limits (request: 100m CPU, limit: 500m)','helm install and verify everything works','Push Helm chart to GitHub']},
+      ]
+    },
+    { title:'Week 22', theme:'CI/CD pipelines', startOffset:147,
+      project:{title:'Full GitHub Actions CI/CD pipeline',desc:'Push to main → lint → test → docker build → push to ECR → kubectl apply (or helm upgrade). Full pipeline for your devices API.'},
+      days:[
+        {tag:'cloud',label:'CI/CD',title:'GitHub Actions fundamentals',desc:'Workflows, triggers, jobs, steps.',tasks:['Read: GitHub Actions YAML structure','Write: workflow triggered on push to main','Add a job: checkout + python lint (flake8)','Add a job: pytest tests','Understand: jobs run in parallel, steps run sequentially']},
+        {tag:'cloud',label:'CI/CD',title:'Docker build + ECR push in CI',desc:'Build and push images in pipeline.',tasks:['Create AWS ECR repository','Add GitHub secret: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY','Add CI step: docker build and tag','Add CI step: aws ecr get-login-password + docker push','Verify image appears in ECR after push']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — advanced heap/sort',desc:'LC #295, #315, #493.',tasks:['Re-solve Find Median from Data Stream from memory','Solve Count of Smaller Numbers After Self (LC #315)','Solve Reverse Pairs (LC #493) — merge sort approach','Write all in C++ cleanly']},
+        {tag:'cloud',label:'CI/CD',title:'Deploy step in CI',desc:'Helm upgrade from GitHub Actions.',tasks:['Add kubeconfig as GitHub secret','Add CI step: helm upgrade --install','Test full pipeline: push code → CI runs → K8s updated','Add: only deploy on main branch push','Add: run tests before deploy (fail fast)']},
+        {tag:'cloud',label:'CI/CD',title:'Pipeline quality gates',desc:'Code quality, security, coverage.',tasks:['Add: test coverage report (pytest-cov)','Add: fail if coverage < 80%','Add: Bandit security scan for Python','Add: hadolint for Dockerfile linting','Read: SAST vs DAST security testing']},
+        {tag:'dsa',label:'DSA',title:'Mock coding round — timed',desc:'2 problems, 45 min.',tasks:['Pick 2 problems from your weak areas','Strict 45-minute timer','Submit and review after','Spend 15 min writing the cleanest version']},
+        {tag:'proj',label:'Project',title:'Full CI/CD pipeline live',desc:'Push → test → build → deploy.',tasks:['Push a minor code change to main','Watch GitHub Actions run all steps','Verify new image in ECR','Verify K8s pod restarted with new image','Add a badge to README: pipeline status','Document pipeline in README']},
+      ]
+    },
+    { title:'Week 23', theme:'Observability — Prometheus + Grafana', startOffset:154,
+      project:{title:'Full observability stack for devices API',desc:'Prometheus scraping your FastAPI app, Grafana dashboard showing request rate, latency p99, error rate, active connections. All in docker-compose.'},
+      days:[
+        {tag:'cloud',label:'Observability',title:'Prometheus fundamentals',desc:'Metrics, scraping, PromQL.',tasks:['Read: Prometheus architecture (scrape, TSDB, alertmanager)','Understand: counter, gauge, histogram, summary metric types','Add prometheus-fastapi-instrumentator to your app','Run Prometheus in Docker, configure scrape target','Query in Prometheus UI: http_requests_total']},
+        {tag:'cloud',label:'Observability',title:'PromQL — query language',desc:'Learn to write useful queries.',tasks:['Write: rate(http_requests_total[5m])','Write: histogram_quantile(0.99, http_request_duration_seconds_bucket)','Write: sum by (status_code) (http_requests_total)','Write: increase(errors_total[1h])','Understand: when to use rate() vs increase()']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — design problems',desc:'LC #146, #460, #432.',tasks:['Solve LRU Cache (LC #146) in C++','Solve LFU Cache (LC #460) in C++','Solve All O(1) Data Structure (LC #432)','These combine multiple data structures — classic interviews']},
+        {tag:'cloud',label:'Observability',title:'Grafana dashboards',desc:'Build useful dashboards.',tasks:['Run Grafana in Docker, connect to Prometheus','Build dashboard: request rate panel','Build dashboard: p50/p90/p99 latency panel','Build dashboard: error rate panel','Add threshold lines on panels','Export dashboard JSON to GitHub']},
+        {tag:'cloud',label:'Observability',title:'Distributed tracing + logging',desc:'OpenTelemetry intro, structured logging.',tasks:['Add structured JSON logging to FastAPI (python-json-logger)','Read: OpenTelemetry — traces, spans, context propagation','Add basic OTEL tracing to FastAPI','Run Jaeger in Docker to view traces','Understand: trace ID for correlating logs across services']},
+        {tag:'dsa',label:'DSA',title:'Mock system design — observability',desc:'Design a metrics platform.',tasks:['Design: metrics ingestion and storage for 1000 services','Cover: agents, aggregation, time-series DB (Prometheus, Thanos)','Cover: alerting pipeline (Alertmanager, PagerDuty)','Cover: dashboarding layer','Time: 45 minutes']},
+        {tag:'proj',label:'Project',title:'Observability stack live',desc:'Prometheus + Grafana + tracing.',tasks:['docker-compose: app + Prometheus + Grafana + Jaeger','All metrics flowing into Prometheus','Grafana dashboard with 4 panels','Traces visible in Jaeger','Push docker-compose + Grafana JSON to GitHub','Screenshot dashboard and add to README']},
+      ]
+    },
+    { title:'Week 24', theme:'Terraform + Infrastructure as Code', startOffset:161,
+      project:{title:'AWS infrastructure with Terraform',desc:'VPC, public/private subnets, EC2, RDS, security groups, IAM roles — all defined in Terraform. Apply, verify, destroy. Push to GitHub.'},
+      days:[
+        {tag:'cloud',label:'IaC',title:'Terraform fundamentals',desc:'Providers, resources, state.',tasks:['Install Terraform','Write main.tf with AWS provider','Write first resource: aws_s3_bucket','terraform init, plan, apply, destroy','Understand: terraform state and .tfstate file','Read: why IaC matters for repeatability']},
+        {tag:'cloud',label:'IaC',title:'Terraform — VPC + EC2',desc:'Network and compute in code.',tasks:['Write aws_vpc, aws_subnet (public + private)','Write aws_internet_gateway and route table','Write aws_security_group for web + DB tiers','Write aws_instance for EC2','terraform apply and verify in AWS console','terraform destroy to clean up']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — advanced DP',desc:'LC #87, #10, #44.',tasks:['Solve Scramble String (LC #87) — 3D DP','Solve Regular Expression Matching (LC #10)','Solve Wildcard Matching (LC #44)','All three are Hard — 60 min each']},
+        {tag:'cloud',label:'IaC',title:'Terraform — RDS + variables',desc:'Database and parameterisation.',tasks:['Write aws_db_instance for RDS Postgres','Use variables.tf for env-specific values','Write outputs.tf for connection strings','Use terraform.tfvars for local values','Add .tfvars to .gitignore','Parameterise: instance type, region, db name']},
+        {tag:'cloud',label:'IaC',title:'Terraform — modules + remote state',desc:'Reusable modules, S3 backend.',tasks:['Extract VPC config into a reusable module','Call module from root main.tf','Set up S3 backend for remote state','Set up DynamoDB table for state locking','Understand: why remote state matters in teams']},
+        {tag:'dsa',label:'DSA',title:'Mock coding round — timed',desc:'2 problems, 45 min.',tasks:['Pick 1 Hard + 1 Medium','Strict timer','No hints during','Full review after']},
+        {tag:'proj',label:'Project',title:'Full AWS infra with Terraform',desc:'VPC + EC2 + RDS + SG + IAM.',tasks:['Write all resources in Terraform','terraform plan — verify no errors','terraform apply — verify in console','Deploy FastAPI app to the EC2 manually','Confirm app connects to RDS','terraform destroy cleanly','Push all .tf files to GitHub (no .tfvars)']},
+      ]
+    },
+    { title:'Week 25', theme:'Phase 2 consolidation + capstone start', startOffset:168,
+      project:{title:'Phase 2 capstone — IoT backend on AWS',desc:'C++ device simulator → AWS IoT Core → Lambda → DynamoDB → FastAPI query layer → K8s deployed → Prometheus/Grafana → CI/CD pipeline. This is your flagship project.'},
+      days:[
+        {tag:'review',label:'Review',title:'Phase 2 skill audit',desc:'Honest audit of every skill.',tasks:['Rate yourself 1-5: System Design','Rate yourself 1-5: Docker','Rate yourself 1-5: Kubernetes','Rate yourself 1-5: AWS (EC2, S3, RDS, Lambda, IoT)','Rate yourself 1-5: CI/CD','Anything below 3: schedule 2 extra days on that topic']},
+        {tag:'cloud',label:'Capstone',title:'Capstone architecture design',desc:'Design the full system.',tasks:['Draw full architecture diagram on paper','Define all components and their tech choices','Define data flow from C++ device to dashboard','Estimate AWS costs for this architecture','Write architecture README before coding']},
+        {tag:'dsa',label:'DSA',title:'Mock interview — coding',desc:'Full interview simulation.',tasks:['Ask a friend to give you 2 random LC problems','45 min strict','Explain your thought process out loud','They give feedback after','If no friend: use Pramp.com']},
+        {tag:'cloud',label:'Capstone',title:'Capstone — IoT + Lambda layer',desc:'Build the device-to-cloud pipeline.',tasks:['Run C++ simulator → IoT Core → Lambda → DynamoDB','Verify full data flow','Add Lambda processing: parse, validate, store','Add error handling in Lambda','Add CloudWatch alarms for Lambda errors']},
+        {tag:'cloud',label:'Capstone',title:'Capstone — FastAPI query layer',desc:'Build the API over the data.',tasks:['FastAPI endpoint: GET /devices/{id}/readings?from=&to=','Query DynamoDB with time range','Add JWT auth to this endpoint','Add Prometheus metrics','Dockerise and push to ECR']},
+        {tag:'cloud',label:'Capstone',title:'Capstone — K8s + observability',desc:'Deploy and instrument.',tasks:['Deploy FastAPI to K8s (minikube or EKS if budget)','Apply Prometheus scraping','Build Grafana dashboard for this service','CI/CD pipeline: push → test → build → deploy','All green: pipeline passes, app runs, metrics flow']},
+        {tag:'review',label:'Review',title:'Phase 2 complete',desc:'Major milestone.',tasks:['Capstone repo on GitHub with full README','Architecture diagram in README','Video demo (record screen + voice, post on LinkedIn)','AWS SAA cert on LinkedIn','Count LC total — target 120+','Prepare for Phase 3']},
+      ]
+    },
+  ]
+},
+
+// ═══════════════════════════════════════════════
+// PHASE 3 — DIFFERENTIATION (Months 10-15, ~22 weeks)
+// ═══════════════════════════════════════════════
+{
+  label:'Phase 3 — Differentiation',
+  sub:'Months 10–15 · Kafka · TimescaleDB · Advanced observability · Full capstone',
+  color:'var(--amber)',
+  weeks:[
+    { title:'Week 26', theme:'Kafka fundamentals', startOffset:175,
+      project:{title:'C++ Kafka producer',desc:'C++ app using librdkafka that reads from stdin and produces messages to a Kafka topic. Include proper error handling, delivery confirmation, and message serialisation.'},
+      days:[
+        {tag:'be',label:'Kafka',title:'Kafka architecture',desc:'Brokers, topics, partitions, consumers.',tasks:['Read: Kafka vs traditional message queues','Understand: topics, partitions, offsets','Read: consumer groups and rebalancing','Read: producer acks (0, 1, all)','Run Kafka + Zookeeper in Docker']},
+        {tag:'be',label:'Kafka',title:'Kafka producers + consumers (Python)',desc:'Get comfortable with Kafka first in Python.',tasks:['Write Python producer: produce 100 messages','Write Python consumer: read and print them','Understand: consumer offset management','Understand: partition assignment','Test: producer crash and resume — no message loss with acks=all']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — advanced graphs',desc:'LC #128, #127.',tasks:['Solve Longest Consecutive Sequence (LC #128)','Solve Word Ladder (LC #127) — BFS on implicit graph','Both are interview favourites','Write C++ solutions cleanly']},
+        {tag:'be',label:'Kafka',title:'Kafka C++ — librdkafka',desc:'Produce and consume from C++.',tasks:['Install librdkafka','Write C++ producer using rd_kafka_produce','Handle delivery report callback','Write C++ consumer with poll loop','Test: messages produced from C++ visible in Python consumer']},
+        {tag:'be',label:'Kafka',title:'Kafka topics — partitioning strategy',desc:'Partition keys, throughput, ordering.',tasks:['Understand: partition key → same partition → ordered delivery','Test: produce with device_id as key — same device always same partition','Create a topic with 4 partitions','Understand: consumer lag and monitoring','Read: Kafka retention policies']},
+        {tag:'dsa',label:'DSA',title:'Mock coding round — Hard',desc:'2 Hard problems, 60 min.',tasks:['Pick 2 Hard problems from areas you haven\'t touched recently','60 min strict','Full review after — read editorial if needed','Write a clean solution after understanding the approach']},
+        {tag:'proj',label:'Project',title:'C++ Kafka producer',desc:'Device telemetry → Kafka.',tasks:['C++ app reads device_id, temperature, humidity from stdin','Produces to telemetry topic with device_id as key','Implements delivery confirmation (wait for ack)','Python consumer reads and prints with partition info','Handle producer error and retry','Push to GitHub']},
+      ]
+    },
+    { title:'Week 27', theme:'TimescaleDB + time-series data', startOffset:182,
+      project:{title:'Kafka → TimescaleDB pipeline',desc:'Python Kafka consumer reads telemetry messages and inserts into TimescaleDB. TimescaleDB hypertable partitioned by time. Query: avg temperature per device per hour.'},
+      days:[
+        {tag:'be',label:'TimescaleDB',title:'TimescaleDB fundamentals',desc:'Hypertables, chunks, time-series queries.',tasks:['Install TimescaleDB via Docker','CREATE TABLE device_readings (device_id text, time TIMESTAMPTZ, temperature float, humidity float)','SELECT create_hypertable(\'device_readings\', \'time\')','Insert 1000 rows of test data','Query: SELECT time_bucket(\'1 hour\', time), avg(temperature) GROUP BY 1']},
+        {tag:'be',label:'TimescaleDB',title:'TimescaleDB — continuous aggregates',desc:'Pre-computed rollups for fast queries.',tasks:['Write a continuous aggregate: hourly avg per device','SELECT add_continuous_aggregate_policy for auto-refresh','Query the continuous aggregate (10x faster than raw)','Add a data retention policy: drop data older than 90 days','Read: TimescaleDB compression and how it works']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA mock — 2 problems',desc:'Timed 60 min.',tasks:['1 graph + 1 DP hard problem','Timed: 60 min','Explain solution as if to an interviewer','Review editorial after']},
+        {tag:'be',label:'TimescaleDB',title:'Kafka consumer → TimescaleDB',desc:'Wire the pipeline.',tasks:['Write Python consumer that reads from Kafka telemetry topic','Parse message: device_id, temperature, humidity, timestamp','Insert each message into TimescaleDB','Handle: duplicate messages (INSERT ... ON CONFLICT DO NOTHING)','Test: 1000 messages flow end to end','Query in psql: data should be there']},
+        {tag:'be',label:'TimescaleDB',title:'Data modelling for IoT',desc:'Best practices for time-series schema.',tasks:['Read: wide vs narrow table for IoT data','Add metadata: device_type, location, firmware_version','Create index on device_id + time (composite)','Test: query performance on 1M rows','EXPLAIN ANALYZE: make sure index is being used']},
+        {tag:'dsa',label:'DSA',title:'Mock system design — IoT platform',desc:'Full design of an IoT data platform.',tasks:['Design: IoT data ingestion and storage for 1M devices','Cover: MQTT broker → Kafka → Stream processor → TimescaleDB','Cover: real-time alerting (threshold breach)','Cover: historical query API','Cover: dashboard (Grafana)','Time: 45 min — draw and explain']},
+        {tag:'proj',label:'Project',title:'Full Kafka → TimescaleDB pipeline',desc:'End-to-end data flow.',tasks:['C++ simulator → Kafka topic → Python consumer → TimescaleDB','Run for 10 minutes, verify data in DB','Write SQL: top 5 hottest devices in last hour','Write continuous aggregate for hourly avg','Add Grafana dashboard reading from TimescaleDB','Push everything to GitHub']},
+      ]
+    },
+    { title:'Week 28', theme:'Real-time alerting + stream processing', startOffset:189,
+      project:{title:'Real-time alert system',desc:'Kafka Streams (or Python) consumer that detects anomalies: temperature > 80°C for more than 3 consecutive readings. Publishes alert to Kafka alert topic. Lambda reads alert topic and sends to SNS.'},
+      days:[
+        {tag:'be',label:'Streaming',title:'Stream processing concepts',desc:'Stateful vs stateless, windowing.',tasks:['Read: stream vs batch processing','Understand: tumbling, sliding, session windows','Read: exactly-once semantics in Kafka Streams','Read: Flink vs Kafka Streams vs Spark Streaming','Understand: watermarks for late-arriving data']},
+        {tag:'be',label:'Streaming',title:'Python stateful Kafka consumer',desc:'Detect anomalies in real time.',tasks:['Write Python consumer with in-memory state per device','Track last 3 readings per device_id','If temp > 80 for 3+ consecutive: publish to alerts topic','Handle: consumer restart without losing state','Test with simulated high-temperature data from C++ simulator']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — stack/queue advanced',desc:'LC #84, #85, #42.',tasks:['Solve Largest Rectangle in Histogram (LC #84)','Solve Maximal Rectangle (LC #85) using #84 approach','Solve Trapping Rain Water (LC #42)','All three use monotonic stack — master this pattern']},
+        {tag:'be',label:'Streaming',title:'AWS SNS + Lambda for alerts',desc:'Cloud-side alerting.',tasks:['Create SNS topic for device alerts','Write Lambda triggered by Kafka alert topic (via MSK or direct)','Lambda publishes to SNS','Subscribe your email to SNS topic','Test: high temperature → alert email arrives','Add CloudWatch alarm for Lambda errors']},
+        {tag:'be',label:'Streaming',title:'Grafana real-time dashboard',desc:'Live data from TimescaleDB.',tasks:['Add Grafana panel: real-time temperature (last 5 min)','Add panel: active alerts count','Add panel: devices above threshold','Set auto-refresh: 5 seconds','Add threshold coloring: green/yellow/red','Export dashboard JSON to GitHub']},
+        {tag:'dsa',label:'DSA',title:'Mock coding round — timed',desc:'45 min, 2 medium-hard problems.',tasks:['Timer: 45 min','2 problems: 1 medium + 1 hard','After: rewrite clean version','Identify: what slowed you down?']},
+        {tag:'proj',label:'Project',title:'Alert pipeline live',desc:'End-to-end alerting.',tasks:['Simulate: C++ sends temp=85 for 5 consecutive readings','Verify: alert consumer detects anomaly','Verify: alert published to Kafka alerts topic','Verify: Lambda triggers, SNS sends email','Receive alert email','Grafana shows alert count spike','Push complete codebase to GitHub']},
+      ]
+    },
+    { title:'Week 29', theme:'Advanced Kubernetes + production patterns', startOffset:196,
+      project:{title:'Production K8s cluster patterns',desc:'Configure pod disruption budgets, pod anti-affinity, topology spread constraints, RBAC, and network policies for your devices API deployment.'},
+      days:[
+        {tag:'cloud',label:'K8s',title:'RBAC in Kubernetes',desc:'Role-based access control.',tasks:['Understand: ClusterRole, Role, RoleBinding, ServiceAccount','Create a ServiceAccount for your app','Create a Role with least-privilege permissions','Bind role to ServiceAccount','Test: pod can read ConfigMaps but not Secrets','Read: why RBAC matters for production clusters']},
+        {tag:'cloud',label:'K8s',title:'Pod disruption + anti-affinity',desc:'High availability patterns.',tasks:['Write PodDisruptionBudget: minAvailable: 2','Write pod anti-affinity: never 2 pods on same node','Apply and verify with kubectl describe','Simulate node failure: kubectl drain node','Verify: PDB prevents all pods being terminated','Understand: topology spread constraints']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — design a data structure',desc:'LC #729, #731, #732.',tasks:['Solve My Calendar I (LC #729)','Solve My Calendar II (LC #731)','Solve My Calendar III (LC #732)','Understand the interval tree / sorted list approaches']},
+        {tag:'cloud',label:'K8s',title:'Network policies',desc:'Control pod-to-pod traffic.',tasks:['Write NetworkPolicy: allow only API pods to reach DB pods','Write NetworkPolicy: deny all ingress except from ingress controller','Apply and test: can curl DB from non-API pod? (should fail)','Read: Calico vs Cilium for network policy enforcement','Understand: default deny pattern']},
+        {tag:'cloud',label:'K8s',title:'K8s resource quotas + limit ranges',desc:'Namespace-level resource control.',tasks:['Create a Namespace for your app','Apply ResourceQuota: max 4 CPUs, 8Gi memory for namespace','Apply LimitRange: default request/limit for containers','Try to deploy with no resource limits — should use defaults','Understand: why quotas matter in shared clusters']},
+        {tag:'dsa',label:'DSA',title:'Mock system design — K8s/cloud',desc:'Design a multi-region deployment.',tasks:['Design: multi-region deployment for 99.99% uptime','Cover: active-active vs active-passive','Cover: data replication across regions','Cover: Route 53 latency routing','Cover: DynamoDB global tables','Time: 45 min']},
+        {tag:'proj',label:'Project',title:'Production K8s patterns',desc:'RBAC + PDB + anti-affinity + network policy.',tasks:['Apply ServiceAccount + RBAC to your deployment','Apply PodDisruptionBudget: minAvailable 1','Apply pod anti-affinity rule','Apply NetworkPolicy: deny all, allow specific','Apply ResourceQuota to namespace','Test: kubectl drain a node — verify PDB prevents disruption','Push all manifests to GitHub']},
+      ]
+    },
+    { title:'Week 30', theme:'AWS IoT Specialty cert prep', startOffset:203,
+      project:{title:'AWS IoT Specialty certification',desc:'Take the AWS IoT Specialty exam. This is your rarest cert. Very few candidates have it. It directly signals you can build production IoT systems.'},
+      days:[
+        {tag:'cloud',label:'AWS IoT Cert',title:'IoT Core deep dive revision',desc:'All IoT Core features.',tasks:['Revise: Thing Registry, shadows, rules engine','Revise: X.509 certs, just-in-time provisioning','Read: IoT fleet indexing and search','Read: IoT Defender — anomaly detection, audit','Take 20 IoT Core practice questions']},
+        {tag:'cloud',label:'AWS IoT Cert',title:'IoT Greengrass',desc:'Edge computing with AWS Greengrass.',tasks:['Read: Greengrass v2 architecture','Understand: components, deployments, subscriptions','Read: running Lambda at the edge via Greengrass','Read: local MQTT broker on Greengrass','This is tested heavily in the specialty exam']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA mock — 2 problems',desc:'60 min, 2 Hard.',tasks:['Timer: 60 min','2 Hard problems from unfamiliar areas','Full review after — understand every line']},
+        {tag:'cloud',label:'AWS IoT Cert',title:'IoT Analytics + SiteWise',desc:'Data processing and industrial IoT.',tasks:['Read: AWS IoT Analytics — channels, pipelines, datasets','Read: AWS IoT SiteWise — industrial equipment monitoring','Read: AWS IoT Events — state machine for device states','Read: Amazon Kinesis for IoT data streams','Take 20 IoT analytics practice questions']},
+        {tag:'cloud',label:'AWS IoT Cert',title:'Practice exam day',desc:'Full IoT specialty practice exam.',tasks:['Find AWS IoT Specialty practice questions (Tutorials Dojo)','Complete 40-50 question set','Review every wrong answer','Note weakest areas','Score target: 75%+']},
+        {tag:'cloud',label:'AWS IoT Cert',title:'Final revision + weak areas',desc:'Last push before exam.',tasks:['Re-read your weak area notes','20 more targeted questions on weak areas','Review your own C++ IoT project — map to exam concepts','Confirm exam booking','Rest the night before']},
+        {tag:'cloud',label:'AWS IoT Cert',title:'AWS IoT SPECIALTY EXAM DAY',desc:'You built the systems. Now prove you understand them.',tasks:['Log in 15 min early','Read each question carefully — IoT specialty is wordy','Manage time: 170 min for 65 questions','Flag uncertain questions','Trust your real-world experience — you built this stuff','Submit and add to LinkedIn immediately']},
+      ]
+    },
+    { title:'Week 31', theme:'Performance engineering + C++ optimization', startOffset:210,
+      project:{title:'C++ MQTT client performance benchmark',desc:'Benchmark your C++ MQTT client: messages/sec, latency p50/p90/p99, memory usage under load. Compare different QoS levels. Write a benchmark report in README.'},
+      days:[
+        {tag:'be',label:'Perf',title:'C++ performance fundamentals',desc:'Memory layout, cache efficiency, profiling.',tasks:['Read: CPU cache levels and cache lines','Understand: AoS vs SoA (array of structs vs struct of arrays)','Compile with -pg, run gprof for profiling','Read: valgrind --callgrind for detailed profiling','Profile your C++ BST project — find hotspots']},
+        {tag:'be',label:'Perf',title:'Lock-free data structures',desc:'Atomic operations, memory ordering.',tasks:['Read: std::atomic in C++','Understand: memory_order_relaxed, acquire, release, seq_cst','Implement a lock-free stack using atomic compare_exchange','Understand: ABA problem in lock-free programming','Read: when to use mutex vs lock-free']},
+        {tag:'dsa',label:'DSA',title:'Hard DSA — concurrency patterns',desc:'LC #1114, #1115, #1116.',tasks:['Solve Print in Order (LC #1114)','Solve Print FooBar Alternately (LC #1115)','Solve Print Zero Even Odd (LC #1116)','These require std::mutex, condition_variable, or semaphore — write in C++']},
+        {tag:'be',label:'Perf',title:'Profiling your MQTT client',desc:'Find and fix bottlenecks.',tasks:['Run MQTT client sending 10,000 messages','Profile with perf stat or gprof','Identify: what is taking the most time?','Fix 1 bottleneck — measure improvement','Add benchmark metrics to README']},
+        {tag:'be',label:'Perf',title:'Backend latency profiling',desc:'Profile FastAPI endpoints.',tasks:['Add timing middleware to FastAPI: log p50/p90/p99','Identify slowest endpoint','Add EXPLAIN ANALYZE to slow query','Add database index where missing','Before/after: measure % improvement in Grafana']},
+        {tag:'dsa',label:'DSA',title:'Mock coding round — system design',desc:'Full 1-hour interview simulation.',tasks:['45 min coding: 2 medium problems','15 min system design: design the IoT pipeline you built','Explain every decision out loud','Simulate questions: "why Kafka over RabbitMQ here?"']},
+        {tag:'proj',label:'Project',title:'MQTT benchmark report',desc:'Measure and document performance.',tasks:['Run benchmark: 100, 1000, 10000 msg/sec','Measure p50/p90/p99 latency at each level','Measure memory usage with valgrind massif','Compare QoS 0 vs 1 vs 2 performance','Write benchmark report in README','Push to GitHub']},
+      ]
+    },
+    { title:'Week 32', theme:'Full capstone project — Phase 3', startOffset:217,
+      project:{title:'Phase 3 capstone — complete IoT platform',desc:'C++ device → MQTT → AWS IoT Core → Kafka → TimescaleDB → real-time alerting → FastAPI query layer → K8s deployed → Prometheus + Grafana → CI/CD. Full system. This is your crown jewel project.'},
+      days:[
+        {tag:'proj',label:'Capstone',title:'Capstone architecture finalise',desc:'Draw the final system and write docs.',tasks:['Draw complete architecture diagram (use draw.io or Excalidraw)','List all components with tech choices','Write data flow explanation','Write cost estimate for AWS services','Write README: overview, setup, architecture, demo']},
+        {tag:'proj',label:'Capstone',title:'Integrate all components — day 1',desc:'Wire C++ → IoT Core → Kafka.',tasks:['Verify C++ simulator → IoT Core works','Verify IoT Core rule → Kafka topic works','Verify Kafka → TimescaleDB consumer works','Fix any broken connections','Run for 10 minutes, verify end-to-end data']},
+        {tag:'proj',label:'Capstone',title:'Integrate all components — day 2',desc:'Wire Kafka → alerts → FastAPI.',tasks:['Verify alert consumer detects anomalies','Verify alert → SNS email works','Verify FastAPI query layer reads from TimescaleDB','Add FastAPI endpoint: GET /alerts (last 24h)','Test all endpoints with curl']},
+        {tag:'proj',label:'Capstone',title:'K8s deployment + CI/CD',desc:'Deploy everything properly.',tasks:['K8s manifests for FastAPI + Kafka consumer','CI/CD pipeline: push → test → build → deploy to K8s','Verify Prometheus scrapes FastAPI','Grafana dashboard: device count, temp avg, alerts/hour','All green: end-to-end works after CI/CD deploy']},
+        {tag:'proj',label:'Capstone',title:'Polish and demo prep',desc:'Make it presentable.',tasks:['Clean up all README files','Record a 3-minute demo video (OBS or QuickTime)','Architecture diagram is clear and readable','All repos are public with good README','Add project to LinkedIn and portfolio']},
+        {tag:'review',label:'Review',title:'Phase 3 skill audit',desc:'Honest self-assessment.',tasks:['Rate 1-5: Kafka','Rate 1-5: TimescaleDB + time-series design','Rate 1-5: C++ performance','Rate 1-5: K8s production patterns','Rate 1-5: System design explanation ability','Anything below 3: spend 1 week revisiting before Phase 4']},
+        {tag:'review',label:'Review',title:'Phase 3 complete',desc:'You are now differentiated.',tasks:['Capstone is live on GitHub','Both certs (AWS SAA + IoT Specialty) on LinkedIn','LC total: 150+ problems solved','You can design and build a full IoT platform','You can explain it in interviews','Phase 4 starts: interview mode']},
+      ]
+    },
+  ]
+},
+
+// ═══════════════════════════════════════════════
+// PHASE 4 — JOB READY (Months 15-18, ~13 weeks)
+// ═══════════════════════════════════════════════
+{
+  label:'Phase 4 — Job Ready',
+  sub:'Months 15–18 · Interview prep · Portfolio · Applications · Offers',
+  color:'var(--coral)',
+  weeks:[
+    { title:'Week 33', theme:'Interview mode — coding rounds', startOffset:224,
+      project:{title:'Blind 75 revision — C++',desc:'Re-solve every problem in the Blind 75 list in C++ from memory. Time each one. Any problem taking more than 25 min for Medium gets flagged for more practice.'},
+      days:[
+        {tag:'interview',label:'Interview',title:'Array + String patterns revision',desc:'10 Blind 75 problems.',tasks:['Two Sum, Best Time to Buy Stock, Contains Duplicate','Product of Array Except Self, Maximum Subarray','Minimum Window Substring, Longest Substring Without Repeat','Valid Anagram, Group Anagrams, Encode/Decode Strings','Time each one — target: 15 min for Easy, 25 for Medium']},
+        {tag:'interview',label:'Interview',title:'Linked list patterns revision',desc:'5 Linked list problems.',tasks:['Reverse Linked List (LC #206)','Merge Two Sorted Lists (LC #21)','Reorder List (LC #143)','Remove Nth Node from End (LC #19)','Linked List Cycle (LC #141)']},
+        {tag:'interview',label:'Interview',title:'Tree patterns revision',desc:'8 tree problems.',tasks:['Invert BT, Max Depth, Same Tree, Subtree of BT','Level Order Traversal, Validate BST','Kth Smallest in BST, LCA of BST','Time target: 20 min each']},
+        {tag:'interview',label:'Interview',title:'Graph patterns revision',desc:'6 graph problems.',tasks:['Number of Islands, Clone Graph, Pacific Atlantic','Course Schedule, Number of Connected Components','Longest Consecutive Sequence','Time target: 25 min each']},
+        {tag:'interview',label:'Interview',title:'DP patterns revision',desc:'10 DP problems.',tasks:['Climbing Stairs, House Robber, House Robber II','Coin Change, Longest Increasing Subsequence','Unique Paths, Jump Game, Word Break','Combination Sum, Decode Ways','Time target: 25 min each']},
+        {tag:'interview',label:'Interview',title:'Heap + interval patterns revision',desc:'5 problems.',tasks:['Find Median from Data Stream','Merge K Sorted Lists, Top K Frequent Elements','Insert Interval, Meeting Rooms II','Time target: 25 min each']},
+        {tag:'review',label:'Review',title:'Blind 75 audit',desc:'Which problems still took too long?',tasks:['List every problem that took > 25 min','These are your weak patterns','Schedule 3 extra focused sessions next week on these','Update your notes: common mistakes for each pattern']},
+      ]
+    },
+    { title:'Week 34', theme:'System design interview mastery', startOffset:231,
+      project:{title:'System design answer bank',desc:'Write detailed design documents for 8 classic systems: URL shortener, Instagram, WhatsApp, Uber, YouTube, Dropbox, Twitter, Netflix. 1-2 pages each. Your answer bank for interviews.'},
+      days:[
+        {tag:'interview',label:'System Design',title:'Design URL shortener + Pastebin',desc:'Clean 45-min answers.',tasks:['URL shortener: requirements → storage → hashing → scale','Pastebin: storage for text, expiry, analytics','Practise saying it out loud — not just thinking it','Draw architecture on paper','Time: 45 min each']},
+        {tag:'interview',label:'System Design',title:'Design Instagram + WhatsApp',desc:'Feed generation + messaging.',tasks:['Instagram: user graph, feed fanout, media storage, CDN','WhatsApp: message delivery, read receipts, group messaging, encryption','For each: cover storage, scale, reliability','Draw architecture diagrams']},
+        {tag:'interview',label:'System Design',title:'Design Uber + Google Maps',desc:'Real-time location and routing.',tasks:['Uber: driver location updates, matching, ETA, surge pricing','Google Maps: road graph, Dijkstra at scale, tile serving','For Uber: think about how your IoT experience applies!','Draw architecture diagrams']},
+        {tag:'interview',label:'System Design',title:'Design YouTube + Dropbox',desc:'Video + file storage at scale.',tasks:['YouTube: upload pipeline, transcoding, CDN, recommendations','Dropbox: chunking, deduplication, sync, conflict resolution','For each: cover 10M users, 100M users, 1B users scaling strategy']},
+        {tag:'interview',label:'System Design',title:'Design Twitter + Rate limiter',desc:'Timeline + API protection.',tasks:['Twitter: tweet storage, timeline generation, fanout','Rate limiter: token bucket, distributed with Redis','For Twitter: you designed this before — now do it in 35 min, no notes','Rate limiter: cover all 3 algorithms clearly']},
+        {tag:'interview',label:'System Design',title:'Design IoT monitoring platform',desc:'Your strongest topic.',tasks:['This is your home turf — you built this system','Design it cold — requirements → components → scale → reliability','Cover: MQTT → Kafka → TimescaleDB → query API → dashboard','Cover: alerting, fleet management, OTA updates','Time: 35 min — you should be fast on this']},
+        {tag:'review',label:'Review',title:'System design bank complete',desc:'Review all 8 designs.',tasks:['Review each design doc','For each: what did you miss?','Common misses: caching layer, single points of failure, CDN, read replica','Add missed points to each doc','Practice presenting 1 system design to someone or camera']},
+      ]
+    },
+    { title:'Week 35', theme:'Mock interviews + LinkedIn + Resume', startOffset:238,
+      project:{title:'Resume + LinkedIn + GitHub portfolio',desc:'Professional resume (1 page), LinkedIn fully updated with projects + certs + skills, GitHub pinned repos with detailed READMEs. Your external profile should reflect 18 months of real work.'},
+      days:[
+        {tag:'interview',label:'Mock',title:'Mock interview — coding round 1',desc:'Full simulation with another person.',tasks:['Use Pramp.com or pair with a friend','45 min: 2 problems, explain thought process out loud','After: get feedback on communication, not just correctness','Write what you\'ll do differently next time']},
+        {tag:'interview',label:'Portfolio',title:'Resume write',desc:'1-page, honest, impactful.',tasks:['Header: name, email, LinkedIn, GitHub','Skills section: C++, Python, AWS (SAA), Kubernetes, Kafka, TimescaleDB, MQTT','Experience: TCS role with 2-3 bullet points (impact, not tasks)','Projects: Phase 2 capstone + Phase 3 capstone (with GitHub links)','Education: your degree','One page maximum — no filler words']},
+        {tag:'interview',label:'Mock',title:'Mock interview — system design round',desc:'45-min system design with feedback.',tasks:['Use interviewing.io or a friend','Design: distributed cache (e.g. Redis clone)','Explain every decision out loud','Get feedback: did you miss anything?','Write improvement notes after']},
+        {tag:'interview',label:'Portfolio',title:'LinkedIn + GitHub polish',desc:'Your professional presence.',tasks:['LinkedIn headline: "Backend + Cloud Engineer | C++ | AWS SAA | IoT"','Add all projects with descriptions','Add certs: AWS SAA, AWS IoT Specialty','Request 2-3 LinkedIn recommendations from colleagues','GitHub: pin 3 repos (capstone, BST, TCP server)','Each pinned repo: clear README with architecture diagram']},
+        {tag:'interview',label:'Mock',title:'Mock coding round 2 — Hard',desc:'2 Hard problems, 60 min.',tasks:['Pramp or interviewing.io — hard mode','2 Hard problems, 60 min strict','Practice: "I\'m thinking about using a min-heap here because..."','Communicate your thought process even when stuck']},
+        {tag:'interview',label:'Portfolio',title:'Behavioural prep — STAR stories',desc:'Have 5 strong stories ready.',tasks:['Tell me about yourself (2 min version — practice 3x)','Tell me about a project you\'re proud of (IoT capstone)','Tell me about a difficult technical problem you solved','Tell me about a time you worked in a team','Why do you want to leave TCS? (honest but positive answer)']},
+        {tag:'review',label:'Review',title:'Week 35 checkpoint',desc:'Are you ready to apply?',tasks:['Resume reviewed by 1 person externally','LinkedIn has 500+ connections','GitHub has pinned repos with READMEs','Mock interview score: passing on coding + system design?','If no to any: fix this week before applying']},
+      ]
+    },
+    { title:'Week 36', theme:'Applications start + referrals', startOffset:245,
+      project:{title:'Target company list + referral outreach',desc:'Build a list of 30 target companies. Identify 3+ people from each on LinkedIn who could refer you. Send personalised connection requests with a context message.'},
+      days:[
+        {tag:'interview',label:'Apply',title:'Build target company list',desc:'Research and prioritise.',tasks:['List 10 product companies using IoT/backend (Siemens IoT, Bosch, TI, Qualcomm, Postman, Razorpay etc.)','List 10 cloud/backend companies (Zepto, Swiggy, CRED, Groww, PhonePe)','List 10 stretch companies (Google, Amazon, Microsoft India)','For each: note company size, tech stack, open roles','Priority: referral-friendly companies first']},
+        {tag:'interview',label:'Apply',title:'Referral outreach — batch 1',desc:'Message 10 engineers.',tasks:['Find 10 engineers at target companies on LinkedIn','Send personalised connection request (mention your projects + certs)','Do NOT ask for referral immediately — build rapport first','Connect with TCS alumni at target companies (much higher response rate)','Track outreach in a spreadsheet']},
+        {tag:'interview',label:'Mock',title:'Mock interview — coding',desc:'Keep sharp.',tasks:['1 full mock coding session (Pramp)','Focus: explain out loud even if you know the answer','Practice: "Can I use C++ for this?" (always ask politely)']},
+        {tag:'interview',label:'Apply',title:'Apply to 5 companies',desc:'Quality over quantity.',tasks:['Apply via referral where available (wait for referral first)','Direct apply where no referral: company careers page > LinkedIn Easy Apply','Customise cover note (3 sentences): I built X, I know Y, I want to join because Z','Track: company, date applied, referral Y/N, status']},
+        {tag:'interview',label:'Apply',title:'Referral outreach — batch 2',desc:'10 more messages.',tasks:['10 more engineers at tier 2 companies','Follow up with batch 1 (5 days later) if no response','When someone responds: have a 2-sentence ask ready','Ask: "Would you be willing to refer me for the backend engineer role?"']},
+        {tag:'interview',label:'Mock',title:'Mock system design',desc:'Keep sharp.',tasks:['45-min system design mock','Design a new system: ride-sharing or food delivery','Get feedback on your clarity and structure']},
+        {tag:'review',label:'Review',title:'Application tracker review',desc:'Status check.',tasks:['How many companies applied to?','How many referrals confirmed?','Any responses? — follow up within 24 hours','Any interviews scheduled? — start interview prep immediately','If no responses: improve resume or LinkedIn headline']},
+      ]
+    },
+    { title:'Week 37', theme:'Interview rounds — preparation', startOffset:252,
+      project:{title:'Interview prep intensive',desc:'Full daily mock interviews. 1 coding round + 1 system design round every weekday. This week is about volume and feedback.'},
+      days:[
+        {tag:'interview',label:'Interview',title:'Full mock day 1',desc:'Coding + system design.',tasks:['Morning: 45-min coding mock (Pramp or friend)','Afternoon: 45-min system design mock','Write: what went well, what didn\'t','Improve 1 specific thing before tomorrow']},
+        {tag:'interview',label:'Interview',title:'Full mock day 2',desc:'Different problem types.',tasks:['Morning: 45-min coding mock — graph problems focus','Afternoon: design WhatsApp from scratch (no notes)','Feedback: was your system design structured? (requirements → estimate → design → scale?)']},
+        {tag:'interview',label:'Interview',title:'Full mock day 3',desc:'Hard problems.',tasks:['Morning: 2 Hard LeetCode, 60 min','Afternoon: system design — design Uber (real-time matching)','Write up your best version of each after']},
+        {tag:'interview',label:'Interview',title:'Behavioural round practice',desc:'Tell your story.',tasks:['Record yourself answering all 5 STAR stories on camera','Watch the recording — cringe but learn','Fix: filler words, pace, clarity','Re-record the 2 weakest answers']},
+        {tag:'interview',label:'Interview',title:'Full mock day 4',desc:'Simulate real interview conditions.',tasks:['Set up like a real interview: headphones, quiet, dressed properly','1 full coding round (external interviewer from Pramp)','1 full system design round','Ask the interviewer for raw honest feedback']},
+        {tag:'interview',label:'Interview',title:'Weak area drill',desc:'Whatever you failed this week.',tasks:['Identify 1 pattern that tripped you up this week','Do 4 problems of exactly that pattern','Understand: why does this pattern work?','Write it in your notes as a template']},
+        {tag:'review',label:'Review',title:'Week 37 assessment',desc:'Are you interview-ready?',tasks:['Coding: can you solve 2 mediums in 45 min reliably?','System design: can you design a system cleanly in 45 min?','Behavioural: are your stories clear and confident?','If yes to all 3: you are ready for real interviews','Start scheduling actual company interviews this week']},
+      ]
+    },
+    { title:'Week 38', theme:'Real interviews + negotiation', startOffset:259,
+      project:{title:'Ace your interviews',desc:'You have prepared for 18 months. Every project, every cert, every practice round has led here. Go get the offer.'},
+      days:[
+        {tag:'interview',label:'Interview',title:'Pre-interview prep ritual',desc:'Day before any real interview.',tasks:['Re-read your own project READMEs (your strongest talking points)','Review architecture diagram of Phase 3 capstone','Run through STAR stories out loud once','Review your notes on the company (tech stack, products, culture)','Sleep 8 hours. No cramming.']},
+        {tag:'interview',label:'Interview',title:'Coding interview day',desc:'Execute what you\'ve been practising.',tasks:['Ask clarifying questions before coding','Think out loud — silence is bad in interviews','If stuck: say what you\'re thinking and ask if you\'re on right track','Optimise after getting brute force down','Be relaxed — you\'ve solved 150+ LC problems']},
+        {tag:'interview',label:'Interview',title:'System design interview day',desc:'Show your real-world experience.',tasks:['Structure: requirements → estimates → high-level → deep dive → bottlenecks','Use your IoT capstone as a reference point where relevant','When asked about trade-offs: give both sides, then choose and justify','Ask the interviewer clarifying questions — this is a dialogue']},
+        {tag:'interview',label:'Interview',title:'Behavioural interview day',desc:'Show the human behind the skills.',tasks:['"Tell me about yourself": 2 min — TCS background, what you built, what you want','Always connect your projects to the company\'s problems','Be honest about limitations — show self-awareness','Ask good questions at end: team structure, tech challenges, growth path']},
+        {tag:'interview',label:'Interview',title:'Offer evaluation',desc:'Know how to evaluate an offer.',tasks:['Base salary benchmarks: check Levels.fyi, Glassdoor for the role + city','Understand total comp: base + bonus + equity + benefits','Negotiate: always counter once, politely','Ask: team size, tech stack, deployment frequency, incident culture','Ask: what does success look like in 6 months?']},
+        {tag:'interview',label:'Interview',title:'Negotiation',desc:'You deserve to negotiate.',tasks:['Never accept verbally on the spot — ask for time to consider','Counter: "I\'m very excited about this role. Based on my research and skills, could you consider X?"','Get competing offers if possible — use as leverage','Understand: equity vesting schedule (1 year cliff, 4 year vest)','Once happy: accept in writing, set start date']},
+        {tag:'review',label:'Review',title:'18-month journey complete',desc:'Reflect on how far you have come.',tasks:['You solved 150+ LeetCode problems in C++','You built a full IoT pipeline from C++ to cloud','You hold AWS SAA + AWS IoT Specialty certifications','You can do system design in 45 minutes','You are now a backend + cloud engineer','Go get the offer. You earned it.']},
+      ]
+    },
+  ]
+}
+];
+
+// ─────────────────────────────────────────────
+// RENDER ENGINE
+// ─────────────────────────────────────────────
+let state = loadState();
+
+function tkKey(pi,wi,di,ti){return`p${pi}w${wi}d${di}t${ti}`;}
+function dayDoneKey(pi,wi,di){return`p${pi}w${wi}d${di}done`;}
+
+function getDate(offsetDays){return addDays(START, offsetDays);}
+
+function renderAll(){
+  PHASES.forEach((phase, pi) => {
+    const container = document.getElementById(`phase-${pi}`);
+
+    // Phase banner
+    const col = phase.color;
+    const bannerDiv = document.createElement('div');
+    bannerDiv.className = 'phase-banner';
+    bannerDiv.style.background = col.replace('var(--','').replace(')','') === col ? col+'1a' : `color-mix(in srgb, ${col} 12%, transparent)`;
+    bannerDiv.style.borderLeft = `3px solid ${col}`;
+    const {done:pd, total:pt} = phaseProgress(pi);
+    const ppct = pt ? Math.round(pd/pt*100) : 0;
+    bannerDiv.innerHTML = `
+      <div>
+        <h2 style="color:${col}">${phase.label}</h2>
+        <p>${phase.sub}</p>
+      </div>
+      <div class="phase-progress">
+        <span style="color:${col}">${ppct}%</span>
+        <div class="phase-bar"><div class="phase-bar-fill" style="width:${ppct}%;background:${col}"></div></div>
+        <span>${pd}/${pt} tasks</span>
+      </div>
+    `;
+    container.innerHTML = '';
+    container.appendChild(bannerDiv);
+
+    phase.weeks.forEach((week, wi) => {
+      const weekDiv = document.createElement('div');
+      weekDiv.className = 'week-block';
+      const {done:wd,total:wt} = weekProgress(pi,wi);
+      const wpct = wt ? Math.round(wd/wt*100) : 0;
+      const isOpen = wi === 0 && pi === 0; // first week of first phase open by default
+
+      weekDiv.innerHTML = `
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-header-left">
+            <span class="week-num">${week.title}</span>
+            <span class="week-title">${week.theme}</span>
+          </div>
+          <div class="week-right">
+            <span class="week-pct">${wpct}% · ${wd}/${wt}</span>
+            <button class="reset-btn" onclick="event.stopPropagation();resetWeek(${pi},${wi})">reset</button>
+            <span class="week-chevron${isOpen?' open':''}">▶</span>
+          </div>
+        </div>
+        <div class="week-body${isOpen?' open':''}">
+          <div class="days-grid" id="dg-${pi}-${wi}"></div>
+          ${week.project ? `<div class="proj-card"><h4>Week project</h4><p><strong>${week.project.title}</strong> — ${week.project.desc}</p></div>` : ''}
+        </div>
+      `;
+      container.appendChild(weekDiv);
+
+      // render day cards
+      const grid = weekDiv.querySelector(`#dg-${pi}-${wi}`);
+      week.days.forEach((day, di) => {
+        const dateObj = getDate(week.startOffset + di);
+        const today = isToday(dateObj);
+        const isDone = !!state[dayDoneKey(pi,wi,di)];
+        const card = document.createElement('div');
+        card.className = `day-card${today?' is-today':''}${isDone?' is-done':''}`;
+
+        const tasksHtml = (day.tasks||[]).map((t,ti)=>{
+          const k = tkKey(pi,wi,di,ti);
+          const chk = !!state[k];
+          return `<div class="task-item${chk?' done':''}" onclick="toggleTask(${pi},${wi},${di},${ti})">
+            <div class="tcheck${chk?' chk':''}"></div>
+            <span class="ttext">${t}</span>
+          </div>`;
+        }).join('');
+
+        card.innerHTML = `
+          <div class="day-card-top">
+            <div class="day-date-wrap">
+              <div class="dname">${dayOfWeek(dateObj)}</div>
+              <div class="ddate">${fmtDate(dateObj)}</div>
+            </div>
+            <div class="day-bigcheck${isDone?' chk':''}" onclick="toggleDayDone(${pi},${wi},${di})">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+                <path d="M1.5 5.5l3 3 5-5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <span class="tag tag-${day.tag}">${day.label}</span>
+          <div class="day-title">${day.title}</div>
+          <div class="day-desc">${day.desc}</div>
+          <div class="tasks">${tasksHtml}</div>
+        `;
+        grid.appendChild(card);
+      });
+    });
+  });
+  updateGlobalProgress();
+}
+
+function toggleWeek(header){
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.week-chevron');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chevron.classList.toggle('open', !isOpen);
+}
+
+function toggleTask(pi,wi,di,ti){
+  const k = tkKey(pi,wi,di,ti);
+  state[k] = !state[k];
+  saveState(state);
+  renderAll();
+}
+
+function toggleDayDone(pi,wi,di){
+  const k = dayDoneKey(pi,wi,di);
+  state[k] = !state[k];
+  saveState(state);
+  renderAll();
+}
+
+function resetWeek(pi,wi){
+  if(!confirm('Reset all progress for this week?')) return;
+  PHASES[pi].weeks[wi].days.forEach((d,di)=>{
+    delete state[dayDoneKey(pi,wi,di)];
+    (d.tasks||[]).forEach((_,ti)=>delete state[tkKey(pi,wi,di,ti)]);
+  });
+  saveState(state);
+  renderAll();
+}
+
+function weekProgress(pi,wi){
+  let total=0,done=0;
+  PHASES[pi].weeks[wi].days.forEach((d,di)=>{
+    (d.tasks||[]).forEach((_,ti)=>{total++;if(state[tkKey(pi,wi,di,ti)])done++;});
+  });
+  return{done,total};
+}
+
+function phaseProgress(pi){
+  let total=0,done=0;
+  PHASES[pi].weeks.forEach((_,wi)=>{const p=weekProgress(pi,wi);total+=p.total;done+=p.done;});
+  return{done,total};
+}
+
+function updateGlobalProgress(){
+  let total=0,done=0;
+  PHASES.forEach((_,pi)=>{const p=phaseProgress(pi);total+=p.total;done+=p.done;});
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('gpct').textContent=pct+'%';
+  document.getElementById('gsub').textContent=`${done}/${total} tasks`;
+  const c=125.7;
+  document.getElementById('gring').setAttribute('stroke-dashoffset',c-(c*pct/100));
+}
+
+function showPhase(idx){
+  document.querySelectorAll('.phase-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  document.querySelectorAll('.phase-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+}
+
+renderAll();
+</script>
+</body>
+</html>

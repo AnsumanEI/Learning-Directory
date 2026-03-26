@@ -34,6 +34,7 @@ using namespace std;
 class Solution
 {
 public:
+    // Brute force
     vector<int> topKFrequent(vector<int> &nums, int k)
     {
         unordered_map<int, int> freq;
@@ -54,7 +55,42 @@ public:
         }
         return ppsh;
     }
+
+    // Using min Heap
+
+    vector<int> topKFrequent_using_minheap(vector<int> &nums, int k)
+    {
+        unordered_map<int, int> freq;
+        for (auto &pr : nums)
+        {
+            freq[pr] += 1;
+        }
+
+        priority_queue<pair<int, int>, vector<pair<int, int>>,
+                       greater<pair<int, int>>>
+            minpq;
+
+        for (auto &pd : freq)
+        {
+            minpq.push({pd.second, pd.first});
+            if (minpq.size() > k)
+            {
+                minpq.pop();
+            }
+        }
+
+        vector<int> res;
+
+        while (!minpq.empty())
+        {
+            res.push_back(minpq.top().second);
+            minpq.pop();
+        }
+
+        return res;
+    }
 };
+
 int main()
 {
     Solution obj;
