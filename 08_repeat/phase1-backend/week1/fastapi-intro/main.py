@@ -4,7 +4,7 @@ from pydantic import BaseModel # type: ignore
 class Device(BaseModel):
     name: str
     location: str
-    temprature: float
+    temperature: float
 
 app = FastAPI()
 
@@ -29,3 +29,12 @@ def get_items(limit: int = 10, category: str ="all"):
 @app.post("/devices")
 def create_device(device: Device):
     return{"message": "Device created", "device": device}
+
+users = [
+    {"id": 1, "name": "Ansu", "role": "Backend-engineer"},
+    {"id": 2, "name": "sudo", "role": "iot-engineer"},
+]
+
+@app.get("/users")
+def get_users():
+    return {"users": users}
