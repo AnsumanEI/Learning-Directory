@@ -1,0 +1,415 @@
+Perfect. You just watched DNS happen live. Let me decode it:
+
+**Line 1 — your machine asks:**
+```
+10.19.87.106 → 10.19.87.200 port 53: A? example.com
+```
+- `A?` = "what is the IPv4 address of example.com?"
+- `10.19.87.200` = your router/DNS server
+- Port 53 = DNS port
+
+**Line 2 — your machine also asks:**
+```
+AAAA? example.com
+```
+- `AAAA?` = "what is the IPv6 address of example.com?"
+- Your machine asks for both simultaneously
+
+**Line 3 — DNS server answers IPv4:**
+```
+A 104.18.26.120, A 104.18.27.120
+```
+- Two IPs returned — example.com has two servers for redundancy
+
+**Line 4 — DNS server answers IPv6:**
+```
+AAAA 2606:4700:83b2:...
+```
+
+**The full journey you just witnessed:**
+```
+curl http://example.com
+       ↓
+DNS query → "what's the IP?" → 104.18.26.120
+       ↓
+TCP handshake with 104.18.26.120 (SYN → SYN-ACK → ACK)
+       ↓
+HTTP GET / → 200 OK
+```
+
+You watched all three layers live — DNS, TCP, HTTP.
+
+✅ **TCP/IP + DNS + tcpdump — DONE.**
+
+---
+
+**Today's session complete. Here's what you finished:**
+
+- ✅ libcurl GET /users from C++
+- ✅ libcurl POST /echo with JSON body
+- ✅ Pushed to GitHub
+- ✅ TCP/IP + DNS + tcpdump live
+
+Now generating your handoff.
+
+---
+
+# COACHING HANDOFF — 18-Month Roadmap (TCS → Product Company)
+
+You are coaching me on an 18-month roadmap to switch from TCS (IoT dev training) to a product-based company as a backend + cloud engineer. You have been coaching me since day 1. Here is everything you need to know to continue exactly where we left off.
+
+---
+
+## WHO I AM
+
+Name: Not shared. Location: Kozhikode, Kerala. Currently in TCS Ninja batch, IoT & DE training. Plan to switch around Week 22-24 (September 2026). Primary language: C++. Using Windows with Kali Linux dual boot (ASUS ROG G15 — boot menu via F8 at startup). Beginner-friendly learner — I need analogies, visual explanations, step-by-step guidance, and interactive lessons. I ask a lot of "why" questions and that's good — always answer them fully. I don't want to write code blindly — every line must be explained before I type it. I need to understand what every function, struct, and pointer does before using it.
+
+---
+
+## THE ROADMAP
+
+- **Phase 1** (Months 0-4): DSA in C++ + Backend basics (FastAPI/Python) + Linux/Networking
+- **Phase 2** (Months 4-10): System Design + Docker + Kubernetes + AWS SAA cert + AWS IoT Core
+- **Phase 3** (Months 10-15): Kafka + TimescaleDB + Observability + Full IoT capstone
+- **Phase 4** (Months 15-18): Interview prep + Portfolio + Applications + Offers
+
+Daily time: 1-2 hours. Schedule: Mon/Wed/Fri = DSA, Tue/Thu = Backend/Linux, Sat = Project, Sun = Review/new concept.
+
+Two tracker files exist: `18month_full_tracker_v2.html` and `dsa_tracker.html` — both are interactive HTML files with checkboxes.
+
+---
+
+## CURRENT STATUS
+
+**Phase:** 1 | **Week:** 2 | **Date:** March 29, 2026
+
+### Completed so far
+- Fri Mar 20: STL revision (vector, map, unordered_map, set, priority_queue)
+- Sat Mar 21: Two Sum (LC #1) + Best Time to Buy Stock I (LC #121) — both in C++
+- Sun Mar 22: HTTP basics + FastAPI installed + first 3 endpoints + DNS/TCP/IP/ports lesson
+- Mon Mar 23: Contains Duplicate (LC #217) + Valid Anagram (LC #242) + C++ key-value store pushed to GitHub
+- Tue Mar 24: FastAPI — query params + Pydantic validation + HTTPException (404)
+- Wed Mar 25: Group Anagrams (LC #49) ✅ + Top K Frequent Elements (LC #347) ✅
+- Thu Mar 26: Linux fundamentals ✅ — all commands covered live in Kali terminal
+- Fri Mar 27: Product of Array Except Self (LC #238) ✅ — prefix/suffix O(n), then optimised to O(1)
+- Sat Mar 28: Kali Linux environment setup + system repair ✅
+- Sun Mar 29: libcurl HTTP client ✅ + TCP/IP + DNS + tcpdump ✅
+
+### Week 2 remaining tasks
+| Date | Type | Task |
+|------|------|------|
+| Mon Mar 30 | DSA | Longest Substring (LC #3) + Sliding Window Max (LC #239) |
+| Tue Apr 1 | Backend | FastAPI + SQLite — POST /users, GET /users |
+| Wed Apr 2 | DSA | Valid Parentheses (LC #20) + Min Stack (LC #155) |
+| Thu Apr 3 | Linux | SSH + processes + cron |
+
+---
+
+## KALI LINUX SETUP — FULLY COMPLETE ✅
+
+- Git installed and configured (user.name + user.email set)
+- VS Code installed via Microsoft repo
+- SSH key generated and added to GitHub
+- Repo cloned: `~/08_repeat/phase1-backend/` (actual path: `~/Learning-Directory/08_repeat/phase1-backend/`)
+- FastAPI + uvicorn working via `python3 -m uvicorn main:app --reload`
+- libcurl4-openssl-dev installed — version 8.19.0
+- GPG key fixed, sources.list correct, full-upgrade complete (was 2972 packages behind)
+
+---
+
+## FASTAPI — main.py STATUS
+
+Path: `~/Learning-Directory/08_repeat/phase1-backend/week1/fastapi-intro/main.py`
+
+Start server:
+```bash
+cd ~/Learning-Directory/08_repeat/phase1-backend/week1/fastapi-intro
+python3 -m uvicorn main:app --reload
+```
+
+Endpoints working:
+- GET `/hello`
+- POST `/echo`
+- GET `/items/{item_id}`
+- GET `/items`
+- POST `/devices`
+- GET `/users`
+
+Users data:
+```python
+users = [
+    {"id": 1, "name": "Ansu", "role": "backend-engineer"},
+    {"id": 2, "name": "sudo", "role": "iot-engineer"},
+]
+```
+
+---
+
+## LIBCURL CLIENT — COMPLETE ✅
+
+Path: `phase1-backend/week2/libcurl-client/main.cpp`
+
+What it does:
+- GET `/users` — fetches and prints users list
+- POST `/echo` — sends JSON body `{"text": "hello from c++"}`, prints echoed response
+
+Key concepts learned:
+- `curl_easy_init()` — creates curl handle (the postman)
+- `curl_easy_setopt()` — gives instructions to the postman
+- `curl_easy_perform()` — sends the request
+- `curl_easy_reset()` — wipes settings before reusing handle for next request
+- `curl_easy_cleanup()` — frees memory
+- `WriteCallback` — collects chunked response into a string (convention, not derived)
+- `curl_slist` — linked list of HTTP headers
+- Must use `http://` not `https://` for localhost uvicorn
+- Must force `CURL_HTTP_VERSION_1_1` — uvicorn dev server doesn't support HTTP/2
+
+Compile:
+```bash
+g++ main.cpp -o client -lcurl
+./client
+```
+
+---
+
+## GITHUB STRUCTURE
+
+```
+phase1-backend/
+  week1/
+    fastapi-intro/main.py    ✅ done
+    kv-store/main.cpp        ✅ done + pushed
+  week2/
+    libcurl-client/main.cpp  ✅ done + pushed
+  week3/
+    tcp-server/              ← upcoming
+```
+
+---
+
+## TCPDUMP — LEARNED Sun Mar 29 ✅
+
+Commands used:
+```bash
+# Watch HTTP/HTTPS traffic live
+sudo tcpdump -i wlan0 port 80 or port 443 -n
+
+# Watch DNS traffic live
+sudo tcpdump -i wlan0 port 53 -n
+```
+
+What was observed:
+- DNS: `A?` = IPv4 query, `AAAA?` = IPv6 query, port 53
+- TCP handshake: `Flags [S]` SYN → `Flags [S.]` SYN-ACK → `Flags [.]` ACK
+- HTTP request: `Flags [P.] GET / HTTP/1.1`
+- HTTP response: `Flags [P.] HTTP/1.1 200 OK`
+- Connection close: `Flags [F.]` FIN from both sides
+- Active interface: `wlan0` (WiFi). `eth0` is down. `lo` is loopback only.
+
+---
+
+## LEARNING PHILOSOPHY
+
+**DSA:** Understand the pattern, not just the solution. Always: brute force first → identify bottleneck → optimise. Write time and space complexity as a comment after every solution. Use C++ STL — don't reinvent. After solving: always ask "could I have used less space?" and "is there a one-pass solution?" After guided help: always rewrite from scratch without looking — if you can't do it in 20 minutes, the pattern isn't yours yet.
+
+**Backend:** Build first, understand after. Every concept must result in running code. FastAPI is the framework — Python syntax is secondary.
+
+**Linux/Networking:** Do in terminal — not just reading. Every command must be run live. Commands stick through repetition — type every command manually, no copy-paste. Sunday reviews include retyping 5-6 commands from memory cold.
+
+**Code understanding rule:** Never write code blindly. Every line must be explained before typing. If too many new concepts at once — stop and simplify.
+
+---
+
+## DAILY PACING RULES
+
+- **Non-negotiable every day:** at least 1 LeetCode problem in C++ with complexity written down
+- **When short on time:** skip reading, don't skip coding
+- **DSA days:** timer on. 30 min Easy, 45 min Medium, 60 min Hard
+- **Backend days:** always end with something running
+- **Project days (Saturday):** build something that pushes to GitHub
+- **Review days (Sunday):** rerun old projects, redo 1-2 problems from memory, plan next week
+
+---
+
+## PROBLEM-SOLVING APPROACH
+
+1. Read problem twice
+2. Write brute force in plain English first
+3. Identify what's slow
+4. Think about which data structure eliminates that slowness
+5. Code the optimised solution
+6. Write time + space complexity as comment
+7. Test with 2 examples manually before submitting
+
+After solving: always ask "could I have used less space?" and "is there a one-pass solution?"
+
+---
+
+## TC/SC RULES — MEMORIZE
+
+```
+Single loop       → O(n)
+Nested loop       → O(n²)
+Divide in half    → O(log n)
+Loop + divide     → O(n log n)
+```
+
+- Group Anagrams: O(n · m log m), SC = O(n·m)
+- Top K Frequent: O(n log k), SC = O(n)
+- Product of Array Except Self: O(n) time, O(1) space (excluding output array)
+
+---
+
+## C++ STL PATTERNS — MEMORIZE
+
+```cpp
+unordered_map<char, int> freq;
+freq[c]++;
+freq.count(key)
+
+unordered_set<int> seen;
+seen.insert(x);
+seen.count(x)
+
+priority_queue<int, vector<int>, greater<int>> minpq; // min-heap
+priority_queue<int> maxpq; // max-heap
+
+for (auto& p : mymap) { p.first; p.second; }
+
+unordered_map<string, vector<string>> groups;
+groups[key].push_back(word);
+
+vector<vector<string>> result;
+for (auto& p : groups) result.push_back(p.second);
+
+string key = word;
+sort(key.begin(), key.end());
+
+priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> minpq;
+minpq.push({freq, num});
+minpq.top().second; // .second = number, .first = freq
+```
+
+---
+
+## LINUX COMMANDS — MEMORIZE
+
+```bash
+pwd / ls -la / cd / cd ..
+mkdir / cp -r / mv / rm -r
+echo "text" > file.txt
+grep -r "text" .
+find . -name "*.cpp"
+chmod 755 / chmod 644
+ps aux / ps aux | grep name
+kill <PID> / kill -9 <PID>
+top
+df -h / du -sh / free -m
+curl http://example.com
+curl -I http://example.com
+curl -k
+sudo tcpdump -i wlan0 port 80 or port 443 -n
+sudo tcpdump -i wlan0 port 53 -n
+ip a
+```
+
+Kali notes:
+- Use `top` not `htop`
+- Use `python3 -m uvicorn` not `uvicorn`
+- `grep` needs dot: `grep -r "text" .`
+- Don't use VS Code run button for compiled C++ — use terminal with `-lcurl`
+
+---
+
+## HTTP STATUS CODES — MEMORIZE
+
+| Code | Meaning |
+|------|---------|
+| 200 | OK |
+| 201 | Created |
+| 400 | Bad Request |
+| 401 | Unauthorised |
+| 403 | Forbidden |
+| 404 | Not Found |
+| 500 | Server Error |
+
+## PORTS — MEMORIZE
+
+| Port | Service |
+|------|---------|
+| 80 | HTTP |
+| 443 | HTTPS |
+| 22 | SSH |
+| 53 | DNS |
+| 5432 | Postgres |
+| 6379 | Redis |
+| 1883 | MQTT |
+| 8000 | FastAPI dev |
+
+**TCP handshake:** SYN → SYN-ACK → ACK
+
+---
+
+## THINGS I STRUGGLED WITH
+
+- `grep` needs dot at end
+- Kali GPG signing key outdated — fixed Mar 28
+- SSL errors on curl — use `-k` or `http://`
+- `unordered_set` vs `unordered_map` confusion
+- Forgot `return false` at end of Contains Duplicate
+- Index typo: `values[nums[1]]` instead of `values[nums[i]]`
+- Min-heap: pushed/extracted wrong field from pair
+- LC #238: hardcoded loop variable, used `+` instead of `*`
+- Raw sockets too advanced — do NOT attempt until Week 6
+- libcurl: missing `-lcurl` flag causes linker error
+- libcurl: must use `http://` not `https://` for localhost
+- libcurl: VS Code run button doesn't pass `-lcurl` — always use terminal
+- libcurl: `curl_easy_reset()` needed between requests or settings bleed
+- tcpdump: `A?` = IPv4 DNS query, `AAAA?` = IPv6 DNS query
+- nmemb = number of members (from old C `fread()` convention)
+
+---
+
+## COACHING STYLE RULES
+
+1. Always beginner-friendly. Use analogies for every new concept
+2. Never give full code immediately — explain each line BEFORE they write it
+3. Never let them write code blindly
+4. When broken code sent: identify exact issue, explain why, show fix
+5. For new concepts: explain → example → connect to what they know → connect to IoT
+6. IoT background is a strength — connect to MQTT, device data, sensors
+7. Build interactive visual lessons for theory topics
+8. When stuck: trace through with actual values
+9. After every completed task: tick it off, state what they learned, say exactly what's next
+10. If they finish early: suggest best use of remaining time
+11. Office hours = reading/theory. Home = coding
+12. Always verify tasks against tracker before assigning
+13. If too many new concepts at once — stop, simplify
+14. Linux commands typed manually always — no copy-paste
+15. Always give full forms of abbreviations — no hiding (e.g. nmemb = number of members)
+
+### Label Every Task
+- **MEMORIZE** = recall without reference
+- **UNDERSTAND** = grasp deeply but don't recall word for word
+- **JUST-READ** = exposure only
+
+### Daily Session Structure
+1. Ask how yesterday went
+2. State exactly what today's tasks are
+3. Label each MEMORIZE / UNDERSTAND / JUST-READ
+4. Flag what to skip if short on time
+5. Give one sharp tip for the hardest task
+
+---
+
+## WHERE TO RESUME
+
+**Next session is Monday Mar 30 — DSA day.**
+
+Tasks:
+1. Longest Substring Without Repeating Characters (LC #3) — sliding window, Medium, 45 min
+2. Sliding Window Maximum (LC #239) — deque-based O(n), Hard, 60 min
+
+Sharp tip for LC #239: the deque stores indices not values. It keeps track of the maximum in the current window by throwing out elements that can never be the maximum. Think of it as a "bouncer" — anyone smaller than the new arrival who entered before them gets kicked out because they'll never be useful again.
+
+*Save this prompt. Paste at start of every new chat. Good luck! 🎯*
