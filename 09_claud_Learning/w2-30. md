@@ -1,4 +1,4 @@
-
+Continuing my 18-month roadmap. Handoff below. Tracker attached.
 ---
 
 # COACHING HANDOFF — 18-Month Roadmap (TCS → Product Company)
@@ -388,7 +388,7 @@ Kali notes:
 
 ## WHERE TO RESUME
 
-**Next session is Tuesday Apr 1 — Backend day.**
+**Next session is Tuesday March 31 — Backend day.**
 
 Task: FastAPI + SQLite — `POST /users` and `GET /users` writing to a real database for the first time.
 
