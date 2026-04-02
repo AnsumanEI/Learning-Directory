@@ -1,6 +1,4 @@
-Here's your updated handoff. Save this and paste it at the start of the next chat.
-
----
+--
 
 # COACHING HANDOFF — 18-Month Roadmap (TCS → Product Company)
 
@@ -29,7 +27,7 @@ Two tracker files exist: `18month_full_tracker_v2.html` and `dsa_tracker.html` �
 
 ## CURRENT STATUS
 
-**Phase:** 1 | **Week:** 2 | **Today's date: April 2, 2026 (Wednesday — DSA day)**
+**Phase:** 1 | **Week:** 2 | **Today's date: April 2, 2026 (Thursday — Linux day)**
 
 ### Completed so far
 - Fri Mar 20: STL revision (vector, map, unordered_map, set, priority_queue)
@@ -43,26 +41,23 @@ Two tracker files exist: `18month_full_tracker_v2.html` and `dsa_tracker.html` �
 - Sat Mar 28: Kali Linux environment setup + system repair ✅
 - Sun Mar 29: libcurl HTTP client ✅ + TCP/IP + DNS + tcpdump ✅
 - Mon Mar 30: LC #3 Longest Substring Without Repeating Characters ✅ + LC #239 Sliding Window Maximum ✅
-- Tue Mar 31: FastAPI + SQLite — POST /users + GET /users ✅ — first persistent database, data survives restart
+- Tue Mar 31: FastAPI + SQLite — POST /users + GET /users ✅
 - Wed Apr 1: Valid Parentheses (LC #20) ✅ — stack pattern, bracket matching
+- Thu Apr 2: Min Stack (LC #155) ✅ — stack of pairs pattern
 
 ### Week 2 remaining tasks
 | Date | Type | Task |
 |------|------|------|
-| Thu Apr 2 | DSA | Min Stack (LC #155) — **homework, couldn't finish today** |
-| Thu Apr 3 | Linux | SSH + processes + cron |
+| Thu Apr 2 | Linux | SSH + processes + cron |
 
 ---
 
 ## HOMEWORK DUE BEFORE NEXT SESSION
-
-- **LC #155 Min Stack** — must attempt solo first. Hint already given: use a stack of pairs where each pair stores (element, current_minimum_at_that_moment). Timer: 45 min. If unsolved: ask for help.
+- None. All clear.
 
 ---
 
 ## PATTERN TRACKER — SOLO ONLY (no walkthroughs)
-
-These patterns were learned with guided help. Next time a similar problem appears — hints only, no walkthrough. If unsolved in time limit, assign as homework.
 
 | Pattern | Problem Solved With Help | Rule |
 |---------|--------------------------|------|
@@ -73,6 +68,7 @@ These patterns were learned with guided help. Next time a similar problem appear
 | HashMap anagram | LC #49 ✅ | Solo only |
 | HashMap two sum | LC #1 ✅ | Solo only |
 | Stack bracket matching | LC #20 ✅ | Solo only |
+| Stack with auxiliary min | LC #155 ✅ | Solo only |
 
 ---
 
@@ -80,8 +76,11 @@ These patterns were learned with guided help. Next time a similar problem appear
 
 - Stack problems: managing string + stack simultaneously is confusing first time
 - `seen.count()` on a stack → compile error. Stacks don't have `.count()`. Only maps and sets do.
-- Pushed `s[0]` manually before the loop → double-processed first character. Never push manually before a loop that covers the whole string.
-- `match[')'] = ')'` typo — map value must be the opposite bracket, not itself
+- Pushed `s[0]` manually before the loop → double-processed first character
+- `match[')'] = ')'` typo — map value must be the opposite bracket
+- `pval.push.first(val)` → wrong. Push whole pair at once: `pval.push({val, min})`
+- `pval.top().second()` → wrong. `second` is a field not a function: `pval.top().second`
+- `pval.top.first()` → wrong. `top()` needs parentheses, `first` does not: `pval.top().first`
 - `grep` needs dot at end: `grep -r "text" .`
 - Kali system was severely outdated — fixed Mar 28
 - SSL errors on curl — use `-k` or `http://`
@@ -97,7 +96,7 @@ These patterns were learned with guided help. Next time a similar problem appear
 - libcurl: `curl_easy_reset()` needed between requests
 - Deque: checking `win.back()` before `!win.empty()` → runtime crash
 - Deque: used `if` instead of `while` when kicking from back
-- Python indentation — equivalent to `{}` in C++, 4 spaces inside every function/block
+- Python indentation — equivalent to `{}` in C++, 4 spaces inside every block
 - SQLite: typos in SQL keywords — double check always
 - SQLite: `VALUE` instead of `VALUES` in INSERT statement
 
@@ -133,7 +132,7 @@ Key concepts learned:
 - `commit()` — saves to disk permanently
 - `lastrowid` — gets auto-generated id after INSERT
 - `fetchall()` — returns list of tuples from SELECT
-- `?` placeholders — never interpolate variables directly into SQL (injection risk)
+- `?` placeholders — never interpolate variables directly into SQL
 - `CREATE TABLE IF NOT EXISTS` — safe to run every server start
 - `AUTOINCREMENT` — SQLite generates id, never pass manually
 - Data persists across server restarts
@@ -157,7 +156,7 @@ Key concepts learned:
 - `curl_easy_reset()` — wipes settings before reusing handle
 - `curl_easy_cleanup()` — frees memory
 - `WriteCallback` — collects chunked response into a string
-- Must use `http://` not `https://` for localhost uvicorn
+- Must use `http://` not `https://` for localhost
 - Must force `CURL_HTTP_VERSION_1_1`
 
 Compile:
@@ -186,7 +185,6 @@ phase1-backend/
 
 ## TCPDUMP — LEARNED ✅
 
-Commands used:
 ```bash
 sudo tcpdump -i wlan0 port 80 or port 443 -n
 sudo tcpdump -i wlan0 port 53 -n
@@ -198,15 +196,10 @@ sudo tcpdump -i wlan0 port 53 -n
 
 ```cpp
 deque<int> dq;
-dq.push_back(x)   // add to back
-dq.pop_back()     // remove from back
-dq.push_front(x)  // add to front
-dq.pop_front()    // remove from front
-dq.front()        // peek front
-dq.back()         // peek back
-dq.empty()        // check if empty
+dq.push_back(x); dq.pop_back();
+dq.push_front(x); dq.pop_front();
+dq.front(); dq.back(); dq.empty();
 ```
-
 **Critical rule:** Always check `!dq.empty()` before accessing `front()` or `back()`.
 
 ---
@@ -215,25 +208,32 @@ dq.empty()        // check if empty
 
 ```cpp
 stack<char> st;
-st.push(x)      // add to top
-st.pop()        // remove top (no return value)
-st.top()        // peek top (don't call if empty!)
-st.empty()      // check if empty
+st.push(x);     // add to top
+st.pop();       // remove top (no return value)
+st.top();       // peek top (don't call if empty!)
+st.empty();     // check if empty
 ```
-
 **Critical rule:** Always check `st.empty()` before calling `st.top()`.
+
+**Stack of pairs pattern (Min Stack):**
+```cpp
+stack<pair<int,int>> st;
+st.push({val, currentMin});
+st.top().first;   // the element
+st.top().second;  // the min at that moment
+```
 
 ---
 
 ## LEARNING PHILOSOPHY
 
-**DSA:** Understand the pattern, not just the solution. Always: brute force first → identify bottleneck → optimise. Write time and space complexity as a comment after every solution. Use C++ STL — don't reinvent. After solving: always ask "could I have used less space?" and "is there a one-pass solution?" After guided help: always rewrite from scratch without looking — if you can't do it in 20 minutes, the pattern isn't yours yet.
+**DSA:** Understand the pattern, not just the solution. Always: brute force first → identify bottleneck → optimise. Write time and space complexity as a comment after every solution. Use C++ STL — don't reinvent. After solving: always ask "could I have used less space?" and "is there a one-pass solution?" After guided help: always rewrite from scratch without looking.
 
-**Backend:** Build first, understand after. Every concept must result in running code. FastAPI is the framework — Python syntax is secondary. Not a Python developer — using Python as a tool to build backend systems.
+**Backend:** Build first, understand after. Every concept must result in running code. FastAPI is the framework — Python syntax is secondary.
 
-**Linux/Networking:** Do in terminal — not just reading. Every command must be run live. Commands stick through repetition — type every command manually, no copy-paste.
+**Linux/Networking:** Do in terminal — not just reading. Every command must be run live. Type every command manually, no copy-paste.
 
-**Code understanding rule:** Never write code blindly. Every line must be explained before typing. If too many new concepts at once — stop and simplify.
+**Code understanding rule:** Never write code blindly. Every line must be explained before typing.
 
 ---
 
@@ -258,8 +258,6 @@ st.empty()      // check if empty
 6. Write time + space complexity as comment
 7. Test with 2 examples manually before submitting
 
-After solving: always ask "could I have used less space?" and "is there a one-pass solution?"
-
 ---
 
 ## TC/SC RULES — MEMORIZE
@@ -277,6 +275,7 @@ Loop + divide     → O(n log n)
 - Longest Substring LC #3: O(n) time, O(n) space
 - Sliding Window Max LC #239: O(n) time, O(k) space
 - Valid Parentheses LC #20: O(n) time, O(n) space
+- Min Stack LC #155: O(1) time for all operations, O(n) space
 
 ---
 
@@ -286,6 +285,12 @@ Loop + divide     → O(n log n)
 // Stack
 stack<char> st;
 st.push(x); st.pop(); st.top(); st.empty();
+
+// Stack of pairs
+stack<pair<int,int>> st;
+st.push({val, minVal});
+st.top().first;    // element
+st.top().second;   // min at that moment
 
 // HashMap
 unordered_map<char, int> freq;
@@ -398,21 +403,25 @@ Kali notes:
 13. If too many new concepts at once — stop, simplify
 14. Linux commands typed manually always — no copy-paste
 15. Always give full forms of abbreviations — no hiding
-16. **Pattern rule:** If a pattern was learned with guided help (see Pattern Tracker), next similar problem = hints only, no walkthrough. If unsolved in time limit, assign as homework.
-17. **Claude limit awareness:** Send full lessons in one go — don't send small pieces. Context window is limited, don't waste turns on fragments.
-18. **Python rule:** He is not learning Python. Python syntax errors are expected and normal. Focus on system understanding, not syntax correction.
-19. **Date rule:** Always verify today's date against the tracker START date (2026-03-20) + day offsets. Never assume dates from the handoff task table — calculate from tracker. Today's date will always be stated explicitly at top of Current Status.
+16. **Pattern rule:** If a pattern was learned with guided help, next similar problem = hints only, no walkthrough. If unsolved in time limit, assign as homework.
+17. **Claude limit awareness:** Send full lessons in one go — don't send small pieces.
+18. **Python rule:** He is not learning Python. Python syntax errors are expected and normal.
+19. **Date rule:** Always verify today's date against tracker START date (2026-03-20) + day offsets. Never assume dates from the handoff task table. Today's date will always be stated explicitly at top of Current Status.
 
 ---
 
 ## WHERE TO RESUME
 
-**Next session: Thursday April 2 — DSA day (short session or start of day)**
+**Next session: Thursday April 2 — Linux day**
 
-**First thing:** Check LC #155 Min Stack homework. Did they attempt it solo?
-- If yes: review their solution
-- If no: give the hint (stack of pairs) and start the timer
+Task: SSH + processes + cron — do everything live in Kali terminal.
 
-**Then:** Thursday April 2 is Linux day — SSH + processes + cron.
+Tracker reference: Week 2 Day 7 tasks:
+1. Generate SSH key pair with ssh-keygen
+2. SSH into localhost: ssh user@127.0.0.1
+3. systemctl status/start/stop a service
+4. Write bash script appending timestamp
+5. Add to crontab to run every minute
+6. Verify with tail -f logfile
 
 *Save this prompt. Paste at start of every new chat. Good luck! 🎯*
