@@ -38,7 +38,10 @@ void handle_client(int client_fd) {
 
             if(cmd == "SET"){
                 iss>> value;
+                
+                response  = "Setting " + key + " to " + value;
                 lock_guard<mutex> lock(mtx);
+
                 store[key] = value;
                 response = "SET successful";
             } else if(cmd == "GET"){

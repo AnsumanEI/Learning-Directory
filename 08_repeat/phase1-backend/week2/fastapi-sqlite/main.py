@@ -6,6 +6,10 @@ from pydantic import BaseModel
 # SQLite is just a file — no separate server needed
 DB_PATH = "users.db"
 
+app = FastAPI()
+
+
+
 def init_db():
     # Open (or create) the database file
     conn = sqlite3.connect(DB_PATH)
@@ -32,7 +36,7 @@ class UserIn(BaseModel):
     name: str
     role: str
 
-app = FastAPI()
+
 # Run init_db() once at server startup to ensure table exists
 init_db()
 
@@ -64,3 +68,4 @@ def get_users():
     # Convert each tuple to a dict so FastAPI can return it as JSON
     # r[0]=id, r[1]=name, r[2]=role — order matches the SELECT columns
     return [{"id": r[0], "name": r[1], "role": r[2]} for r in rows]
+
