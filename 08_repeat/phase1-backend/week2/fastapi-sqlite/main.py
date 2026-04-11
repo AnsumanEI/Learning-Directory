@@ -1,11 +1,12 @@
 import sqlite3
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from fastapi import Header , HTTPException
+from fastapi import Header , HTTPException , Request
 from jose import JWTError # type: ignore # For handling JWT errors
 from jose import jwt # type: ignore # For encoding and decoding JWTs
 from datetime import datetime, timedelta # For handling token expiration
-
+from fastapi.responses import JSONResponse
 
 # Path to the SQLite database file on disk
 # SQLite is just a file — no separate server needed
@@ -13,7 +14,12 @@ DB_PATH = "users.db"
 
 app = FastAPI()
 
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods =["*"],
+    allow_headers=["*"]
+)
 
 def init_db():
     # Open (or create) the database file
@@ -49,6 +55,13 @@ API_KEY = "secret123"# A simple API key for authentication (in production, use a
 SECRET_KEY = "supersecetkey"# Secret key for signing JWTs (keep this safe in production!)
 ALGOPRITHM = "HS256"# The algorithm used to sign the JWTs
 ACCESS_TOKEN_EXPIRE_MINUTES = 30# Token expires after 30 minutes
+
+@app.middleware("http")
+async def log_requests(request : Request , call_next):
+    print(f"incoming: {request.method} -> {request.url}")
+    response = await call_next(request)
+    print(f"completed: {response.status_code}")
+    return response
 
 def create_access_token(data: dict):# A helper function to create a JWT access token
     to_encode = data.copy()# Create a copy of the data to encode in the token
@@ -117,3 +130,9 @@ def get_users(x_api_key: str = Header()):
     # r[0]=id, r[1]=name, r[2]=role — order matches the SELECT columns
     return [{"id": r[0], "name": r[1], "role": r[2]} for r in rows]
 
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request , exc : Exception):
+    return JSONResponse(
+        status_code=500,
+        content={"error": "something went wrong" , "detail" : str(exc)}
+    )
