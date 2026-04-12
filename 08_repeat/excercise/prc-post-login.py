@@ -2,9 +2,31 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi import Header
 import sqlite3 
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from fastapi import Request
+
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins =["*"],
+    allow_methods=["*"],
+    allow_headers = ["*"],
+)
+@app.middleware("http")
+async def logging_requests(request : Request , call_next):
+    print(f"incoming: {request.method} -> {request.url}")
+    response = await call_next(request)
+    print(f"completed {response.status_code}")
+    return response
+@app.exception_handler(Exception)
+async def global_exception_handler(request : Request , exc: Exception):
+    return JSONResponse (
+        status_code=500,
+        content={"error" : "something went wrong" , "detail": str(exc)}
+    )
 class UserCreate(BaseModel):
     username : str
     password : str
