@@ -38,7 +38,8 @@ class UserLogin(BaseModel):
 
 USERNAME = "user"
 PASSWORD = "pwd"
-
+SECRET_KEY ="123"
+ALGORITHM = "HS256"
 def setup_db():
     conn = sqlite3.connect("users.db")
     cursor = conn.cursor()
@@ -64,8 +65,8 @@ def create_user(user : UserCreate):
     conn.commit()
     conn.close()
     return {"message" : "User Created" , "user" : {"username": user.username , "role":user.role}}
-def create_access_token(username : str):
-    return f"fake at for {username}"
+def create_token(username : str):
+     return jwt.encode({"sub":username} , SECRET_KEY , algorithm = ALGORITHM)
 
 
 @app.get("/users")

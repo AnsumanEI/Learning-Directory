@@ -10,7 +10,7 @@ class node {
     int val;
     node* left ;
     node* right;
-
+    
     node(){
         val = NULL;
         left = nullptr;
