@@ -21,26 +21,25 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-def init_db():
-    # Open (or create) the database file
-    conn = sqlite3.connect(DB_PATH)
-    # Cursor is the object that runs SQL queries — like a pen
-    cursor = conn.cursor()
-    # Create the users table only if it doesn't already exist
-    # AUTOINCREMENT — SQLite auto-assigns id: 1, 2, 3... we never pass it manually
-    # NOT NULL — name and role cannot be empty
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            role TEXT NOT NULL
-        )
-    """)
-    # commit() saves changes permanently to disk
-    conn.commit()
-    # Always close the connection when done
-    conn.close()
-
+# def init_db():
+#     # Open (or create) the database file
+#     conn = sqlite3.connect(DB_PATH)
+#     # Cursor is the object that runs SQL queries — like a pen
+#     cursor = conn.cursor()
+#     # Create the users table only if it doesn't already exist
+#     # AUTOINCREMENT — SQLite auto-assigns id: 1, 2, 3... we never pass it manually
+#     # NOT NULL — name and role cannot be empty
+#     cursor.execute("""
+#         CREATE TABLE IF NOT EXISTS users (
+#             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             name TEXT NOT NULL,
+#             role TEXT NOT NULL
+#         )
+#     """)
+#     # commit() saves changes permanently to disk
+#     conn.commit()
+#     # Always close the connection when done
+#     conn.close()
 # Pydantic model — defines what the client must send in POST body
 # No id here — SQLite generates it automatically
 class UserIn(BaseModel):
@@ -49,7 +48,7 @@ class UserIn(BaseModel):
 
 
 # Run init_db() once at server startup to ensure table exists
-init_db()
+#init_db()
 
 API_KEY = "secret123"# A simple API key for authentication (in production, use a more secure method!)
 SECRET_KEY = "supersecetkey"# Secret key for signing JWTs (keep this safe in production!)
@@ -78,7 +77,7 @@ def verify_api_key(x_api_key: str = Header()):   # A helper function to check th
 def verify_token(token:str):
     try:# Try to decode the token and extract the username
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])# Decode the token using the secret key and algorithm
-        username: str = payload.get("sub")# Get the username from the token payload
+        username = payload.get("sub")  # The "sub" (subject) field in the token should contain the username we set when creating the token
         if username is None:# If the username is missing, the token is invalid
             raise HTTPException(status_code=401, detail="Invalid token")
         return username
