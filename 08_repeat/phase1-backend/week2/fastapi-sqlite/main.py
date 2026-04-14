@@ -53,7 +53,7 @@ init_db()
 
 API_KEY = "secret123"# A simple API key for authentication (in production, use a more secure method!)
 SECRET_KEY = "supersecetkey"# Secret key for signing JWTs (keep this safe in production!)
-ALGOPRITHM = "HS256"# The algorithm used to sign the JWTs
+ALGORITHM = "HS256"# The algorithm used to sign the JWTs
 ACCESS_TOKEN_EXPIRE_MINUTES = 30# Token expires after 30 minutes
 
 @app.middleware("http")
@@ -67,7 +67,7 @@ def create_access_token(data: dict):# A helper function to create a JWT access t
     to_encode = data.copy()# Create a copy of the data to encode in the token
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)# Set the token to expire in 30 minutes
     to_encode.update({"exp": expire})# Add the expiration time to the token data
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGOPRITHM)# Encode the token using the secret key and algorithm
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)# Encode the token using the secret key and algorithm
     return encoded_jwt
 
 def verify_api_key(x_api_key: str = Header()):   # A helper function to check the API key in request headers
@@ -77,7 +77,7 @@ def verify_api_key(x_api_key: str = Header()):   # A helper function to check th
 
 def verify_token(token:str):
     try:# Try to decode the token and extract the username
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGOPRITHM])# Decode the token using the secret key and algorithm
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])# Decode the token using the secret key and algorithm
         username: str = payload.get("sub")# Get the username from the token payload
         if username is None:# If the username is missing, the token is invalid
             raise HTTPException(status_code=401, detail="Invalid token")
