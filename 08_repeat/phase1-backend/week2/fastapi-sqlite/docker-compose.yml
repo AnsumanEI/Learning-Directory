@@ -1,23 +1,23 @@
+version: "3.8"
+
 services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: usersdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
     volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+      - postgres_data:/var/lib/postgresql/data  # This must be a list under the service
 
   web:
     build: .
     ports:
       - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://user:password@db/db
     depends_on:
       - db
-    environment:
-      DATABASE_URL: postgresql://admin:secret@db:5432/usersdb
 
 volumes:
-      - pgdata:/var/lib/postgresql/data
+  postgres_data:  # Top-level volumes must be a mapping (key: value)
