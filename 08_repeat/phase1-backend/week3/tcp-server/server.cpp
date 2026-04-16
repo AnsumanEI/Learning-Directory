@@ -1,146 +1,144 @@
-#include <iostream>
 #include <bits/stdc++.h>
-#include <math.h>
-#include <strings.h>
-#include <string>
-#include <cstring>
-#include <sys/socket.h> // theses error are there because im in windows os , we can run this file directly from wsl terminal then navigating to the
-// project folder then g++ server.cpp -o server
-//  ./server
-// then use nc localhost 8000 in terminal to check set and get
-
+#include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <thread>
 #include <mutex>
-#include <sstream>
-#include <map>
 #include <atomic>
 
 using namespace std;
 
-atomic<int> ID = 0; // means if 2 3 people join simultaneously the value will not be accurate
+// Shared state — protected by mutex or atomic
+map<string, string> store; // key-value store
+mutex mtx;                 // protects 'store' from concurrent thread access
+atomic<int> ID = 0;        // thread-safe client counter (atomic avoids mutex for single variable)
 
-map<string, string> store;
-mutex mtx;
 void handle_client(int client_fd)
 {
     char buf[1024];
+
     while (true)
     {
-        memset(buf, 0, sizeof(buf));
+        memset(buf, 0, sizeof(buf)); // wipe buffer before each read to avoid leftover data
+
         int bytes = read(client_fd, buf, sizeof(buf));
+
+        // bytes <= 0 means client disconnected or error
         if (bytes <= 0)
         {
-            cout << "Client disconnected!" << endl;
             break;
         }
 
-        // parsing not working properly
-        // also the client id management should be better
-
-        string line(buf); // converts to c++ string format from raw char
-        // istringstream iss(line); // makes it into words separated by spaces
-        // string cmd, key, value;
-        // iss >> cmd >> key;
-
-        // string line(buf);
-        // split by \n and process each line
+        // Convert raw char buffer to C++ string, then split by newline
+        // (client may send multiple commands in one TCP packet)
+        string line(buf);
         istringstream full(line);
         string oneline;
+
         while (getline(full, oneline))
         {
             if (oneline.empty())
                 continue;
+
+            // Parse command and key from each line
             istringstream iss(oneline);
             string cmd, key, value;
             iss >> cmd >> key;
-            string response; // to print into server side terminal and if used inside write then prints in
-            // client side
+
+            string response;
 
             if (cmd == "SET")
             {
                 iss >> value;
 
-                response = "Setting " + key + " to " + value + "\n";
+                // Log on server terminal
+                cout << "[SET] " << key << " = " << value << endl;
 
-                cout << response << "\n";
-                cout.flush(); // else it will printed on a delay after click / or we can use cerr it has inbuilt no delay
-
-                lock_guard<mutex> lock(mtx); // locks the store command , as we are using threads .
-                // only one should be able to access this at a time
-
+                // Lock store while writing — only one thread at a time
+                lock_guard<mutex> lock(mtx);
                 store[key] = value;
-                response = "SET successful \n";
+
+                response = "SET successful\n";
             }
             else if (cmd == "GET")
             {
                 lock_guard<mutex> lock(mtx);
-                if (store.find(key) != store.end())
-                {
-                    response = store[key] + "\n";
-                }
-                else
-                {
-                    response = "Key not found \n";
-                }
+                // Check if key exists before accessing
+                response = (store.find(key) != store.end())
+                               ? store[key] + "\n"
+                               : "Key not found\n";
             }
             else if (cmd == "NUM")
             {
-                lock_guard<mutex> lock(mtx);
-                response = "Number of Clients Connected : " + to_string(ID) + "\n";
+                // No mutex needed — ID is atomic
+                response = "Active clients: " + to_string(ID) + "\n";
             }
             else
             {
-                cout << "Received from client " << ID << ": " << buf << endl;
-                response = string(buf);
+                // Unknown command — echo back raw input
+                cout << "[UNKNOWN] Client " << ID << " sent: " << oneline << endl;
+                response = "Unknown command: " + oneline + "\n";
             }
+
+            // Send response back to this client
             write(client_fd, response.c_str(), response.size());
         }
-        ID--;
-        close(client_fd);
-
-        cout << "client " << ID << " disconnected \n";
     }
+
+    // ✅ Runs ONCE when client disconnects (outside while loop)
+    int this_id = ID.load(); // save which client this was before decrementing
+    ID--;
+    cout << "Client " << this_id << " disconnected. Active clients: " << ID << endl;
+    close(client_fd); // release the socket file descriptor
 }
 
 int main()
 {
-    int server_fd = socket(AF_INET, SOCK_STREAM, 0); // afnet  = ipv4 , sock_stream = tcp , 0 = auto select protocol for tcp
-
+    // Create TCP socket — AF_INET = IPv4, SOCK_STREAM = TCP
+    int server_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (server_fd == -1)
-    {                                             // socket returns -1 on failed so checking
-        cerr << "socket creation failed" << endl; // cerr is cout for errors
+    {
+        cerr << "Socket creation failed" << endl;
         return -1;
     }
 
+    // Allow immediate reuse of port after server restart
+    // (avoids "Address already in use" error)
     int opt = 1;
-    setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt)); // if we restart server quickly the port is kept by windows for sometime
-    // so to reuse it quickly we are using opt to enable , solcocket saying its general level option , reuse address = even if its wait time itll help us bind to our port
-    // reuse port enable multiple threads to use the same port
+    setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt));
+
+    // Configure address: IPv4, any network interface, port 8000
     sockaddr_in addr{};
     addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = INADDR_ANY;                // listens on all network interface
-    addr.sin_port = htons(8000);                      // search big endian and small endian , host to network byte genralisation
-    bind(server_fd, (sockaddr *)&addr, sizeof(addr)); // binds to port 8000 using socket addr
+    addr.sin_addr.s_addr = INADDR_ANY;
+    addr.sin_port = htons(8000); // htons converts port to network byte order (big-endian)
 
-    listen(server_fd, 5); // 5 is the queue size while one process is going on
-    cout << "Server is listening on port 8000..." << endl;
+    bind(server_fd, (sockaddr *)&addr, sizeof(addr));
+
+    // Start listening — queue up to 5 pending connections
+    listen(server_fd, 5);
+    cout << "Server listening on port 8000..." << endl;
 
     while (true)
-    { // sp that we can accept multiple client instead of waiting
+    {
+        // accept() blocks until a client connects, returns new fd for that client
         int client_fd = accept(server_fd, nullptr, nullptr);
         if (client_fd == -1)
         {
-            cerr << "accept failed" << endl;
+            cerr << "Accept failed" << endl;
             continue;
         }
+
         ID++;
         cout << "Client " << ID << " connected!" << endl;
-        thread t(handle_client, client_fd); // handle client gets called multiple time because of thread
+
+        // Spawn a new thread per client so server can handle multiple clients simultaneously
+        // detach() lets thread run independently — main loop doesn't wait for it
+        thread t(handle_client, client_fd);
         t.detach();
     }
+
     close(server_fd);
     return 0;
 }
