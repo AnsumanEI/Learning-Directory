@@ -1,0 +1,12 @@
+services:
+ tcp-server:
+   build: .
+   ports:
+    - "8000:8000"
+
+ tcp-client:
+   image: alpine:3.19
+   depends_on:
+    - tcp-server
+   command: sh -c "sleep 2 && echo -e 'SET name Alice\nSET age 25\nGET name\nGET age\nNUM' | nc -w 2 tcp-server 8000"
+    #w means for wait , as it was closing before testing the num command thats why we set it to wait 1sec 
