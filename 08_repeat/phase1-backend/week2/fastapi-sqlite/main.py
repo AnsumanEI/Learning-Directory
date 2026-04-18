@@ -6,8 +6,11 @@ import os
 from fastapi.responses import JSONResponse
 from datetime import datetime , timedelta
 from database import create_tables , get_db
-from models import User
+from models import User , UserAuth
 from pydantic import BaseModel
+from fastapi.security import OAuth2PasswordBearer
+from passlib.context import CryptContext # type: ignore
+
 
 API_KEY = "realapi"
 SECRET_KEY = "realsecret"
@@ -16,6 +19,14 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 USERNAME = "admin"
 PASSWORD = "admin"
 
+pwd_context  = CryptContext(schemes=["bcrypt"] , deprecated="auto")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl= "login")
+
+def hash_password(password: str):
+    return pwd_context.hash(password)
+
+def verify_hash(plain : str , hashed : str):
+    return pwd_context.verify(plain , hashed)
 class UserIn(BaseModel):
     username :str
     role :str
@@ -23,6 +34,7 @@ class UserIn(BaseModel):
 class Userlogin(BaseModel):
     username : str
     password : str
+
 
 app = FastAPI()
 
@@ -40,6 +52,16 @@ app.add_middleware(
 def startup():
     create_tables()
 
+@app.post("/register")
+def register(user : Userlogin , db : Session = Depends(get_db)):
+    if db.query(UserAuth).filter(UserAuth.username == user.username).first():
+        raise HTTPException(status_code=400 , detail=f"User {user.username} already exists")
+    hashed = hash_password(user.password)
+    new_user = UserAuth(username = user.username , hashed_password = hashed)
+    db.add(new_user)
+    db.commit()
+    return{"message" : f"User {user.username} is Registered Succesfully"}
+        
 
 @app.middleware("http")
 async def log_requests(request : Request , call_next ):
@@ -87,13 +109,19 @@ def get_users(x_api_key: str= Header() , db: Session = Depends(get_db)):
 
 
 @app.post("/login")
-def user_login(user : Userlogin):
-    if(user.username!=USERNAME or user.password != PASSWORD):
-        raise HTTPException(status_code=401 , detail="InvalidID/Password")
-    return {"Login Sfl Toke": create_token({"sub":user.username}) }
+def user_login( user : Userlogin ,db : Session = Depends(get_db)):
+    search = db.query(UserAuth).filter(UserAuth.username == user.username).first()
+    if search is None:
+        raise HTTPException(status_code=401 , detail=f" {user.username} not Found")
+    hashpass  = str(search.hashed_password) #used str to silence the error
+    if verify_hash(user.password , hashpass) is False:
+        raise HTTPException(status_code=401 , detail=f" The Password for {user.username} is incorrect")
+    return {"access_token" : create_token({"sub": user.username}) ,"token_type": "bearer"}
+
+   
 
 @app.get("/protected")
-def access_protected(token : str , x_api_key: str = Header()):
+def access_protected(token : str = Depends(oauth2_scheme) , x_api_key: str = Header()):
     verify_apikey(x_api_key)
     username = verify_token(token)
     return {"message" : f"Welcome to protected space {username}"}
