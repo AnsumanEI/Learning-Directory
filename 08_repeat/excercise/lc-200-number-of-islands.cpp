@@ -9,6 +9,7 @@ void dfs(vector<vector<char>> &grid, int x, int y)
 {
     int rows = grid.size();
     int cols = grid[0].size();
+
     if (x < 0 || x >= rows || y < 0 || y >= cols)
         return;
     if (grid[x][y] == '0')

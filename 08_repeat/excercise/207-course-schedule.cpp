@@ -5,6 +5,7 @@
 #include <string>
 #include <cstring>
 using namespace std;
+
 class Solution
 {
 public:
@@ -12,7 +13,8 @@ public:
     {
         vector<vector<int>> adj(numCourses);
         vector<int> indegree(numCourses, 0);
-        queue<int> unlocked;
+        queue<int> courses;
+        int count = 0;
 
         for (auto &p : prerequisites)
         {
@@ -22,32 +24,34 @@ public:
             adj[b].push_back(a);
             indegree[a]++;
         }
+
         for (int i = 0; i < numCourses; i++)
         {
             if (indegree[i] == 0)
             {
-                unlocked.push(i);
+                courses.push(i);
             }
         }
-        int count = 0;
-        while (!unlocked.empty())
+
+        while (!courses.empty())
         {
-            int achievablecourses = unlocked.front();
-            unlocked.pop();
+            int temp = courses.front();
+            courses.pop();
             count++;
 
-            for (auto &p : adj[achievablecourses])
+            for (auto &p : adj[temp])
             {
                 indegree[p]--;
                 if (indegree[p] == 0)
                 {
-                    unlocked.push(p);
+                    courses.push(p);
                 }
             }
         }
-        return count == numCourses;
+        return numCourses == count;
     }
 };
+
 int main()
 {
 
