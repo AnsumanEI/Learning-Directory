@@ -22,12 +22,15 @@ public:
     TreeNode *invertTree(TreeNode *root)
     {
         if (root == nullptr)
+        {
             return nullptr;
+        }
         invertTree(root->left);
         invertTree(root->right);
         TreeNode *temp = root->right;
         root->right = root->left;
         root->left = temp;
+
         return root;
     }
 };
