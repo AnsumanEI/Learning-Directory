@@ -13,3 +13,9 @@ class UserAuth(Base):
     username = Column(String , unique = True , index = True, nullable=False)
     hashed_password = Column(String , nullable = False)
 
+class Devices(Base):
+    __tablename__ ="devices"
+    id = Column(Integer , primary_key= True , index= True)
+    model_name = Column(String , nullable=False )
+    model_no =Column(String , index= True)
+    dev_status = Column(String , nullable=False)

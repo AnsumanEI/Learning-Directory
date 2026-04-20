@@ -6,7 +6,7 @@ import os
 from fastapi.responses import JSONResponse
 from datetime import datetime , timedelta
 from database import create_tables , get_db
-from models import User , UserAuth
+from models import User , UserAuth , Devices
 from pydantic import BaseModel
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext # type: ignore
@@ -34,6 +34,13 @@ class UserIn(BaseModel):
 class Userlogin(BaseModel):
     username : str
     password : str
+
+class DeviceSchema(BaseModel):
+
+    model_no: str
+    model_name :str
+    dev_status :str
+
 
 
 app = FastAPI()
@@ -107,6 +114,13 @@ def get_users(x_api_key: str= Header() , db: Session = Depends(get_db)):
     users = db.query(User).all() #or . get(id)
     return users
 
+@app.get("/devices")
+def get_devices(token : str =Depends(oauth2_scheme) , db : Session = Depends(get_db)):
+    verify_token(token)
+    devices = db.query(Devices).all()
+    return devices
+    
+
 
 @app.post("/login")
 def user_login( user : Userlogin ,db : Session = Depends(get_db)):
@@ -118,8 +132,53 @@ def user_login( user : Userlogin ,db : Session = Depends(get_db)):
         raise HTTPException(status_code=401 , detail=f" The Password for {user.username} is incorrect")
     return {"access_token" : create_token({"sub": user.username}) ,"token_type": "bearer"}
 
-   
+@app.post("/devices")
+def post_device(device : DeviceSchema ,token : str = Depends(oauth2_scheme) ,db : Session = Depends(get_db) ):
+    verify_token(token)
+    new_device = Devices(model_name =device.model_name , model_no =device.model_no , dev_status =device.dev_status)
+    if db.query(Devices).filter(Devices.model_name == device.model_name , Devices.model_no == device.model_no).first() :
+        raise HTTPException(status_code=400 , detail="Device with same model no and model name already exists")
+    db.add(new_device)
+    db.commit()
+    db.refresh(new_device)
+    return {"Device": device.model_name , "Model No." : device.model_no , "Status": device.dev_status}
 
+@app.get("/devices/{id}")
+def get_devbyid(id : int  ,token : str = Depends(oauth2_scheme) ,db : Session = Depends(get_db)):
+    verify_token(token)
+    device = db.query(Devices).filter(Devices.id == id).first()
+    if device is None:
+        raise HTTPException(status_code=404 , detail = "Device not Found")
+    return device
+
+@app.put("/devices/{id}")
+def update_dev(id :int ,device : DeviceSchema,token : str = Depends(oauth2_scheme) ,db : Session = Depends(get_db)):
+    verify_token(token)
+    existing = db.query(Devices).filter(Devices.id == id).first()
+    if existing is None:
+        raise HTTPException(status_code=404 ,detail="Device not Found")
+    existing.model_name = device.model_name #type: ignore
+    existing.model_no = device.model_no #type: ignore
+    existing.dev_status = device.dev_status#type: ignore
+    db.commit()
+    db.refresh(existing)
+    return existing
+
+@app.delete("/devices/{id}")
+def delete_dev(id : int , token :str = Depends(oauth2_scheme) , db : Session = Depends(get_db)):
+    verify_token(token)
+    device = db.query(Devices).filter(Devices.id == id ).first()
+    if device is None:
+        raise HTTPException(status_code=404 , detail="Device not Found")
+    deleted_name = device.model_name
+    deleted_no = device.model_no
+    db.delete(device)
+    db.commit()
+    return {"message" : f"{deleted_name} with Model No. {deleted_no} is Deleted Succesfully"}
+
+
+    
+         
 @app.get("/protected")
 def access_protected(token : str = Depends(oauth2_scheme) , x_api_key: str = Header()):
     verify_apikey(x_api_key)
