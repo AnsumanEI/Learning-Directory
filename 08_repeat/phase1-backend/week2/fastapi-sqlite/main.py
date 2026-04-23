@@ -10,14 +10,15 @@ from models import User , UserAuth , Devices
 from pydantic import BaseModel
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext # type: ignore
+from dotenv import load_dotenv
+load_dotenv()
 
-
-API_KEY = "realapi"
-SECRET_KEY = "realsecret"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
-USERNAME = "admin"
-PASSWORD = "admin"
+API_KEY = os.getenv("API_KEY" , "")
+SECRET_KEY = os.getenv("SECRET_KEY" ,"")#these values can not be wmpty in jwt encode and decode so a fallback value of "" is given
+ALGORITHM = os.getenv("ALGORITHM","")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES" , "30"))
+USERNAME = os.getenv("USERNAME")
+PASSWORD = os.getenv("PASSWORD")
 
 pwd_context  = CryptContext(schemes=["bcrypt"] , deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl= "login")

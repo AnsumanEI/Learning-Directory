@@ -35,3 +35,5 @@ tempCodeRunnerFile*
 *.bmp
 *.asp
 *.php
+
+.env
