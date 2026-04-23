@@ -1,8 +1,8 @@
 # Programming & DSA Learning Repository
 
-> A structured collection of programs covering C, C++, Data Structures & Algorithms,
-> Web Development, IoT & Embedded Systems, and personal projects — built during active learning and
-> organized for easy reference and recruiter review.
+> A structured collection of programs covering C, C++, Java, Data Structures & Algorithms,
+> Backend Development, DevOps, IoT & Embedded Systems, and personal projects —
+> built during active learning and organized for easy reference and recruiter review.
 
 ---
 
@@ -11,169 +11,135 @@
 ```
 .
 ├── 01_languages/
-│   ├── c/                              C language fundamentals
-│   │   ├── 01-hello-world.c
-│   │   ├── 02-variables-and-datatypes.c
-│   │   ├── 03-addition-of-two-numbers.c
-│   │   ├── 04-user-input-and-sum.c
-│   │   ├── 05-arithmetic-operators-practice.c
-│   │   ├── 06-arithmetic-operators.c
-│   │   ├── 07-operator-precedence.c
-│   │   ├── 08-even-odd-check.c
-│   │   ├── 09-logical-operators.c
-│   │   ├── 10-ternary-operator.c
-│   │   ├── 11-switch-case.c
-│   │   ├── 12-while-loop.c
-│   │   ├── 13-area-of-rectangle.c
-│   │   ├── 14-area-of-circle.c
-│   │   ├── 15-celsius-to-fahrenheit.c
-│   │   ├── 16-bitwise-and-divisibility.c
-│   │   ├── 17-basic-calculator.c
-│   │   ├── 18-grade-calculator.c
-│   │   ├── 19-age-check-if-else.c
-│   │   ├── 20-marks-percentage.c
-│   │   ├── 21-income-tax-calculator.c
-│   │   ├── 22-leap-year-check.c
-│   │   ├── 23-find-greatest-of-four.c
-│   │   ├── 24-uppercase-lowercase-check.c
-│   │   ├── ch04-loops/                 for, while, do-while, break, table printing
-│   │   ├── ch05-functions/             prototypes, call-by-value, recursion, return values
-│   │   ├── ch06-pointers/              pointer basics, call by reference
-│   │   ├── ch07-arrays/                array input, traversal, pointer arithmetic
-│   │   ├── misc-practice/              additional exercises
-│   │   └── c-projects/                 mini C projects
-│   │
-│   └── cpp/                            C++ — complete course (27 chapters)
-│       ├── 01-basics/                  Hello World, I/O, heap/stack declaration
-│       ├── 02-data-types-variables/    Variables, operators, scope resolution
-│       ├── 03-enum-typedef/            Enums and typedefs
-│       ├── 04-conditional-statements/  If-else, switch, income tax example
-│       ├── 05-short-circuit-switch/    Short circuit evaluation, switch calculator
-│       ├── 07-arrays/                  1D & 2D arrays, matrix, range-based for
-│       ├── 08-pointers/                Pointer basics and arithmetic
-│       ├── 09-strings-cstyle/          C-style string functions
-│       ├── 10-strings-class/           String class, iterators, append/replace
-│       ├── 11-functions/               Functions, overloading, templates, linear search
-│       ├── 12-parameter-passing/       Call by address, return by address/reference
-│       ├── 13-recursion/               Recursive functions, Fibonacci, N-Queens approach
-│       ├── 14-oops/                    Classes, constructors, destructors, this pointer
-│       ├── 15-data-handling/           Data handling, struct vs class
-│       ├── 16-operator-overloading/    Operator overloading, friend functions
-│       ├── 17-inheritance/             Single, multiple, multilevel inheritance
-│       ├── 18-virtual-functions/       Virtual functions, polymorphism
-│       ├── 19-exception-handling/      Try-catch, custom exceptions
-│       ├── 20-file-handling/           File I/O, fstream
-│       ├── 21-templates/               Function and class templates
-│       ├── 22-std/                     Standard library utilities
-│       ├── 23-iterators/               Iterator types and usage
-│       ├── 24-sorting/                 Sorting algorithms
-│       ├── 25-searching/               Searching algorithms
-│       ├── 26-stl/                     Vector, Stack, Queue, Set, Map, Priority Queue
-│       └── 27-cpp11-modern/            auto, lambda, smart pointers, final keyword
+│   ├── c/                              C language fundamentals (24 programs + chapters)
+│   ├── cpp/                            C++ complete course (27 chapters)
+│   └── java/                           Java basics — collections, OOP, strings, I/O
 │
 ├── 02_dsa/
 │   ├── binary-search/                  LeetCode binary search problems
-│   │   ├── lc374-guess-number.cpp
-│   │   ├── lc436-find-right-interval.cpp
-│   │   ├── lc441-arranging-coins.cpp
-│   │   ├── lc540-single-element-sorted-array.cpp
-│   │   └── lc69-sqrt-integer.cpp
-│   ├── complete-course/                Full DSA course implementations
-│   │   ├── ARRAY-ADT/                  Abstract data type arrays, binary/linear search
-│   │   ├── MATHS/                      GCD, modular arithmetic, power, primality
-│   │   ├── PRAC/                       Competitive programming practice
-│   │   └── RECURSION/                  Recursion, backtracking, N-Queens, combination sum
-│   └── leetcode/
-│       └── arrays/                     LeetCode array problems (Two Sum, etc.)
+│   ├── complete-course/                Full DSA course — Arrays, Maths, Recursion, STL
+│   ├── core/                           Linked lists, arrays, BST, recursion deep-dives
+│   ├── leetcode/                       LeetCode solutions
+│   └── stl-cheatsheet/                 STL quick reference
 │
 ├── 03_courses/
-│   ├── internshala/                    Internshala DSA course
-│   │   ├── search/                     Linear search, binary search
-│   │   ├── Structures/                 C++ structs, IELTS band calculator
-│   │   └── Trees/                      Binary tree creation, traversal, height, zigzag
+│   ├── internshala/                    Internshala DSA — Arrays, Trees, Graphs, Linked Lists, Sorting
 │   ├── striver-a2z/                    Striver A2Z DSA sheet
-│   │   └── lc1-two-sum-hashmap.cpp
-│   └── supreme-batch/                  Supreme Batch (Babbar) DSA
-│       └── binary-search-template.cpp
+│   └── supreme-batch/                  Supreme Batch (Babbar) — Binary Search
+│
+├── 04_interview-prep/
+│   └── cc-qna/                         Competitive coding Q&A practice
 │
 ├── 05_web/
-│   ├── html-basics/                    HTML fundamentals, CSS, JS toggle
-│   │   ├── transparent-button-demo.html
-│   │   ├── project-practice-1.html
-│   │   ├── styles.css
-│   │   └── script.js
-│   └── full-stack/                     Full-stack experiments
+│   ├── html-basics/                    HTML fundamentals, CSS, JavaScript
+│   └── full-stack/                     HTML5, CSS, JS full-stack experiments
 │
 ├── 06_college/                         College assignment programs (C++)
-│   ├── dynamic-array-heap-input.cpp    Heap-allocated array with user input
-│   ├── find-max-of-three-numbers.cpp   Max of three using ternary
-│   └── pre-increment-demo.cpp          Pre-increment and print
 │
-└── 07_projects/                        Showpiece projects
-    ├── employee-management-system-final.cpp    Full EMS with structs and class methods
-    ├── sorting-visualizer-sfml.cpp             SFML insertion sort visualizer
-    ├── tetris-game.cpp                         Tetris game in C++
-    │
-    └── NIT-RKL-Internship/             NIT Rourkela Internship 2024
-        ├── 01_EWARN-IoT-Development-Kit/       33 experiments on the EWARN IoT board
-        │   ├── experiments/                    01-ESP32-Setup → 33-ThingSpeak-RelayToggle
-        │   ├── IMU-NodeJS-Server/              Node.js + WebSocket live sensor dashboard
-        │   └── docs/                           EWARN board manual, IoT lab manual
-        ├── 02_Smart-Traffic-System/            ESP32 dynamic traffic light controller
-        │   ├── firmware/                       Arduino sketches (v1.1 → v1.5 → Blynk)
-        │   ├── web-interface/                  Standalone Traffic.html dashboard
-        │   └── docs/                           Internship report, college report, abstract
-        └── docs/                               Letter of Recommendation
+├── 07_projects/                        Showpiece projects + NIT Internship
+│   └── NIT-RKL-Internship/             NIT Rourkela Internship 2024 (IoT + Embedded)
+│
+├── 08_repeat/
+│   ├── lc-problems/                    ← Active Phase 1 DSA (LeetCode solutions)
+│   ├── excercise/                      Cold-write practice files
+│   └── phase1-backend/                 ← Active Phase 1 Backend
+│       ├── week1/                      FastAPI intro + C++ KV store
+│       ├── week2/                      FastAPI + Postgres + Docker + nginx
+│       └── week3/                      C++ TCP echo server (Dockerized)
+│
+├── 09_claud_Learning/                  Daily session notes (W1–W5)
+├── 10_brain/                           Obsidian-style knowledge vault
+├── 11_memo-cheat/                      Cheat sheets — Backend, FastAPI, curl, JSON
+└── 18month_full_tracker.html           18-month learning roadmap tracker
 ```
+
+---
+
+## 🚀 Active Work — Phase 1 (March–July 2026)
+
+**Goal:** DSA in C++ + Backend (FastAPI/Python) + Linux/Networking + Docker
+
+### DSA — `08_repeat/lc-problems/`
+
+26 LeetCode problems solved across 5 weeks:
+
+| Pattern | Problems |
+|---|---|
+| HashMap | LC #1, #217, #242, #49, #347 |
+| Stack | LC #20, #155 |
+| Sliding Window | LC #3, #239 |
+| Binary Search | LC #704, #33 |
+| Prefix/Suffix | LC #238 |
+| Trees | LC #226, #104, #100, #572 |
+| Graphs | LC #200, #133, #417, #130, #207, #210 |
+| Dynamic Programming | LC #70, #198, #1143, #72, #139 |
+
+### Backend API — `08_repeat/phase1-backend/week2/fastapi-sqlite/`
+
+Production-grade FastAPI backend with:
+- **Auth:** `/register` + `/login` — bcrypt password hashing, JWT tokens, OAuth2PasswordBearer
+- **Protected routes:** Bearer token + API key middleware
+- **CRUD:** `/users` + `/devices` — full 5-route CRUD with SQLAlchemy ORM
+- **Database:** PostgreSQL (via Docker), SQLAlchemy, Alembic-ready models
+- **Infrastructure:** Docker + docker-compose + nginx reverse proxy on port 80
+- **Config:** `.env` + `os.getenv()` + `python-dotenv`
+- **Middleware:** CORS + logging + global exception handler
+- **Healthcheck:** `pg_isready` on db before web starts
+
+```bash
+# Run the full stack
+cd 08_repeat/phase1-backend/week2/fastapi-sqlite
+docker-compose up --build
+
+# Test via nginx on port 80
+curl -X POST http://localhost/register -H "Content-Type: application/json" -d '{"username":"test","password":"pass"}'
+curl -X POST http://localhost/login -d "username=test&password=pass"
+curl http://localhost/protected -H "Authorization: Bearer <token>" -H "x-api-key: realapi"
+```
+
+### TCP Server — `08_repeat/phase1-backend/week3/tcp-server/`
+
+Raw C++ TCP echo server:
+- Single client → multi-client → SET/GET KV store
+- Dockerized with `docker-compose`
 
 ---
 
 ## Highlighted Projects
 
 ### 🔬 NIT Rourkela Internship 2024 (`07_projects/NIT-RKL-Internship/`)
-A full research internship at NIT Rourkela under Dr. Santos Kumar Das, Dept. of ECE (May–July 2024), consisting of two projects:
+Research internship at NIT Rourkela under Dr. Santos Kumar Das, Dept. of ECE (May–July 2024).
 
-**EWARN IoT Development Kit** — 33 hands-on experiments covering every sensor and communication module on the custom EWARN ESP32 board: DHT11, BMP180, MPU9250 IMU, SSD1306 OLED, SD Card, Relay, LM386 Speaker, Bluetooth, GSM A7672S, LoRa (868 MHz), and FSO (Free Space Optics). Experiments range from basic GPIO to sending SMS accident alerts and transmitting data over laser beams.
+**EWARN IoT Development Kit** — 33 experiments on a custom ESP32 board: DHT11, BMP180, MPU9250 IMU, SSD1306 OLED, SD Card, Relay, GSM A7672S, LoRa (868 MHz), FSO (Free Space Optics). Includes a live Node.js + WebSocket IMU dashboard.
 
-**ESP32 Smart Traffic Light System** — A 4-intersection dynamic traffic light controller. The ESP32 hosts a real-time web dashboard over WiFi with time-based and vehicle-density-based signal modes. The Blynk version adds IR sensor input, emergency vehicle priority, and peak-hour profiles. Firmware evolved through 5 iterations (v1.1 → v1.5 → Blynk).
+**ESP32 Smart Traffic Light System** — 4-intersection dynamic traffic controller with real-time web dashboard over WiFi. Evolved through 5 firmware iterations (v1.1 → v1.5 → Blynk). Blynk version adds IR sensors, emergency vehicle priority, and peak-hour profiles.
 
 ### Employee Management System (`07_projects/employee-management-system-final.cpp`)
-A terminal-based C++ application that manages employee records using structs and classes.
-Features include adding employees, displaying records, animated loading screen, and a revoke
-function to reset data. Demonstrates: structs, arrays of structs, classes, static variables,
-string formatting with `iomanip`.
+Terminal-based C++ EMS — structs, classes, static variables, `iomanip` formatting, animated loading screen.
 
 ### Sorting Visualizer (`07_projects/sorting-visualizer-sfml.cpp`)
-A real-time visual sorting algorithm using the SFML graphics library. Renders 80 bars on screen
-and animates insertion sort step by step, highlighting the active bar in green when sorted.
-Demonstrates: SFML, graphics loops, algorithm visualization, real-time rendering.
+Real-time SFML insertion sort visualizer — 80 bars, live rendering, active bar highlighted.
 
 ### Tetris Game (`07_projects/tetris-game.cpp`)
-Console-based Tetris implemented in C++ using wide strings (`wstring`) to represent Tetrimino
-pieces. Demonstrates: game logic structure, wide character rendering, piece rotation encoding.
-
----
-
-## DSA Coverage
-
-| Topic | Files | Source |
-|---|---|---|
-| Binary Search | 5 LeetCode problems | `02_dsa/binary-search/` |
-| Array ADT | Linear search, binary search, reverse, shift, shell sort | `02_dsa/complete-course/ARRAY-ADT/` |
-| Recursion | Fibonacci, N-Queens, combination sum, backtracking | `02_dsa/complete-course/RECURSION/` |
-| Mathematics | GCD, modular arithmetic, fast power, primality | `02_dsa/complete-course/MATHS/` |
-| Trees | Creation, traversal, height, diameter, zigzag BFS | `03_courses/internshala/Trees/` |
-| STL | Vector, Stack, Queue, Set, Map, Priority Queue | `01_languages/cpp/26-stl/` |
-| Sorting | Insertion sort (visualized), shell sort | `07_projects/`, `02_dsa/` |
+Console Tetris in C++ using `wstring` Tetrimino encoding with rotation logic.
 
 ---
 
 ## Languages & Tools
 
-- **Languages:** C, C++, HTML, CSS, JavaScript, Arduino (C++)
-- **Libraries:** STL, SFML, ESPAsyncWebServer, ArduinoJson, Blynk, `<bits/stdc++.h>`
-- **Concepts:** OOP, Recursion, Backtracking, Binary Search, Trees, Linked Lists, STL containers, File I/O, Templates, Operator Overloading, Smart Pointers, Lambda Expressions, IoT, WiFi Protocols, WebSockets, GSM, LoRa, FSO
-- **Tools:** GCC, Git, VS Code, Arduino IDE, Node.js
+**Languages:** C, C++, Java, Python, HTML, CSS, JavaScript, Arduino (C++)
+
+**Backend:** FastAPI, SQLAlchemy, PostgreSQL, JWT, bcrypt, passlib, OAuth2, python-dotenv
+
+**DevOps:** Docker, docker-compose, nginx, Dockerfile, healthchecks, volumes
+
+**Networking:** TCP/IP, HTTP/HTTPS, TLS, DNS, libcurl, tcpdump, SSH, raw socket programming
+
+**DSA:** HashMap, Stack, Sliding Window, Binary Search, Trees, Graphs (BFS/DFS/Topo), Dynamic Programming
+
+**Libraries:** STL, SFML, ESPAsyncWebServer, ArduinoJson, Blynk, pydantic, uvicorn
+
+**Tools:** GCC, Git, VS Code, Docker Desktop, WSL, Git Bash, Arduino IDE, Node.js, Obsidian
 
 ---
 
@@ -184,11 +150,31 @@ pieces. Demonstrates: game logic structure, wide character rendering, piece rota
 gcc 01_languages/c/08-even-odd-check.c -o even-odd
 
 # Compile any C++ file
-g++ 01_languages/cpp/26-stl/stl-vector.cpp -o stl-vector
+g++ 08_repeat/lc-problems/lc-1-two-sum-problem.cpp -o two-sum
 
-# Compile SFML project (requires SFML installed)
+# Run the FastAPI backend (Docker)
+cd 08_repeat/phase1-backend/week2/fastapi-sqlite
+docker-compose up --build
+
+# Run the TCP server (Docker)
+cd 08_repeat/phase1-backend/week3/tcp-server
+docker-compose up --build
+
+# Compile SFML project
 g++ 07_projects/sorting-visualizer-sfml.cpp -lsfml-graphics -lsfml-window -lsfml-system -o sorting-visualizer
 
 # Run the IMU Node.js server
-cd 07_projects/NIT-RKL-Internship/01_EWARN-IoT-Development-Kit/IMU-NodeJS-Server && npm install && node server.js
+cd 07_projects/NIT-RKL-Internship/01_EWARN-IoT-Development-Kit/IMU-NodeJS-Server
+npm install && node server.js
 ```
+
+---
+
+## Roadmap
+
+| Phase | Timeline | Focus |
+|---|---|---|
+| Phase 1 | Mar–Jul 2026 | DSA (C++) + FastAPI + Linux + Docker |
+| Phase 2 | Jul 2026–Jan 2027 | System Design + Kubernetes + AWS SAA + IoT Core |
+| Phase 3 | Jan–Sep 2027 | Kafka + TimescaleDB + Observability + IoT Capstone |
+| Phase 4 | Sep 2027–Mar 2028 | Interview Prep + Portfolio + Applications |
