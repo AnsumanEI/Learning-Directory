@@ -10,8 +10,8 @@ from models import User , UserAuth , Devices
 from pydantic import BaseModel
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext # type: ignore
-from dotenv import load_dotenv
-load_dotenv()
+from dotenv import load_dotenv # to load from env file 
+load_dotenv() #use getenc functions
 
 API_KEY = os.getenv("API_KEY" , "")
 SECRET_KEY = os.getenv("SECRET_KEY" ,"")#these values can not be wmpty in jwt encode and decode so a fallback value of "" is given

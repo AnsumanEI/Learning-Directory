@@ -8,6 +8,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from jose import JWTError , jwt
 from sqlalchemy.orm import Session , sessionmaker
 from datetime import datetime , timedelta
+from fastapi.security import OAuth2PasswordBearer 
+from passlib.context import CryptContext
+
 
 app = FastAPI()
 
@@ -46,6 +49,11 @@ async def log_requests(request : Request , call_next):
     print(f"Completed : {response.status_code}")
     return response
 
+def hash_password(password : str):
+    return pwd_context.hash(password)
+
+def verify_hash(plain : str , hashed :str):
+    return pwd_context.verify(plain , hashed)
 
 def create_token(data : dict):
     to_encode = data.copy()
@@ -64,11 +72,7 @@ def verify_token(token : str):
     except  JWTError:
         raise HTTPException(status_code=401 , detail="Invalid Token Detected")
     
-def hash_password(password : str):
-    return pwd_context.hash(password)
 
-def verify_hash(plain : str , hashed : str):
-    return pwd_context.verify(plain , hashed)
 
 def verify_apikey(x_api_key : str = Header()):
     if(x_api_key!=API_KEY):
