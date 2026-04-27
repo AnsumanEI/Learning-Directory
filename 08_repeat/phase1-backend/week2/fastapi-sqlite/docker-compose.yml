@@ -3,6 +3,8 @@
 services:
   db:
     image: postgres:15
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -36,3 +38,4 @@ services:
   
 volumes:
   postgres_data:  # Top-level volumes must be a mapping (key: value)
+

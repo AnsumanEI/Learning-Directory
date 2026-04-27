@@ -1,4 +1,6 @@
-from sqlalchemy import Column , Integer ,String
+from sqlalchemy import Column , Integer ,String , Float , DateTime , ForeignKey
+from sqlalchemy.orm import relationship
+from datetime import datetime
 from database import Base
 
 class User(Base):
@@ -19,3 +21,12 @@ class Devices(Base):
     model_name = Column(String , nullable=False )
     model_no =Column(String , index= True)
     dev_status = Column(String , nullable=False)
+    readings = relationship("DeviceReading" , back_populates="device")
+
+class DeviceReading(Base):
+    __tablename__ = "device_readings"
+    id = Column(Integer , primary_key= True , index=True)
+    device_id = Column(Integer , ForeignKey("devices.id") , nullable=False)
+    value = Column( Float , nullable=False)
+    timestamp = Column ( DateTime , default= datetime.utcnow)
+    device = relationship("Devices" , back_populates="readings")
