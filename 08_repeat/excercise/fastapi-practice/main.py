@@ -1,4 +1,4 @@
-from fastapi.security import OAuth2PasswordBearer 
+
 from fastapi import HTTPException ,FastAPI ,Response ,Depends ,Request , Header
 from database import create_tables ,get_db
 from models import UserAuth , UserData
@@ -53,7 +53,8 @@ def hash_password(password : str):
     return pwd_context.hash(password)
 
 def verify_hash(plain : str , hashed :str):
-    return pwd_context.verify(plain , hashed)
+    if pwd_context.verify(plain , hashed) is False:
+        raise HTTPException(status_code=400 , detail="INVALID USERNAME/PASSWORD")
 
 def create_token(data : dict):
     to_encode = data.copy()
@@ -94,8 +95,8 @@ def user_login(user : UserLogin , db : Session = Depends(get_db)):
     if sessionuser is None:
         raise HTTPException(status_code=401 , detail=f"the username {sessionuser} not found")
     hashedpwd = str(sessionuser.hashed_password)
-    if verify_hash(user.password , hashedpwd) is False:
-        raise HTTPException(status_code=401 , detail="The password is incorrect")
+    verify_hash(user.password , hashedpwd) 
+        
     return {"message": "login successfull" , "token": create_token({"sub":user.username}) , "token_type":"bearer"}
 
 @app.get("/protected")
