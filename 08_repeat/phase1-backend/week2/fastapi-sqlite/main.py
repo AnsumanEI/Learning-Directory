@@ -12,6 +12,7 @@ from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext # type: ignore
 from dotenv import load_dotenv # to load from env file 
 load_dotenv() #use getenc functions
+from typing import Optional #for query parameters assign ed to None so either it can be string or none
 
 API_KEY = os.getenv("API_KEY" , "")
 SECRET_KEY = os.getenv("SECRET_KEY" ,"")#these values can not be wmpty in jwt encode and decode so a fallback value of "" is given
@@ -116,9 +117,13 @@ def get_users(x_api_key: str= Header() , db: Session = Depends(get_db)):
     return users
 
 @app.get("/devices")
-def get_devices(token : str =Depends(oauth2_scheme) , db : Session = Depends(get_db)):
+def get_devices(page : int = 1 , limit : int = 10 , status : Optional[str] = None ,token : str =Depends(oauth2_scheme) , db : Session = Depends(get_db)):
     verify_token(token)
-    devices = db.query(Devices).all()
+    skip = (page - 1) * limit
+    if status == None:
+        devices = db.query(Devices).offset(skip).limit(limit).all()
+        return devices
+    devices = db.query(Devices).filter(Devices.dev_status == status).offset(skip).limit(limit).all()
     return devices
     
 
