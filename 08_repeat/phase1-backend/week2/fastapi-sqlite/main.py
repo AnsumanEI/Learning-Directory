@@ -117,7 +117,10 @@ def get_users(x_api_key: str= Header() , db: Session = Depends(get_db)):
     return users
 
 @app.get("/devices")
-def get_devices(page : int = 1 , limit : int = 10 , status : Optional[str] = None ,token : str =Depends(oauth2_scheme) , db : Session = Depends(get_db)):
+def get_devices(page : int = 1 ,
+                 limit : int = 10 , status : Optional[str] = None ,
+                 token : str =Depends(oauth2_scheme) ,
+                   db : Session = Depends(get_db)):
     verify_token(token)
     skip = (page - 1) * limit
     if status == None:
