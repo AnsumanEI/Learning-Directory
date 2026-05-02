@@ -65,6 +65,7 @@ public:
     bool ValidateRec(TreeNode *root)
     {
         TreeNode *prev = nullptr;
+        return checker(root, prev);
     }
 };
 int main()
