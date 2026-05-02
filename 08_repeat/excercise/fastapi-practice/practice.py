@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker  ,Session
 from pydantic import BaseModel
 from jose import JWTError ,jwt
 from datetime import datetime , timedelta
+from fastapi.security import OAuth2PasswordBearer
 
 app = FastAPI()
 
@@ -17,6 +18,8 @@ class UserIn(BaseModel):
     password : str
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated = "auto")
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 def hash_password(password : str ):
     return pwd_context.hash(password)
@@ -33,6 +36,16 @@ def create_token(data : dict):
     encoded_jwt = jwt.encode(to_encode , SECRET_KEY ,algorithm= ALGORITHM )
     return encoded_jwt
 
+def verify_token(token : str = Depends(oauth2_scheme)):
+    try:
+      payload = jwt.decode(token , SECRET_KEY , algorithms=[ALGORITHM])
+      username = payload.get("sub")
+      if username is None :
+          raise HTTPException(status_code=401 , detail= "Invalid Token Detected")
+      return username
+    except JWTError:
+        raise HTTPException(status_code=401 , detail= "Invalid Token Detected")
+        
 
 @app.post("/register")
 def register_user(user : UserIn, db : Session=Depends(get_db)):
