@@ -1,12 +1,13 @@
 from database import get_db , SessionLocal
 from passlib.context import CryptContext 
-from models import Base , UserData , UserAuth
+from models import Base , UserData , UserAuth , Device
 from fastapi import FastAPI  ,Depends , HTTPException ,Header
 from sqlalchemy.orm import sessionmaker  ,Session
 from pydantic import BaseModel
 from jose import JWTError ,jwt
 from datetime import datetime , timedelta
 from fastapi.security import OAuth2PasswordBearer
+from typing import Optional
 
 app = FastAPI()
 
@@ -20,6 +21,11 @@ class UserIn(BaseModel):
 class UserAuthClass(BaseModel):
     username : str
     password : str
+
+class DeviceSchema(BaseModel):
+    model_no : str
+    model_name: str
+    status : str
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated = "auto")
 
@@ -91,9 +97,51 @@ def get_users(x_api_key : str = Header() ,db : Session = Depends(get_db)):
     return db.query(UserData).all()
 
 @app.get("/users/{id}")
-def get_by_id(id : int , x_api_key : str =Header() , db : Session = Depends(get_db)):
+def getdev_id(id : int , x_api_key : str =Header() , db : Session = Depends(get_db)):
     verify_xapi(x_api_key)
     user = db.query(UserData).filter(UserData.id == id).first()
     if user is None:
         raise HTTPException(status_code=404 , detail="This ID does not exist")
     return user
+
+@app.post("/devices")
+def create_device(device : DeviceSchema , token : str = Depends(oauth2_scheme) , db : Session = Depends(get_db) ):
+    verify_token(token)
+    if db.query(Device).filter(Device.model_name == device.model_name ,Device.model_no ==device.model_no).first():
+        raise HTTPException(status_code=409, detail="Device Already Exists")
+    new_device = Device(model_name = device.model_name , model_no = device.model_no , status = device.status)
+    db.add(new_device)
+    db.commit()
+    db.refresh(new_device)
+    return {"Device" : device.model_name , "Model No." : device.model_no , "Status": device.status , "message" : "is registered sucessfully"}
+
+@app.get("/devices")
+def get_all(page : int =1 ,limit :int = 10 ,status : Optional[str] =None , token : str = Depends(oauth2_scheme) , db : Session = Depends(get_db)):
+    verify_token(token)
+    skip = (page-1)*limit
+    query  = db.query(Device)
+    if status :
+        query.filter(Device.status == status)
+    devices = query.offset(skip).limit(limit).all()
+    return devices 
+
+@app.get("/devices/{id}")
+def get_by_id(id : int ,token : str = Depends(oauth2_scheme), db : Session = Depends(get_db)):
+    verify_token(token)
+    device = db.query(Device).filter(Device.id == id).first()
+    if device is None:
+        raise HTTPException(status_code=404 , detail="This ID does not exist")
+    return device
+
+@app.put("/devices/{id}")
+def update_device(new_device : DeviceSchema ,id : int ,token : str = Depends(oauth2_scheme), db : Session = Depends(get_db)):
+    verify_token(token)
+    existing = db.query(Device).filter(Device.id == id).first()
+    if existing is None:
+        raise HTTPException(status_code=404 , detail="This ID does not exist")
+    existing.model_name = new_device.model_name#type: ignore
+    existing.model_no = new_device.model_no#type: ignore
+    existing.status = new_device.status#type: ignore
+    db.commit()
+    db.refresh(existing)
+    return existing

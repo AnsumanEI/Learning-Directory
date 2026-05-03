@@ -13,3 +13,10 @@ class UserAuth(Base):
     id = Column(Integer , primary_key=True , index=True )
     username = Column(String ,unique=True , index=True)
     hashed_password = Column(String , nullable=False)
+
+class Device(Base):
+    __tablename__ ="devices"
+    id = Column(Integer , primary_key=True ,index=True)
+    model_name = Column(String  , nullable=False)
+    model_no = Column(String , index=True ,nullable=False)
+    status = Column(String , nullable=False)
