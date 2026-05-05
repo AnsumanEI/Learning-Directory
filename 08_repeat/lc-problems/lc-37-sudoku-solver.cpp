@@ -50,8 +50,6 @@ public:
         unordered_set<int> row[9];
         unordered_set<int> cols[9];
         unordered_set<int> box[9];
-        int traverserow;
-
         for (int r = 0; r < 9; r++)
         {
             for (int c = 0; c < 9; c++)

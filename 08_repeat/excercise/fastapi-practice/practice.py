@@ -8,6 +8,9 @@ from jose import JWTError ,jwt
 from datetime import datetime , timedelta
 from fastapi.security import OAuth2PasswordBearer
 from typing import Optional
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.requests import Request
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
@@ -15,6 +18,29 @@ EXPIRY_IN_MINUTES = 30
 SECRET_KEY = "1234"
 ALGORITHM = "HS256"
 X_API_KEY = "realapi"
+
+app.add_middleware(
+    CORSMiddleware ,
+    allow_origins =["*"] ,
+    allow_headers =["*"] ,
+    allow_methods =["*"] ,
+)
+
+@app.middleware("http")
+async def log_request(request : Request , call_next):
+    print(f"incoming {request.method} -> {request.url}")
+    response = await call_next(request)
+    print(f"completed {response.status_code}")
+    return response
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request : Request , exc : Exception):
+    return JSONResponse(
+        status_code=500 , 
+    content= {"detail": str(exc) , "request" : f"{request.method}->>{request.url}" }
+    )
+    
+
 class UserIn(BaseModel):
     name : str 
     role : str
