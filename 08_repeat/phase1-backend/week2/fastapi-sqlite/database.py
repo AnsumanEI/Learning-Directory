@@ -5,7 +5,7 @@ import os
 DATABASE_URL = os.getenv("DATABASE_URL" ,"postgresql://ansuman966:tracker@localhost/db")
 engine = create_engine(DATABASE_URL)
 Base = declarative_base()
-SessionLocal = sessionmaker(bind=engine)
+SessionLocal = sessionmaker(autocommit=False , autoflush = False ,bind=engine)
 
 def create_tables():
     Base.metadata.create_all(bind=engine)
