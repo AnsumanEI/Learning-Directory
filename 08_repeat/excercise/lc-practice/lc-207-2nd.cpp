@@ -13,7 +13,6 @@ public:
         {
             return false;
         }
-        bool val;
         state[node] = 1;
         for (auto &p : unlock[node])
         {
