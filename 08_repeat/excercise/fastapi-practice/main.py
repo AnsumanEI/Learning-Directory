@@ -1,11 +1,14 @@
 from pydantic import BaseModel 
-from fastapi import FastAPI , Header , Depends , HTTPException
+from fastapi import FastAPI , Header , Depends , HTTPException, Request
 from sqlalchemy.orm import Session
 from database import get_db , create_tables 
 from models import UserAuth
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+
 load_dotenv()
 import os
 app= FastAPI()
@@ -13,6 +16,27 @@ app= FastAPI()
 class UserLog(BaseModel):
     username : str
     password :str
+
+app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_methods=["*"],
+        allow_headers=["*"],
+)
+
+@app.middleware("http")
+async def log_req(request: Request , call_next):
+    print(f"incoming {request.method} -> {request.url}")
+    response = await call_next(request)
+    print(f"Completed {response.status_code}")
+    return response
+
+@app.exception_handler(Exception)
+async def global_handler(request : Request,exc : Exception):
+    return JSONResponse(
+        status_code=500 ,
+        content={"detail" :str(exc),"request":f"{request.method}-> {request.url}"}
+    )
 
 @app.on_event("startup")
 def startup():
