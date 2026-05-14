@@ -13,6 +13,10 @@ from passlib.context import CryptContext # type: ignore
 from dotenv import load_dotenv # to load from env file 
 load_dotenv() #use getenc functions
 from typing import Optional #for query parameters assign ed to None so either it can be string or none
+import redis , json
+
+#redis connection 
+r = redis.Redis(host="redis", port= 6379 , db =0 , decode_responses=True)
 
 API_KEY = os.getenv("API_KEY" , "")
 SECRET_KEY = os.getenv("SECRET_KEY" ,"")#these values can not be wmpty in jwt encode and decode so a fallback value of "" is given
@@ -155,10 +159,15 @@ def post_device(device : DeviceSchema ,token : str = Depends(oauth2_scheme) ,db 
 @app.get("/devices/{id}")
 def get_devbyid(id : int  ,token : str = Depends(oauth2_scheme) ,db : Session = Depends(get_db)):
     verify_token(token)
+    cached = r.get(f"device:{id}")
+    if cached:
+        return json.loads(str(cached))
     device = db.query(Devices).filter(Devices.id == id).first()
     if device is None:
         raise HTTPException(status_code=404 , detail = "Device not Found")
-    return device
+    device_dict = {"id":device.id , "model_name":device.model_name , "model_no" :device.model_no , "dev_status": device.dev_status}
+    r.set(f"device:{id}" , json.dumps(device_dict) , ex=60)
+    return device_dict
 
 @app.put("/devices/{id}")
 def update_dev(id :int ,device : DeviceSchema,token : str = Depends(oauth2_scheme) ,db : Session = Depends(get_db)):

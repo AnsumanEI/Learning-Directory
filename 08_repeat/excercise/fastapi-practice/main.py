@@ -8,10 +8,18 @@ from passlib.context import CryptContext
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from jose import jwt , JWTError
 
 load_dotenv()
 import os
 app= FastAPI()
+
+class TokenData(BaseModel):
+    username:str
+
+SECRET_KEY = "12345"
+ALGORITHM = "HS256"
+
 
 class UserLog(BaseModel):
     username : str
@@ -56,6 +64,18 @@ def hash_pwd(password : str):
 
 def verify_hash(plain : str , hashed :str):
     return pwd_context.verify(plain , hashed)
+
+def verify_token(token : str):
+    try:
+      payload =  jwt.decode(token , SECRET_KEY , algorithms= [ALGORITHM] )
+      username = payload.get("sub") 
+      if username is None:
+          raise HTTPException(status_code=401 , detail="Invalid token")
+      return TokenData(username=username)
+    except JWTError:
+        raise HTTPException(status_code=401 , detail="Invalid Token")
+
+
 
 @app.post("/register")
 def register_user(user : UserLog ,x_api: str = Header(alias="x-api-key"), db : Session =Depends(get_db)):
