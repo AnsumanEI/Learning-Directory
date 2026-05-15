@@ -1,19 +1,19 @@
 from sqlalchemy.orm import declarative_base , sessionmaker
-from sqlalchemy import create_engine 
+from sqlalchemy import create_engine
 import os
 
-DATABASE_URL = os.getenv("DATABASE_URL" ,"postgresql://user:password@db/db")
+DATABASE_URL = os.getenv("DATABASE_URL" , "postgresql://username:password@localhost/db")
 
 engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(autoflush=False , autocommit =False ,bind=engine)
+SessionLocal = sessionmaker(bind = engine)
 Base = declarative_base()
 
-def get_db():
+def create_table():
+    Base.metadata.create_all(bind=engine)
+
+def get_db ():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
-
-def create_tables():
-    Base.metadata.create_all(bind=engine)
