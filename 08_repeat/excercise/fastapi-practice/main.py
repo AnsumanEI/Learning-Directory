@@ -1,8 +1,8 @@
 from pydantic import BaseModel 
 from fastapi import FastAPI , Header , Depends , HTTPException, Request
 from sqlalchemy.orm import Session
-from database import get_db , create_tables 
-from models import UserAuth
+from database import get_db 
+from models import UserAuth , Device
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from dotenv import load_dotenv
@@ -46,9 +46,6 @@ async def global_handler(request : Request,exc : Exception):
         content={"detail" :str(exc),"request":f"{request.method}-> {request.url}"}
     )
 
-@app.on_event("startup")
-def startup():
-    create_tables()
 
 X_API = os.getenv("API_KEY" , "")
 
@@ -89,6 +86,10 @@ def register_user(user : UserLog ,x_api: str = Header(alias="x-api-key"), db : S
     db.refresh(new_user)
     return {"user":f"{user.username}", "message" : f"Registered Succesfully"}
 
-
-
-    
+@app.get("/devices/{id}")
+def getbyid(id : int  , token : str = Depends(oauth2_scheme) , db : Session= Depends(get_db)):
+    verify_token(token)
+    searched = db.query(Device).filter(Device.id == id ).first()
+    if searched is None:
+        raise HTTPException(status_code=404 , detail ="The device is not found")
+    return searched
