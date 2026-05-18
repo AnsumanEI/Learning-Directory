@@ -34,11 +34,11 @@ void runScheduler(priority_queue<Task, vector<Task>, Operator> pq, queue<Task> s
     while (!pq.empty())
     {
         Task temp = pq.top();
-        cout << "Task :" << temp.id << " Starting , Current Time : " << current_time << "\n";
+        // cout << "Task :" << temp.id << " Starting , Current Time : " << current_time << "\n";
         pq.pop();
         current_time += temp.cooldown + temp.duration;
         throughput += (double)temp.Priority / current_time;
-        cout << "Task :" << temp.id << " Completed, Current Time : " << current_time << "\n";
+        //  cout << "Task :" << temp.id << " Completed, Current Time : " << current_time << "\n";
     }
     cout << "Total time taken=" << current_time << " Throughput :" << throughput;
 
@@ -50,11 +50,11 @@ void runScheduler(priority_queue<Task, vector<Task>, Operator> pq, queue<Task> s
     while (!store.empty())
     {
         Task temp1 = store.front();
-        cout << "Task :" << temp1.id << " Starting , Current Time : " << current_time << "\n";
+        //  cout << "Task :" << temp1.id << " Starting , Current Time : " << current_time << "\n";
         store.pop();
         current_time += temp1.cooldown + temp1.duration;
         throughput += (double)temp1.Priority / current_time;
-        cout << "Task :" << temp1.id << " Completed, Current Time : " << current_time << "\n";
+        // cout << "Task :" << temp1.id << " Completed, Current Time : " << current_time << "\n";
     }
     cout << "Total time taken=" << current_time << " Throughput :" << throughput;
 }
