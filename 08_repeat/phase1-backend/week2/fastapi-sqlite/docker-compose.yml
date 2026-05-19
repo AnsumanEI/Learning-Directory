@@ -28,6 +28,8 @@ services:
           condition: service_healthy
         redis:
           condition: service_started
+        rabbitmq:
+          condition: service_started
 
   nginx: 
     image: nginx:alpine
@@ -42,6 +44,12 @@ services:
     image: redis:alpine
     ports:
       - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
   
 volumes:
   postgres_data:  # Top-level volumes must be a mapping (key: value)

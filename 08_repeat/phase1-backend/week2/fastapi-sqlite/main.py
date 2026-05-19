@@ -14,6 +14,11 @@ from dotenv import load_dotenv # to load from env file
 load_dotenv() #use getenc functions
 from typing import Optional #for query parameters assign ed to None so either it can be string or none
 import redis , json
+import pika
+
+
+
+
 
 #redis connection 
 r = redis.Redis(host="redis", port= 6379 , db =0 , decode_responses=True)
@@ -59,6 +64,14 @@ app.add_middleware(
     allow_headers=["*"]
 
 )
+
+
+@app.exception_handler(Exception)
+async def global_handler(request : Request,exc : Exception):
+    return JSONResponse(
+        status_code=500 ,
+        content={"detail" :str(exc),"request":f"{request.method}-> {request.url}"}
+    )
 
 
 @app.on_event("startup")
@@ -148,12 +161,21 @@ def user_login( user : Userlogin ,db : Session = Depends(get_db)):
 @app.post("/devices")
 def post_device(device : DeviceSchema ,token : str = Depends(oauth2_scheme) ,db : Session = Depends(get_db) ):
     verify_token(token)
-    new_device = Devices(model_name =device.model_name , model_no =device.model_no , dev_status =device.dev_status)
     if db.query(Devices).filter(Devices.model_name == device.model_name , Devices.model_no == device.model_no).first() :
         raise HTTPException(status_code=400 , detail="Device with same model no and model name already exists")
+    new_device = Devices(model_name =device.model_name , model_no =device.model_no , dev_status =device.dev_status)
     db.add(new_device)
     db.commit()
     db.refresh(new_device)
+    #rabbit mq connection 
+    try:
+        connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
+        channel = connection.channel()
+        channel.queue_declare('new_device_event')
+        channel.basic_publish(exchange='' , routing_key='new_device_event' , body=f"New device event: id={new_device.id}")
+        connection.close()
+    except Exception as exc:
+        print(f"RabbitMQ not available: {exc}")
     return {"Device": device.model_name , "Model No." : device.model_no , "Status": device.dev_status}
 
 @app.get("/devices/{id}")
