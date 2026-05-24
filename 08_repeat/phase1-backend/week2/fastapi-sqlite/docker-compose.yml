@@ -51,6 +51,26 @@ services:
       - "5672:5672"
       - "15672:15672"
   
+  celery_worker:
+   build: .
+   command: celery -A celery_app worker --loglevel=info
+   environment:
+     DATABASE_URL: ${DATABASE_URL} #not neeeded yet because we are nt fetching from db but just in case added for my understanding
+   depends_on:
+     - redis
+     - db
+  
+  flower:
+    build: .
+    command: celery -A celery_app flower
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+      - celery_worker
+
+
+  
 volumes:
   postgres_data:  # Top-level volumes must be a mapping (key: value)
 

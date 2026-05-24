@@ -15,6 +15,7 @@ load_dotenv() #use getenc functions
 from typing import Optional #for query parameters assign ed to None so either it can be string or none
 import redis , json
 import pika
+from tasks import send_notification
 
 
 
@@ -156,7 +157,8 @@ def user_login( user : Userlogin ,db : Session = Depends(get_db)):
     hashpass  = str(search.hashed_password) #used str to silence the error
     if verify_hash(user.password , hashpass) is False:
         raise HTTPException(status_code=401 , detail=f" The Password for {user.username} is incorrect")
-    return {"access_token" : create_token({"sub": user.username}) ,"token_type": "bearer"}
+    send_notification.delay(user.username)
+    return {"access_token" : create_token({"sub": user.username}) , "token_type": "bearer"}
 
 @app.post("/devices")
 def post_device(device : DeviceSchema ,token : str = Depends(oauth2_scheme) ,db : Session = Depends(get_db) ):
