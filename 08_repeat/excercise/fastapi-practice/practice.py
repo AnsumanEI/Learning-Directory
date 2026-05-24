@@ -11,6 +11,9 @@ from typing import Optional
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.requests import Request
 from fastapi.responses import JSONResponse
+import redis ,json
+
+r = redis.Redis(host="redis" , port=6379 , db=0 , decode_responses=True)
 
 app = FastAPI()
 
@@ -51,7 +54,7 @@ class UserAuthClass(BaseModel):
 class DeviceSchema(BaseModel):
     model_no : str
     model_name: str
-    status : str
+    dev_status : str
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated = "auto")
 
@@ -133,13 +136,14 @@ def getdev_id(id : int , x_api_key : str =Header() , db : Session = Depends(get_
 @app.post("/devices")
 def create_device(device : DeviceSchema , token : str = Depends(oauth2_scheme) , db : Session = Depends(get_db) ):
     verify_token(token)
+
     if db.query(Device).filter(Device.model_name == device.model_name ,Device.model_no ==device.model_no).first():
         raise HTTPException(status_code=409, detail="Device Already Exists")
-    new_device = Device(model_name = device.model_name , model_no = device.model_no , status = device.status)
+    new_device = Device(model_name = device.model_name , model_no = device.model_no , status = device.dev_status)
     db.add(new_device)
     db.commit()
     db.refresh(new_device)
-    return {"Device" : device.model_name , "Model No." : device.model_no , "Status": device.status , "message" : "is registered sucessfully"}
+    return {"Device" : device.model_name , "Model No." : device.model_no , "Status": device.dev_status , "message" : "is registered sucessfully"}
 
 @app.get("/devices")
 def get_all(page : int =1 ,limit :int = 10 ,status : Optional[str] =None , token : str = Depends(oauth2_scheme) , db : Session = Depends(get_db)):
@@ -154,10 +158,15 @@ def get_all(page : int =1 ,limit :int = 10 ,status : Optional[str] =None , token
 @app.get("/devices/{id}")
 def get_by_id(id : int ,token : str = Depends(oauth2_scheme), db : Session = Depends(get_db)):
     verify_token(token)
+    cached = r.get(f"device:{id}")
+    if cached:
+        return json.loads(str(cached))
     device = db.query(Device).filter(Device.id == id).first()
     if device is None:
         raise HTTPException(status_code=404 , detail="This ID does not exist")
-    return device
+    device_dict = {"id" :device.id  , "mode_name": device.model_name , "model_no" :device.model_no , "dev_status" : device.dev_status}
+    r.set(f"device:{id}" , json.dumps(device_dict) , ex = 60)
+    return device_dict
 
 @app.put("/devices/{id}")
 def update_device(new_device : DeviceSchema ,id : int ,token : str = Depends(oauth2_scheme), db : Session = Depends(get_db)):

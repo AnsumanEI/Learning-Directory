@@ -9,6 +9,11 @@ services:
             - "5432:5432"
         volumes:
             - postgres_data:/var/lib/postgresql/data
+        healthcheck:
+          test: [ "CMD-SHELL" , "pg_isready -U username -d database_name"]
+          retries: 5
+          interval: 10s
+          timeout: 20s
     web:
         build: .
         ports:
@@ -16,6 +21,13 @@ services:
         environment:
             DATABASE_URL: postgresql://user:password@db:5432/db
         depends_on:
-            - db
+            db:
+              condition: service_started
+    
+    redis:
+        image: redis:alpine
+        ports:
+            - "6379:6379"
+    
 volumes:
  postgres_data:
