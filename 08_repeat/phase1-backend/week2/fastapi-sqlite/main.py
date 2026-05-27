@@ -16,8 +16,14 @@ from typing import Optional #for query parameters assign ed to None so either it
 import redis , json
 import pika
 from tasks import send_notification
+import socket
 
+app = FastAPI()
 
+#loadbalance checker
+@app.get("/which")
+def which_server():
+    return {"server":socket.gethostname()}
 
 
 
@@ -55,7 +61,7 @@ class DeviceSchema(BaseModel):
 
 
 
-app = FastAPI()
+
 
 app.add_middleware(
 
@@ -156,7 +162,7 @@ def user_login( user : Userlogin ,db : Session = Depends(get_db)):
         raise HTTPException(status_code=401 , detail=f" {user.username} not Found")
     hashpass  = str(search.hashed_password) #used str to silence the error
     if verify_hash(user.password , hashpass) is False:
-        raise HTTPException(status_code=401 , detail=f" The Password for {user.username} is incorrect")
+        raise HTTPException(status_code=401 , detail=f" The Username/Password for {user.username} is incorrect")
     send_notification.delay(user.username)
     return {"access_token" : create_token({"sub": user.username}) , "token_type": "bearer"}
 
@@ -170,7 +176,7 @@ def post_device(device : DeviceSchema ,token : str = Depends(oauth2_scheme) ,db 
     db.commit()
     db.refresh(new_device)
     #rabbit mq connection 
-    try:
+    try:#blockiing means wait for the tcp connection to complete before going on that syn ack and syn ack behind the scenes python is doing that with rabbitmq so let it complete
         connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
         channel = connection.channel()
         channel.queue_declare('new_device_event')
