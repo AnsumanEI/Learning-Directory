@@ -29,6 +29,11 @@ app.add_middleware(
     allow_methods =["*"] ,
 )
 
+
+
+
+
+
 @app.middleware("http")
 async def log_request(request : Request , call_next):
     print(f"incoming {request.method} -> {request.url}")
