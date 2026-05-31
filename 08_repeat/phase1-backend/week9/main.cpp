@@ -53,7 +53,7 @@ void bfs(vector<vector<pair<int, int>>> &adj, int src, int dest, int num_nodes)
     cout << "Bfs Distance : " << dist[dest];
 }
 
-void dfssolver(vector<vector<pair<int, int>>> &adj, int src, int dest, int num_nodes, vector<bool> &visited, vector<int> &parent, vector<int> &dist, int curr_node)
+void dfssolver(vector<vector<pair<int, int>>> &adj, int src, int dest, vector<bool> &visited, vector<int> &parent, vector<int> &dist, int curr_node)
 {
     if (curr_node == dest || adj[curr_node].empty())
     {
@@ -68,7 +68,7 @@ void dfssolver(vector<vector<pair<int, int>>> &adj, int src, int dest, int num_n
             visited[p.first] = true;
             dist[p.first] = dist[curr_node] + p.second;
             parent[p.first] = curr_node;
-            dfssolver(adj, src, dest, num_nodes, visited, parent, dist, p.first);
+            dfssolver(adj, src, dest, visited, parent, dist, p.first);
         }
     }
 }
@@ -78,7 +78,7 @@ void dfs(vector<vector<pair<int, int>>> &adj, int src, int dest, int num_nodes)
     vector<int> parent(num_nodes, -1);
     parent[src] = src;
     vector<int> dist(num_nodes, 0);
-    dfssolver(adj, src, dest, num_nodes, visited, parent, dist, src);
+    dfssolver(adj, src, dest, visited, parent, dist, src);
 
     vector<int> path;
     int node = dest;
