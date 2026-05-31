@@ -30,14 +30,14 @@ app = FastAPI()
 def which_server():
     return {"server":socket.gethostname()}
 
+#redis connection 
+r = redis.Redis(host="redis", port= 6379 , db =0 , decode_responses=True)
+ 
 #slowapi setup 
-limiter  = Limiter(key_func=get_remote_address)
+limiter  = Limiter(key_func=get_remote_address , storage_uri="redis://redis:6379")#STORAGE URI ADDED SO THAT ALL NGINX SERVER HAVE A SINGLE COUNTER LIKE THE RATE LIMITING SHOULDNT BE DISTIRBUTED AND SHOULD ONLY BE ONE 
 app.state.limiter  = limiter 
 
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler) # type:ignore
-
-#redis connection 
-r = redis.Redis(host="redis", port= 6379 , db =0 , decode_responses=True)
 
 API_KEY = os.getenv("API_KEY" , "")
 SECRET_KEY = os.getenv("SECRET_KEY" ,"")#these values can not be wmpty in jwt encode and decode so a fallback value of "" is given
@@ -149,6 +149,20 @@ def get_users(x_api_key: str= Header() , db: Session = Depends(get_db)):
     users = db.query(User).all() #or . get(id)
     return users
 
+
+
+
+@app.post("/login")
+def user_login( user : Userlogin ,db : Session = Depends(get_db)):
+    search = db.query(UserAuth).filter(UserAuth.username == user.username).first()
+    if search is None:
+        raise HTTPException(status_code=401 , detail=f" {user.username} not Found")
+    hashpass  = str(search.hashed_password) #used str to silence the error
+    if verify_hash(user.password , hashpass) is False:
+        raise HTTPException(status_code=401 , detail=f" The Username/Password for {user.username} is incorrect")
+    send_notification.delay(user.username)
+    return {"access_token" : create_token({"sub": user.username}) , "token_type": "bearer"}
+
 @app.get("/devices")
 @limiter.limit("10/minute")
 def get_devices(request : Request ,page : int = 1 ,
@@ -163,18 +177,6 @@ def get_devices(request : Request ,page : int = 1 ,
     devices = db.query(Devices).filter(Devices.dev_status == status).offset(skip).limit(limit).all()
     return devices
     
-
-
-@app.post("/login")
-def user_login( user : Userlogin ,db : Session = Depends(get_db)):
-    search = db.query(UserAuth).filter(UserAuth.username == user.username).first()
-    if search is None:
-        raise HTTPException(status_code=401 , detail=f" {user.username} not Found")
-    hashpass  = str(search.hashed_password) #used str to silence the error
-    if verify_hash(user.password , hashpass) is False:
-        raise HTTPException(status_code=401 , detail=f" The Username/Password for {user.username} is incorrect")
-    send_notification.delay(user.username)
-    return {"access_token" : create_token({"sub": user.username}) , "token_type": "bearer"}
 
 @app.post("/devices")
 @limiter.limit("5/minute")
