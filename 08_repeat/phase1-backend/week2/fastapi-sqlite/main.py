@@ -13,10 +13,15 @@ from passlib.context import CryptContext # type: ignore
 from dotenv import load_dotenv # to load from env file 
 load_dotenv() #use getenc functions
 from typing import Optional #for query parameters assign ed to None so either it can be string or none
+#redis
 import redis , json
 import pika
 from tasks import send_notification
 import socket
+#slowapi rate limiter
+from slowapi import Limiter , _rate_limit_exceeded_handler 
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 
 app = FastAPI()
 
@@ -25,7 +30,11 @@ app = FastAPI()
 def which_server():
     return {"server":socket.gethostname()}
 
+#slowapi setup 
+limiter  = Limiter(key_func=get_remote_address)
+app.state.limiter  = limiter 
 
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler) # type:ignore
 
 #redis connection 
 r = redis.Redis(host="redis", port= 6379 , db =0 , decode_responses=True)
@@ -141,7 +150,8 @@ def get_users(x_api_key: str= Header() , db: Session = Depends(get_db)):
     return users
 
 @app.get("/devices")
-def get_devices(page : int = 1 ,
+@limiter.limit("10/minute")
+def get_devices(request : Request ,page : int = 1 ,
                  limit : int = 10 , status : Optional[str] = None ,
                  token : str =Depends(oauth2_scheme) ,
                    db : Session = Depends(get_db)):
@@ -167,7 +177,8 @@ def user_login( user : Userlogin ,db : Session = Depends(get_db)):
     return {"access_token" : create_token({"sub": user.username}) , "token_type": "bearer"}
 
 @app.post("/devices")
-def post_device(device : DeviceSchema ,token : str = Depends(oauth2_scheme) ,db : Session = Depends(get_db) ):
+@limiter.limit("5/minute")
+def post_device(request : Request ,device : DeviceSchema ,token : str = Depends(oauth2_scheme) ,db : Session = Depends(get_db) ):
     verify_token(token)
     if db.query(Devices).filter(Devices.model_name == device.model_name , Devices.model_no == device.model_no).first() :
         raise HTTPException(status_code=400 , detail="Device with same model no and model name already exists")
