@@ -3,7 +3,7 @@
 *.out
 *.o
 *.class
-
+*.code-workspace
 # IDE and editor files
 .vscode/
 .vs/
