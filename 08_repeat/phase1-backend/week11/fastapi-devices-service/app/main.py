@@ -3,8 +3,15 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import devices , users
 from app.database import create_table
+from app.limiter import limiter
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
 
 app = FastAPI()
+
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded , _rate_limit_exceeded_handler)#type: ignore
+
 app.include_router(users.router)
 app.include_router(devices.router)
 

@@ -1,7 +1,8 @@
-from fastapi import APIRouter , Depends ,HTTPException 
+from fastapi import APIRouter , Depends ,HTTPException  ,Request
 from app.models import Devices
 from app.schemas import DeviceCreate
 from app.tasks import cache_device
+from app.limiter import limiter
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.auth import oauth2_scheme , verify_token
@@ -20,7 +21,8 @@ PAGE_LIMIT = os.getenv("PAGE_LIMIT","")
 REDIS_EXPIRY = os.getenv("REDIS_EXPIRY","")
 
 @router.get("/devices")
-def get_devices(page : int = int(PAGE_START) ,
+@limiter.limit("10/minute")
+def get_devices(request :Request ,page : int = int(PAGE_START) ,
                  limit : int = int(PAGE_LIMIT), status : Optional[str] = None ,
                  token : str = Depends(oauth2_scheme) ,
                    db : Session = Depends(get_db)):
@@ -34,7 +36,8 @@ def get_devices(page : int = int(PAGE_START) ,
     
 
 @router.post("/devices")
-def post_device(device : DeviceCreate ,token : str = Depends(oauth2_scheme) ,db : Session = Depends(get_db) ):
+@limiter.limit("5/minute")
+def post_device(request:Request,device : DeviceCreate ,token : str = Depends(oauth2_scheme) ,db : Session = Depends(get_db) ):
     verify_token(token)
     if db.query(Devices).filter(Devices.model_name == device.model_name , Devices.model_no == device.model_no).first() :
         raise HTTPException(status_code=400 , detail="Device with same model no and model name already exists")
