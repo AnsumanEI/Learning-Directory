@@ -23,7 +23,7 @@ public:
         {
             return node;
         }
-        // also we have to to the path compression too
+        // also we have to do the path compression too
         return parent[node] = findUparent(parent[node]);
     }
     void unionbyrank(int u, int v)
