@@ -12,7 +12,7 @@ using namespace std;
 // Shared state — protected by mutex or atomic
 map<string, string> store; // key-value store
 mutex mtx;                 // protects 'store' from concurrent thread access
-atomic<int> ID = 0;        // thread-safe client counter (atomic avoids mutex for single variable)
+atomic<int> ID{0};         // thread-safe client counter (atomic avoids mutex for single variable)
 
 void handle_client(int client_fd)
 {
