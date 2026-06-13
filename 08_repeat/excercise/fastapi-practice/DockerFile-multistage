@@ -1,0 +1,11 @@
+FROM gcc:13 AS builder    - names the stage as builder
+RUN apt-get update && apt-get install -y cmake     - refreshes the packet lists and installs cmake to read the CmakeLists.txt
+WORKDIR /app   - all commands runs from app
+COPY . .    - copy source code eg main.cpp or CmakeLists.txt into /app
+RUN cmake -S . -B build && cmake --build build      - source is current direc , build output inside app/build then acutally compile binaries inside /app/build/myapp
+
+new stage no tools compilers etc
+FROM ubuntu:22.04.   -fresh ubuntu image
+WORKDIR /app     - working directory
+COPY --from=builder /app/build/myapp .    copy only the binaries from the folder and rest everything is discared
+CMD ["./myapp"]       - run the binaries as pid 1 no shell wrapper

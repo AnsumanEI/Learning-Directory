@@ -74,6 +74,7 @@ def verify_token(token : str):
 
 
 
+
 @app.post("/register")
 def register_user(user : UserLog ,x_api: str = Header(alias="x-api-key"), db : Session =Depends(get_db)):
     verify_api(x_api)
