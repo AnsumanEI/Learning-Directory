@@ -37,3 +37,4 @@ tempCodeRunnerFile*
 *.php
 .vscode
 .env
+logs/
