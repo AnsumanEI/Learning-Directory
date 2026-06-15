@@ -9,3 +9,42 @@ FROM ubuntu:22.04.   -fresh ubuntu image
 WORKDIR /app     - working directory
 COPY --from=builder /app/build/myapp .    copy only the binaries from the folder and rest everything is discared
 CMD ["./myapp"]       - run the binaries as pid 1 no shell wrapper
+
+
+builds left 
+
+stage 1
+FROM ubuntu:24.04 AS builder
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+
+# Copy build manifest first to leverage Docker layer caching
+COPY CMakeLists.txt .
+COPY src/ ./src/
+
+RUN cmake -DCMAKE_BUILD_TYPE=Release . && \
+    cmake --build . && \
+    strip my_cpp_app
+
+stage 2
+FROM debian:12-slim AS runtime
+
+RUN groupadd -r appgroup && useradd -r -g appgroup -s /sbin/nologin appuser
+
+WORKDIR /app
+
+COPY --from=builder --chown=appuser:appgroup /build/my_cpp_app .
+
+USER appuser
+
+EXPOSE 8080
+
+ENTRYPOINT ["./my_cpp_app"]

@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from jose import jwt , JWTError
+from datetime import datetime ,timedelta
 
 load_dotenv()
 import os
@@ -19,6 +20,7 @@ class TokenData(BaseModel):
 
 SECRET_KEY = "12345"
 ALGORITHM = "HS256"
+TOKEN_EXPIRY_TIME = 30
 
 
 class UserLog(BaseModel):
@@ -72,6 +74,11 @@ def verify_token(token : str):
     except JWTError:
         raise HTTPException(status_code=401 , detail="Invalid Token")
 
+def create_access_token(data :dict):
+    to_encode = data.copy()
+    expiry = datetime.utcnow() + timedelta(minutes=TOKEN_EXPIRY_TIME)
+    to_encode.update({"exp":expiry})
+    return jwt.encode(to_encode , SECRET_KEY , algorithm=ALGORITHM)
 
 
 
