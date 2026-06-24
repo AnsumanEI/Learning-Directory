@@ -41,11 +41,23 @@ services:
   
   redis:
     image: redis:alpine
+    healthcheck:
+      test: ["CMD" , "redis-cli","ping"]
+      interval: 10s
+      retries: 5
+      timeout: 10s
+      start_period: 10s
     ports:
       - "6379:6379"
 
   rabbitmq:
     image: rabbitmq:3-management
+    healthcheck:
+      test: ["CMD" , "rabbitmq-diagnostics" , "-q" ,"ping"]
+      interval: 10s
+      retries: 5
+      timeout: 10s
+      start_period: 10s
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -59,9 +71,12 @@ services:
    volumes:
      - ./logs:/app/logs
    depends_on:
-     - redis
-     - rabbitmq
-     - db
+     redis:
+       condition: service_healthy
+     rabbitmq:
+       condition: service_healthy
+     db:
+       condition: service_healthy
 
 volumes:
   postgres_data:  # Top-level volumes must be a mapping (key: value)
